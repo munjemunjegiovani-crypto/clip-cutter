@@ -48,6 +48,25 @@ npm run preview
 
 Optional frontend settings live in `frontend/.env` (copy `frontend/.env.example`). Set the support and takedown emails before deploying.
 
+### Backend
+
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python run.py
+```
+
+The API runs at `http://127.0.0.1:5000`. Check it with:
+
+```bash
+curl http://127.0.0.1:5000/api/health
+```
+
+Configure the backend in `backend/.env` (copy `backend/.env.example`). Add every frontend origin that should call the API to `CORS_ORIGINS`.
+
 ## Status
 
-Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. Backend processing commands are added when that stage starts.
+Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend foundation is in place with Flask, SQLAlchemy, CORS, configured upload limits, and a health endpoint. Processing endpoints are added in the next backend stage.
