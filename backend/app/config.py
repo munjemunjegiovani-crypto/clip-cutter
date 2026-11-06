@@ -19,6 +19,11 @@ def _env_origins(name, default):
     return [origin.strip() for origin in value.split(",") if origin.strip()]
 
 
+def _env_bool(name, default):
+    value = os.getenv(name, str(default)).lower()
+    return value in {"1", "true", "yes", "on"}
+
+
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "")
     DEBUG = os.getenv("FLASK_DEBUG", "0").lower() in {"1", "true", "yes"} or os.getenv(
@@ -37,6 +42,8 @@ class Config:
     MAX_CONTENT_LENGTH = (MAX_UPLOAD_MB + 1) * 1024 * 1024
     MAX_DURATION_MINUTES = _env_int("MAX_DURATION_MINUTES", 30)
     FILE_RETENTION_HOURS = _env_int("FILE_RETENTION_HOURS", 24)
+    CLEANUP_INTERVAL_SECONDS = _env_int("CLEANUP_INTERVAL_SECONDS", 600)
+    START_CLEANUP_WORKER = _env_bool("START_CLEANUP_WORKER", True)
     TAKEDOWN_EMAIL = os.getenv("TAKEDOWN_EMAIL", "")
 
     UPLOAD_FOLDER = str(BASE_DIR / "uploads")

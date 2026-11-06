@@ -106,6 +106,18 @@ curl -L -o highlights.mp4 http://127.0.0.1:5000/api/exports/1/download
 
 Exports merge the kept clips in their saved order. The MP4 is re-encoded to H.264/AAC for broad browser and CapCut compatibility.
 
+### File retention
+
+Uploaded projects and their merged exports expire 24 hours after upload. A background worker removes expired database rows and files every 10 minutes, and API requests also trigger a throttled cleanup. Change the schedule with `FILE_RETENTION_HOURS` and `CLEANUP_INTERVAL_SECONDS`, or disable the worker with `START_CLEANUP_WORKER=0`.
+
+Run cleanup manually:
+
+```bash
+cd backend
+source venv/bin/activate
+flask --app run cleanup-files
+```
+
 ## Status
 
-Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend now handles uploads, motion/sound detection, clip keep/reorder controls, FFmpeg merging, and MP4 downloads. The frontend is not connected to the API yet; thumbnails, retention cleanup, and final deployment hardening are added in later stages.
+Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend now handles uploads, motion/sound detection, clip keep/reorder controls, FFmpeg merging, MP4 downloads, and automatic 24-hour file cleanup. The frontend is not connected to the API yet; thumbnails and final deployment hardening are added in later stages.
