@@ -118,6 +118,20 @@ class ApiTestCase(unittest.TestCase):
             self.assertEqual(Project.query.count(), 0)
 
     @unittest.skipUnless(shutil.which("ffmpeg"), "ffmpeg is required for upload tests")
+    def test_upload_rejects_video_longer_than_limit(self):
+        self.app.config["MAX_DURATION_MINUTES"] = 0
+        try:
+            response = self.upload()
+        finally:
+            self.app.config["MAX_DURATION_MINUTES"] = 30
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("length limit", response.get_json()["error"].lower())
+        with self.app.app_context():
+            self.assertEqual(Project.query.count(), 0)
+        self.assertEqual(list(Path(self.app.config["UPLOAD_FOLDER"]).iterdir()), [])
+
+    @unittest.skipUnless(shutil.which("ffmpeg"), "ffmpeg is required for upload tests")
     def test_upload_streams_source_and_handles_missing_files(self):
         response = self.upload()
         self.assertEqual(response.status_code, 201)
