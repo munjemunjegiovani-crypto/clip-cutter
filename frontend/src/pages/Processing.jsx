@@ -4,46 +4,102 @@ import Icon from "../components/Icon";
 import { useProject } from "../context/ProjectContext";
 import previewImage from "../assets/images/results-main.jpg";
 
-const stages = [
-  { label: "Read metadata", at: 6 },
-  { label: "Extract audio peaks", at: 24 },
-  { label: "Measure motion", at: 48 },
-  { label: "Score candidates", at: 72 },
-  { label: "Prepare clips", at: 94 },
-];
-
 const waveform = [18, 30, 44, 28, 55, 72, 48, 88, 100, 76, 52, 36, 60, 82, 95, 68, 44, 30, 52, 78, 90, 62, 38, 24, 48, 70, 56, 34, 20, 42, 66, 50];
 
+function formatClock(seconds = 0) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.round(seconds % 60);
+  return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+}
+
 export default function Processing() {
-  const { clips, status, completeProcessing } = useProject();
-  const [progress, setProgress] = useState(status === "complete" ? 100 : 18);
+  const { project, source, clips, settings, status, error } = useProject();
+  const [progress, setProgress] = useState(status === "complete" ? 100 : 8);
   const navigate = useNavigate();
-  const complete = progress >= 100;
-  const totalClips = clips.length || 7;
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((value) => Math.min(100, value + 2 + Math.round(value / 22)));
-    }, 850);
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    if (complete && status !== "complete") completeProcessing();
-  }, [complete, status, completeProcessing]);
-
-  const clipsFound = Math.min(totalClips, Math.floor((progress / 100) * totalClips));
-  const motionPeaks = Math.min(totalClips * 4, Math.floor(progress / 4.2));
-  const soundPeaks = Math.min(totalClips * 3, Math.floor(progress / 5.6));
-  const logs = [
-    { at: 0, time: "00:00.042", tag: "INIT", text: "Loading source video and reading metadata." },
-    { at: 18, time: "00:01.184", tag: "FFMPEG", text: "Extracting audio waveform at 48 kHz." },
-    { at: 34, time: "00:02.560", tag: "OPENCV", text: "Sampling frames for motion difference." },
-    { at: 52, time: "00:04.902", tag: "SCORE", text: "Combining motion and sound peaks into a single score." },
-    { at: 68, time: "00:06.331", tag: "SCORE", text: "Ranking candidate windows against the detection threshold." },
-    { at: 84, time: "00:08.015", tag: "CUT", text: "Checking minimum clip length and keeping clip order stable." },
-    { at: 100, time: "00:09.446", tag: "DONE", text: `${totalClips} clips found. Ready for review.` },
+  const complete = status === "complete";
+  const totalClips = clips.length;
+  const keptClips = clips.filter((clip) => clip.kept).length;
+  const detection = settings.motion && settings.sound ? "motion and sound" : settings.motion ? "motion" : "sound";
+  const stages = [
+    { label: "Read metadata", at: 6 },
+    ...(settings.sound ? [{ label: "Extract audio peaks", at: 24 }] : []),
+    ...(settings.motion ? [{ label: "Measure motion", at: 48 }] : []),
+    { label: "Score candidates", at: 72 },
+    { label: "Prepare clips", at: 94 },
   ];
+
+  useEffect(() => {
+    if (complete) {
+      setProgress(100);
+      return undefined;
+    }
+    if (status !== "processing") return undefined;
+
+    const timer = window.setInterval(() => {
+      setProgress((value) => Math.min(96, value + Math.max(1, Math.round((96 - value) / 12))));
+    }, 900);
+    return () => window.clearInterval(timer);
+  }, [complete, status]);
+
+  const logs = [
+    { at: 0, tag: "INIT", text: `Reading ${source?.name || "the source video"} on the local API.` },
+    ...(settings.sound ? [{ at: 16, tag: "FFMPEG", text: "Extracting the audio waveform for peak detection." }] : []),
+    ...(settings.motion ? [{ at: 32, tag: "OPENCV", text: "Sampling frames and measuring motion difference." }] : []),
+    { at: 50, tag: "SCORE", text: `Combining ${detection} peaks into candidate scores.` },
+    { at: 68, tag: "SCORE", text: "Ranking candidates against the detection threshold." },
+    { at: 84, tag: "CUT", text: `Enforcing the ${settings.minLength}s minimum clip length.` },
+    { at: 100, tag: "DONE", text: complete ? `${totalClips} ${totalClips === 1 ? "clip" : "clips"} returned. Ready for review.` : "Waiting for the detection API." },
+  ];
+
+  if (status === "failed") {
+    return (
+      <div className="relative flex min-h-[70vh] w-full flex-col items-center justify-center px-gutter py-space-2xl text-center">
+        <span className="mb-space-md flex h-16 w-16 items-center justify-center rounded-2xl bg-error-container/40 text-error shadow-xl">
+          <Icon name="error" className="text-[32px]" />
+        </span>
+        <h1 className="text-headline-lg text-on-surface">Detection did not finish</h1>
+        <p className="mt-space-sm max-w-md text-body-md text-on-surface-variant">
+          {error || "Check the source video and your settings, then try again."}
+        </p>
+        <div className="mt-space-lg flex flex-col gap-space-sm sm:flex-row">
+          <Link to="/settings" className="inline-flex items-center justify-center gap-space-xs rounded-xl bg-gradient-to-r from-primary-container to-secondary px-space-lg py-3 text-label-lg text-on-primary-container shadow-xl">
+            <Icon name="tune" className="text-[18px]" />
+            Back to settings
+          </Link>
+          <Link to="/upload" className="inline-flex items-center justify-center gap-space-xs rounded-xl bg-surface-container-high px-space-lg py-3 text-label-lg text-on-surface shadow-md">
+            <Icon name="upload_file" className="text-[18px] text-secondary" />
+            Choose another video
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (status !== "processing" && status !== "complete") {
+    return (
+      <div className="relative flex min-h-[70vh] w-full flex-col items-center justify-center px-gutter py-space-2xl text-center">
+        <span className="mb-space-md flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-container-low text-secondary shadow-xl">
+          <Icon name="radar" className="text-[32px]" />
+        </span>
+        <h1 className="text-headline-lg text-on-surface">{project ? "Ready for detection" : "No scan running"}</h1>
+        <p className="mt-space-sm max-w-md text-body-md text-on-surface-variant">
+          {project ? "Open settings to choose your detection rules and start the scan." : "Upload a video and choose settings before running detection."}
+        </p>
+        <div className="mt-space-lg flex flex-col gap-space-sm sm:flex-row">
+          <Link to={project ? "/settings" : "/upload"} className="inline-flex items-center justify-center gap-space-xs rounded-xl bg-gradient-to-r from-primary-container to-secondary px-space-lg py-3 text-label-lg text-on-primary-container shadow-xl">
+            <Icon name={project ? "tune" : "upload_file"} className="text-[18px]" />
+            {project ? "Open settings" : "Upload video"}
+          </Link>
+          {project && (
+            <Link to="/results" className="inline-flex items-center justify-center gap-space-xs rounded-xl bg-surface-container-high px-space-lg py-3 text-label-lg text-on-surface shadow-md">
+              <Icon name="video_library" className="text-[18px] text-secondary" />
+              View saved clips
+            </Link>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full overflow-hidden px-gutter py-space-lg md:px-gutter-lg lg:py-space-xl">
@@ -67,14 +123,18 @@ export default function Processing() {
               {complete ? "Highlight Scan Complete" : "Scanning for Action Moments"}
             </h1>
             <p className="max-w-2xl text-body-md text-on-surface-variant">
-              FFmpeg is reading audio energy while OpenCV measures motion between frames.
+              {settings.motion && settings.sound
+                ? "FFmpeg is reading audio energy while OpenCV measures motion between frames."
+                : settings.motion
+                  ? "OpenCV is measuring motion between frames."
+                  : "FFmpeg is reading audio energy from the video."}
             </p>
           </div>
           <Link
-            to="/results"
+            to={complete ? "/results" : "/settings"}
             className="inline-flex items-center gap-space-xs rounded-xl bg-surface-container-low px-space-md py-2 text-label-md text-on-surface-variant shadow-sm transition-colors hover:text-on-surface"
           >
-            Preview results
+            {complete ? "Preview results" : "Back to settings"}
             <Icon name="arrow_forward" className="text-[18px]" />
           </Link>
         </div>
@@ -152,7 +212,7 @@ export default function Processing() {
                 <span className="font-mono text-code-xs uppercase tracking-wider text-secondary">
                   {complete ? "Complete" : "Live status"}
                 </span>
-                <h2 className="text-headline-md text-on-surface">{complete ? `${totalClips} clips found` : "Reading action peaks"}</h2>
+                <h2 className="text-headline-md text-on-surface">{complete ? `${totalClips} ${totalClips === 1 ? "clip" : "clips"} found` : "Reading action peaks"}</h2>
                 <p className="text-body-sm text-on-surface-variant">
                   {complete ? "Review the candidates before merging." : "This can take a minute on longer videos."}
                 </p>
@@ -161,9 +221,9 @@ export default function Processing() {
 
             <div className="grid grid-cols-3 gap-space-xs">
               {[
-                { label: "Motion peaks", value: motionPeaks, color: "text-secondary" },
-                { label: "Sound peaks", value: soundPeaks, color: "text-primary" },
-                { label: "Clips found", value: clipsFound, color: "text-secondary" },
+                { label: "Progress", value: `${Math.round(progress)}%`, color: "text-secondary" },
+                { label: "Clips found", value: complete ? totalClips : "—", color: "text-primary" },
+                { label: "Kept", value: complete ? keptClips : "—", color: "text-secondary" },
               ].map((stat) => (
                 <div key={stat.label} className="rounded-lg bg-surface-container-lowest/70 p-space-sm text-center">
                   <span className={`block font-mono text-headline-md ${stat.color}`}>{stat.value}</span>
@@ -200,14 +260,15 @@ export default function Processing() {
             <button
               type="button"
               onClick={() => navigate("/results")}
+              disabled={!complete}
               className={`flex w-full items-center justify-center gap-space-xs rounded-xl py-3.5 text-label-lg font-bold transition-all ${
                 complete
                   ? "bg-gradient-to-r from-primary-container via-inverse-primary to-secondary text-on-primary-container shadow-[0_0_24px_rgba(124,58,237,0.45)] hover:shadow-[0_0_32px_rgba(76,215,246,0.55)]"
-                  : "bg-surface-container-high text-on-surface-variant"
+                  : "cursor-wait bg-surface-container-high text-on-surface-variant"
               }`}
             >
               <Icon name={complete ? "video_library" : "hourglass_top"} className="text-[20px]" />
-              {complete ? `Review ${totalClips} clips` : "Go to results"}
+              {complete ? `Review ${totalClips} ${totalClips === 1 ? "clip" : "clips"}` : "Scanning..."}
               <Icon name="arrow_forward" className="text-[18px]" />
             </button>
           </div>
@@ -224,15 +285,15 @@ export default function Processing() {
               </div>
               <span className="font-mono text-code-xs uppercase tracking-wider text-on-surface-variant">Detection log</span>
             </div>
-            <span className="font-mono text-code-xs text-on-surface-variant">local · no upload</span>
+            <span className="font-mono text-code-xs text-on-surface-variant">local API · no cloud</span>
           </div>
           <div className="max-h-56 space-y-1.5 overflow-y-auto p-space-md font-mono text-code-sm">
-            {logs.map((log) => (
+            {logs.map((log, index) => (
               <div
-                key={log.tag + log.time}
+                key={log.tag + index}
                 className={`flex gap-space-sm ${progress >= log.at ? "text-on-surface" : "opacity-25"}`}
               >
-                <span className="shrink-0 text-on-surface-variant">{log.time}</span>
+                <span className="shrink-0 text-on-surface-variant">{String(index + 1).padStart(2, "0")}</span>
                 <span
                   className={`shrink-0 ${
                     log.tag === "DONE"

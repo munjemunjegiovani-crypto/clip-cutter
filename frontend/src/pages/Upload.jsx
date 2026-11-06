@@ -16,9 +16,18 @@ function formatSize(bytes) {
 }
 
 export default function Upload() {
-  const { source, startNewProject, clearSource } = useProject();
+  const {
+    source,
+    pendingFile,
+    project,
+    status,
+    chooseFile,
+    clearSource,
+    uploadSelectedFile,
+  } = useProject();
   const [permission, setPermission] = useState(false);
   const [error, setError] = useState("");
+  const uploading = status === "uploading";
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
@@ -39,12 +48,7 @@ export default function Upload() {
     }
     setError("");
     setPermission(false);
-    startNewProject({
-      name: nextFile.name,
-      size: nextFile.size,
-      type: nextFile.type,
-      lastModified: nextFile.lastModified,
-    });
+    chooseFile(nextFile);
   }
 
   function handleDrop(event) {
@@ -53,9 +57,23 @@ export default function Upload() {
     selectFile(event.dataTransfer.files?.[0]);
   }
 
-  function handleSubmit() {
-    if (!canContinue) return;
-    navigate("/settings");
+  async function handleSubmit() {
+    if (!canContinue || uploading) return;
+    if (!pendingFile) {
+      if (project) {
+        navigate("/settings");
+        return;
+      }
+      setError("Choose the video file again before uploading.");
+      return;
+    }
+
+    try {
+      await uploadSelectedFile();
+      navigate("/settings");
+    } catch (uploadError) {
+      setError(uploadError.message);
+    }
   }
 
   function removeFile() {
@@ -125,7 +143,7 @@ export default function Upload() {
 
                   <button
                     type="button"
-                    onClick={() => inputRef.current?.click()}
+                    onClick={() => !uploading && inputRef.current?.click()}
                     onDragOver={(event) => {
                       event.preventDefault();
                       setDragging(true);
@@ -147,6 +165,7 @@ export default function Upload() {
                     type="file"
                     accept=".mp4,.mov,.mkv,video/mp4,video/quicktime,video/x-matroska"
                     className="hidden"
+                    disabled={uploading}
                     onChange={(event) => {
                       selectFile(event.target.files?.[0]);
                       event.target.value = "";
@@ -314,11 +333,11 @@ export default function Upload() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                disabled={!canContinue}
+                disabled={!canContinue || uploading}
                 className="relative flex w-full items-center justify-center gap-space-xs overflow-hidden rounded-xl bg-gradient-to-r from-primary-container via-inverse-primary to-secondary py-3.5 px-space-lg text-label-lg font-bold text-on-primary-container shadow-[0_0_24px_rgba(124,58,237,0.45)] transition-all hover:shadow-[0_0_32px_rgba(76,215,246,0.6)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
               >
-                <Icon name="upload" className="text-[20px]" />
-                <span>Upload video</span>
+                <Icon name={uploading ? "progress_activity" : "upload"} className={`text-[20px] ${uploading ? "animate-spin" : ""}`} />
+                <span>{uploading ? "Uploading..." : pendingFile ? "Upload video" : project ? "Continue" : "Upload video"}</span>
                 <Icon name="arrow_forward" className="text-[18px]" />
               </button>
               <p className="text-center font-mono text-code-xs text-on-surface-variant">

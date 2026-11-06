@@ -43,7 +43,9 @@ export default function Dashboard() {
   const { source, clips, settings, status } = useProject();
   const kept = clips.filter((clip) => clip.kept).length;
   const detection = settings.motion && settings.sound ? "Motion + sound" : settings.motion ? "Motion only" : "Sound only";
-  const statusLabel = status === "demo" ? "sample" : status;
+  const statusLabel = !source
+    ? "Idle"
+    : { uploaded: "Uploaded", processing: "Processing", complete: "Ready", failed: "Failed" }[status] ?? status;
 
   return (
     <div className="relative w-full overflow-hidden px-gutter py-space-lg md:px-gutter-lg lg:py-space-xl">
@@ -101,7 +103,7 @@ export default function Dashboard() {
               </span>
               <span className="block font-mono text-code-xs text-on-surface-variant">
                 {source
-                  ? `${clips.length} clips · ${kept} kept · ${detection} · min ${settings.minLength}s`
+                  ? `${clips.length} ${clips.length === 1 ? "clip" : "clips"} · ${kept} kept · ${detection} · min ${settings.minLength}s`
                   : "Upload a video to start a local project."}
               </span>
             </div>

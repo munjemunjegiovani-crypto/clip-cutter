@@ -50,7 +50,7 @@ function SignalToggle({ icon, title, detail, active, onToggle }) {
 }
 
 export default function Settings() {
-  const { source, settings, updateSettings, startDetection } = useProject();
+  const { project, source, settings, status, updateSettings, startDetection } = useProject();
   const { motion, sound, sensitivity, minLength, maxClips, target } = settings;
   const navigate = useNavigate();
 
@@ -65,6 +65,7 @@ export default function Settings() {
   }
 
   function handleDetect() {
+    if (!project || status === "processing" || status === "uploading") return;
     startDetection();
     navigate("/processing");
   }
@@ -115,7 +116,7 @@ export default function Settings() {
                     {source?.name || "No video selected"}
                   </span>
                   <span className="font-mono text-code-xs text-on-surface-variant">
-                    {source ? "Source loaded from this session" : "Choose a video from the upload page"}
+                    {project ? "Source uploaded to the local API" : source ? "Selected from this device" : "Choose a video from the upload page"}
                   </span>
                 </div>
               </div>
@@ -123,9 +124,9 @@ export default function Settings() {
                 <span className="rounded bg-surface-container-highest px-space-xs py-1 font-mono text-code-xs text-on-surface-variant">
                   Local processing
                 </span>
-                <span className="flex items-center gap-1 rounded bg-surface-container-highest px-space-xs py-1 font-mono text-code-xs text-secondary">
-                  <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-                  Ready
+                <span className={`flex items-center gap-1 rounded bg-surface-container-highest px-space-xs py-1 font-mono text-code-xs ${source ? "text-secondary" : "text-on-surface-variant"}`}>
+                  <span className={`h-1.5 w-1.5 rounded-full ${source ? "bg-secondary" : "bg-outline"}`} />
+                  {source ? "Ready" : "Waiting"}
                 </span>
               </div>
             </div>
@@ -357,12 +358,16 @@ export default function Settings() {
               <button
                 type="button"
                 onClick={handleDetect}
-                className="flex w-full items-center justify-center gap-space-xs rounded-xl bg-gradient-to-r from-primary-container via-inverse-primary to-secondary py-3.5 px-space-lg text-label-lg font-bold text-on-primary-container shadow-[0_0_24px_rgba(124,58,237,0.45)] transition-all hover:shadow-[0_0_32px_rgba(76,215,246,0.55)]"
+                disabled={!project || status === "processing" || status === "uploading"}
+                className="flex w-full items-center justify-center gap-space-xs rounded-xl bg-gradient-to-r from-primary-container via-inverse-primary to-secondary py-3.5 px-space-lg text-label-lg font-bold text-on-primary-container shadow-[0_0_24px_rgba(124,58,237,0.45)] transition-all hover:shadow-[0_0_32px_rgba(76,215,246,0.55)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
               >
-                <Icon name="auto_awesome" className="text-[20px]" />
-                Detect action
+                <Icon name={status === "processing" ? "progress_activity" : "auto_awesome"} className={`text-[20px] ${status === "processing" ? "animate-spin" : ""}`} />
+                {status === "processing" ? "Detection running..." : "Detect action"}
                 <Icon name="arrow_forward" className="text-[18px]" />
               </button>
+              {!project && (
+                <p className="text-center text-body-sm text-error">Upload a video before running detection.</p>
+              )}
               <Link to="/upload" className="text-center text-body-sm text-on-surface-variant transition-colors hover:text-on-surface">
                 Back to upload
               </Link>

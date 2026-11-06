@@ -46,7 +46,7 @@ npm run build
 npm run preview
 ```
 
-Optional frontend settings live in `frontend/.env` (copy `frontend/.env.example`). Set the support and takedown emails before deploying.
+Optional frontend settings live in `frontend/.env` (copy `frontend/.env.example`). Set `VITE_API_URL` if the API is not at `http://localhost:5000`, and set the support and takedown emails before deploying. The app stores the active project and clips in `sessionStorage` so a refresh can resume the flow.
 
 ### Backend
 
@@ -73,6 +73,7 @@ Configure the backend in `backend/.env` (copy `backend/.env.example`). Add every
 GET   /api/health                        Check the API, database, and configured limits
 POST  /api/projects                      Upload a video with permission=true
 GET   /api/projects/:id                  Read uploaded project metadata
+GET   /api/projects/:id/source           Stream the source video (Range supported)
 POST  /api/projects/:id/detect           Run motion/sound detection
 GET   /api/projects/:id/clips            Read saved clip candidates
 GET   /api/clips/:id/thumbnail           Read a clip thumbnail
@@ -121,4 +122,4 @@ flask --app run cleanup-files
 
 ## Status
 
-Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend now handles uploads, motion/sound detection, clip thumbnails, clip keep/reorder controls, FFmpeg merging, MP4 downloads, and automatic 24-hour file cleanup. The frontend is not connected to the API yet; frontend integration and final deployment hardening are added in later stages.
+Built in stages. The frontend upload, detection, clip review, keep/reorder, source preview, and merge/download flow is connected to the local Flask API. The backend handles uploads, motion/sound detection, clip thumbnails, FFmpeg merging, MP4 downloads, and automatic 24-hour file cleanup. Deployment hardening is added in later stages.

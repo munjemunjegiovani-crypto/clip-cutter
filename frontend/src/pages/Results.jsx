@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "../components/Icon";
 import { useProject } from "../context/ProjectContext";
+import { mediaUrl, sourceUrl } from "../services/api";
 
 const segmentStyles = [
   "bg-primary-container/85 text-on-primary-container",
@@ -19,11 +20,47 @@ function formatDuration(seconds) {
   return `${mins}:${String(secs).padStart(2, "0")}`;
 }
 
+function formatTimecode(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = (seconds % 60).toFixed(1).padStart(4, "0");
+  return `${mins}:${secs}`;
+}
+
+function formatSize(bytes = 0) {
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 export default function Results() {
-  const { clips, toggleKept, moveClip } = useProject();
+  const {
+    project,
+    clips: projectClips,
+    settings,
+    status,
+    toggleKept,
+    moveClip,
+    exportMerged,
+    exporting,
+    exportInfo,
+  } = useProject();
+  const clips = useMemo(
+    () =>
+      projectClips.map((clip, index) => ({
+        ...clip,
+        title: `Action clip ${String(index + 1).padStart(2, "0")}`,
+        duration: clip.duration_seconds,
+        start: clip.start_seconds,
+        end: clip.end_seconds,
+        timecode: `${formatTimecode(clip.start_seconds)} – ${formatTimecode(clip.end_seconds)}`,
+        image: clip.thumbnail_url ? mediaUrl(clip.thumbnail_url) : "",
+      })),
+    [projectClips],
+  );
   const [selectedId, setSelectedId] = useState(clips[0]?.id ?? null);
-  const [toast, setToast] = useState("");
-  const [exporting, setExporting] = useState(false);
+  const [notice, setNotice] = useState(null);
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const [clipTime, setClipTime] = useState(0);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     if (clips.length && !clips.some((clip) => clip.id === selectedId)) {
@@ -41,15 +78,65 @@ export default function Results() {
     ? clips.slice(0, selectedIndex).reduce((sum, clip) => sum + clip.duration, 0)
     : 0;
   const playhead = selected ? ((beforeSelected + selected.duration / 2) / allDuration) * 100 : 0;
+  const elapsed = selected ? Math.min(selected.duration, Math.max(0, clipTime - selected.start)) : 0;
+  const progress = selected?.duration ? (elapsed / selected.duration) * 100 : 0;
+  const videoSource = project ? sourceUrl(project.id) : "";
 
-  function handleMerge() {
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !selected) return;
+    video.pause();
+    video.currentTime = selected.start;
+    setClipTime(selected.start);
+    setPlaying(false);
+  }, [selected?.id, selected?.start]);
+
+  function togglePlayback() {
+    const video = videoRef.current;
+    if (!video || !selected) return;
+    if (video.paused) {
+      if (video.currentTime < selected.start || video.currentTime >= selected.end) {
+        video.currentTime = selected.start;
+      }
+      video.play().catch(() => setPlaying(false));
+    } else {
+      video.pause();
+    }
+  }
+
+  function handleTimeUpdate() {
+    const video = videoRef.current;
+    if (!video || !selected) return;
+    setClipTime(video.currentTime);
+    if (video.currentTime >= selected.end) {
+      video.pause();
+      video.currentTime = selected.end;
+    }
+  }
+
+  function toggleMute() {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setMuted(video.muted);
+  }
+
+  function toggleFullscreen() {
+    videoRef.current?.requestFullscreen?.();
+  }
+
+  async function handleMerge() {
     if (!kept.length || exporting) return;
-    setExporting(true);
-    setToast("");
-    window.setTimeout(() => {
-      setExporting(false);
-      setToast("Export preview complete. The local MP4 renderer will be connected in the backend stage.");
-    }, 1400);
+    setNotice(null);
+    try {
+      const exported = await exportMerged();
+      setNotice({
+        type: "success",
+        text: `Merged ${exported.clip_count} ${exported.clip_count === 1 ? "clip" : "clips"} (${formatDuration(exported.duration_seconds)}, ${formatSize(exported.size_bytes)}). Download started.`,
+      });
+    } catch (mergeError) {
+      setNotice({ type: "error", text: mergeError.message });
+    }
   }
 
   if (!selected) {
@@ -58,17 +145,19 @@ export default function Results() {
         <span className="mb-space-md flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-container-low text-secondary shadow-xl">
           <Icon name="video_library" className="text-[32px]" />
         </span>
-        <h1 className="text-headline-lg text-on-surface">No clips yet</h1>
+        <h1 className="text-headline-lg text-on-surface">{status === "processing" ? "Detection still running" : "No clips yet"}</h1>
         <p className="mt-space-sm max-w-md text-body-md text-on-surface-variant">
-          Upload a video and run detection to fill the results studio.
+          {status === "processing"
+            ? "The scan is still running. Open the processing view to follow progress."
+            : "Upload a video and run detection to fill the results studio."}
         </p>
         <div className="mt-space-lg flex flex-col gap-space-sm sm:flex-row">
           <Link
-            to="/upload"
+            to={status === "processing" ? "/processing" : "/upload"}
             className="inline-flex items-center justify-center gap-space-xs rounded-xl bg-gradient-to-r from-primary-container to-secondary px-space-lg py-3 text-label-lg text-on-primary-container shadow-xl"
           >
-            <Icon name="upload_file" className="text-[18px]" />
-            Upload video
+            <Icon name={status === "processing" ? "radar" : "upload_file"} className="text-[18px]" />
+            {status === "processing" ? "View processing" : "Upload video"}
           </Link>
           <Link
             to="/settings"
@@ -96,7 +185,7 @@ export default function Results() {
               </span>
               <span className="font-mono text-code-xs text-on-surface-variant">•</span>
               <span className="flex items-center gap-1 font-mono text-code-xs text-on-surface-variant">
-                <span className="h-1.5 w-1.5 rounded-full bg-secondary" />{clips.length} clips detected
+                <span className="h-1.5 w-1.5 rounded-full bg-secondary" />{clips.length} {clips.length === 1 ? "clip" : "clips"} detected
               </span>
             </div>
             <h1 className="text-headline-lg tracking-tight text-on-surface">Your Clips. Ready to Review.</h1>
@@ -212,8 +301,19 @@ export default function Results() {
           <div className="flex flex-col gap-space-md xl:col-span-6">
             <div className="overflow-hidden rounded-2xl bg-surface-container-low/80 p-space-sm shadow-xl backdrop-blur-md">
               <div className="group relative aspect-video overflow-hidden rounded-xl bg-surface-container-lowest">
-                <img src={selected.image} alt={selected.title} className="h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-surface-container-lowest/40" />
+                <video
+                  ref={videoRef}
+                  src={videoSource}
+                  poster={selected.image}
+                  className="h-full w-full object-cover"
+                  playsInline
+                  preload="metadata"
+                  onClick={togglePlayback}
+                  onTimeUpdate={handleTimeUpdate}
+                  onPlay={() => setPlaying(true)}
+                  onPause={() => setPlaying(false)}
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-container-lowest/60 via-transparent to-surface-container-lowest/25" />
 
                 <div className="absolute left-space-sm top-space-sm flex items-center gap-space-xs">
                   <span className="rounded bg-error-container/80 px-space-xs py-1 font-mono text-code-xs text-on-error-container">
@@ -230,28 +330,36 @@ export default function Results() {
 
                 <button
                   type="button"
-                  className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary-container/85 text-on-primary-container shadow-[0_0_32px_rgba(124,58,237,0.6)] backdrop-blur-xl transition-transform hover:scale-105"
-                  title="Play clip preview"
+                  onClick={togglePlayback}
+                  className={`absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary-container/85 text-on-primary-container shadow-[0_0_32px_rgba(124,58,237,0.6)] backdrop-blur-xl transition-all hover:scale-105 ${
+                    playing ? "opacity-0 group-hover:opacity-80" : "opacity-100"
+                  }`}
+                  title={playing ? "Pause clip preview" : "Play clip preview"}
                 >
-                  <Icon name="play_arrow" className="text-[36px]" />
+                  <Icon name={playing ? "pause" : "play_arrow"} className="text-[36px]" />
                 </button>
 
                 <div className="absolute inset-x-space-sm bottom-space-sm rounded-lg bg-surface-container-lowest/75 p-space-sm backdrop-blur-md">
                   <div className="relative mb-1.5 h-1 w-full rounded-full bg-outline-variant/40">
-                    <div className="absolute left-0 top-0 h-1 w-[38%] rounded-full bg-secondary" />
-                    <span className="absolute left-[38%] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-secondary shadow-[0_0_8px_#4cd7f6]" />
+                    <div className="absolute left-0 top-0 h-1 rounded-full bg-secondary transition-[width]" style={{ width: `${progress}%` }} />
+                    <span className="absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-secondary shadow-[0_0_8px_#4cd7f6]" style={{ left: `${progress}%` }} />
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-space-sm">
-                      <Icon name="play_arrow" className="text-[18px] text-on-surface" />
-                      <Icon name="volume_up" className="text-[18px] text-on-surface-variant" />
+                      <button type="button" onClick={togglePlayback} className="text-on-surface" aria-label={playing ? "Pause clip" : "Play clip"}>
+                        <Icon name={playing ? "pause" : "play_arrow"} className="text-[18px]" />
+                      </button>
+                      <button type="button" onClick={toggleMute} className="text-on-surface-variant hover:text-on-surface" aria-label={muted ? "Unmute video" : "Mute video"}>
+                        <Icon name={muted ? "volume_off" : "volume_up"} className="text-[18px]" />
+                      </button>
                       <span className="font-mono text-code-xs text-on-surface">
-                        00:04 <span className="text-on-surface-variant">/ {selected.duration.toFixed(1)}s</span>
+                        {formatTimecode(elapsed)} <span className="text-on-surface-variant">/ {selected.duration.toFixed(1)}s</span>
                       </span>
                     </div>
                     <div className="flex items-center gap-space-sm">
-                      <Icon name="closed_caption" className="text-[16px] text-on-surface-variant" />
-                      <Icon name="fullscreen" className="text-[18px] text-on-surface-variant" />
+                      <button type="button" onClick={toggleFullscreen} className="text-on-surface-variant hover:text-on-surface" aria-label="Open fullscreen video">
+                        <Icon name="fullscreen" className="text-[18px]" />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -269,14 +377,18 @@ export default function Results() {
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-space-xs">
-                <span className="flex items-center gap-1 rounded bg-secondary/10 px-space-xs py-1 font-mono text-code-xs text-secondary">
-                  <Icon name="motion_photos_on" className="text-[14px]" />
-                  Motion
-                </span>
-                <span className="flex items-center gap-1 rounded bg-primary-container/20 px-space-xs py-1 font-mono text-code-xs text-primary">
-                  <Icon name="graphic_eq" className="text-[14px]" />
-                  Sound
-                </span>
+                {settings.motion && (
+                  <span className="flex items-center gap-1 rounded bg-secondary/10 px-space-xs py-1 font-mono text-code-xs text-secondary">
+                    <Icon name="motion_photos_on" className="text-[14px]" />
+                    Motion
+                  </span>
+                )}
+                {settings.sound && (
+                  <span className="flex items-center gap-1 rounded bg-primary-container/20 px-space-xs py-1 font-mono text-code-xs text-primary">
+                    <Icon name="graphic_eq" className="text-[14px]" />
+                    Sound
+                  </span>
+                )}
                 <button
                   type="button"
                   onClick={() => toggleKept(selected.id)}
@@ -294,7 +406,7 @@ export default function Results() {
 
             <div className="grid grid-cols-3 gap-space-xs">
               {[
-                { label: "Motion score", value: selected.score, icon: "directions_run" },
+                { label: "Detection score", value: selected.score, icon: "bolt" },
                 { label: "Candidate length", value: `${selected.duration.toFixed(1)}s`, icon: "timer" },
                 { label: "Status", value: selected.kept ? "Kept" : "Removed", icon: "check_circle" },
               ].map((stat) => (
@@ -363,14 +475,22 @@ export default function Results() {
                 {exporting ? "Preparing merge..." : "Merge & download"}
               </button>
 
-              {toast && (
-                <div className="flex items-start gap-space-xs rounded-lg border border-secondary/25 bg-secondary/10 p-space-sm text-body-sm text-on-surface-variant">
-                  <Icon name="info" className="mt-0.5 shrink-0 text-[16px] text-secondary" />
-                  <span>{toast}</span>
-                  <button type="button" onClick={() => setToast("")} className="ml-auto shrink-0 text-on-surface-variant hover:text-on-surface" aria-label="Dismiss message">
+              {notice && (
+                <div className={`flex items-start gap-space-xs rounded-lg border p-space-sm text-body-sm text-on-surface-variant ${
+                  notice.type === "error" ? "border-error/25 bg-error-container/25" : "border-secondary/25 bg-secondary/10"
+                }`}>
+                  <Icon name={notice.type === "error" ? "error" : "info"} className={`mt-0.5 shrink-0 text-[16px] ${notice.type === "error" ? "text-error" : "text-secondary"}`} />
+                  <span>{notice.text}</span>
+                  <button type="button" onClick={() => setNotice(null)} className="ml-auto shrink-0 text-on-surface-variant hover:text-on-surface" aria-label="Dismiss message">
                     <Icon name="close" className="text-[14px]" />
                   </button>
                 </div>
+              )}
+
+              {exportInfo && !notice && (
+                <p className="rounded-lg bg-surface-container-lowest/70 p-space-sm font-mono text-[9px] text-on-surface-variant">
+                  Last export: {exportInfo.clip_count} {exportInfo.clip_count === 1 ? "clip" : "clips"} · {formatSize(exportInfo.size_bytes)} · expires in 24h
+                </p>
               )}
 
               <p className="text-center font-mono text-[9px] text-on-surface-variant">

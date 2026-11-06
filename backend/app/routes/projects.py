@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from uuid import uuid4
 
-from flask import Blueprint, current_app, jsonify, request
+from flask import Blueprint, current_app, jsonify, request, send_file
 from werkzeug.utils import secure_filename
 
 from ..extensions import db
@@ -105,3 +105,16 @@ def get_project(project_id):
     if not project:
         return api_error("Project not found.", 404)
     return jsonify(project.to_dict())
+
+
+@projects_bp.get("/projects/<int:project_id>/source")
+def stream_source(project_id):
+    project = db.session.get(Project, project_id)
+    if not project:
+        return api_error("Project not found.", 404)
+
+    source_path = Path(current_app.config["UPLOAD_FOLDER"]) / project.stored_name
+    if not source_path.exists():
+        return api_error("The source video is no longer available.", 410)
+
+    return send_file(source_path, conditional=True, max_age=0)

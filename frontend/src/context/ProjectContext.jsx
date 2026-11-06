@@ -1,15 +1,18 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import clip1 from "../assets/images/clip-1.jpg";
-import clip2 from "../assets/images/clip-2.jpg";
-import clip3 from "../assets/images/clip-3.jpg";
-import clip4 from "../assets/images/clip-4.jpg";
-import clip5 from "../assets/images/clip-5.jpg";
-import clip6 from "../assets/images/clip-6.jpg";
-import clip7 from "../assets/images/clip-7.jpg";
+import {
+  ApiError,
+  createExport,
+  detectProject,
+  getProjectClips,
+  reorderClips,
+  setClipKept,
+  triggerDownload,
+  uploadProject,
+} from "../services/api";
 
-const STORAGE_KEY = "clipcutter-project-v1";
+const STORAGE_KEY = "clipcutter-session-v2";
 
-export const DEFAULT_SETTINGS = {
+const DEFAULT_SETTINGS = {
   motion: true,
   sound: true,
   sensitivity: 6,
@@ -18,138 +21,279 @@ export const DEFAULT_SETTINGS = {
   target: "all",
 };
 
-const clipPool = [
-  { title: "Kickflip Down Stairs", duration: 8.1, timecode: "00:14.200", score: 92, image: clip1 },
-  { title: "Drop-In Send", duration: 9.2, timecode: "01:22.140", score: 88, image: clip2 },
-  { title: "Wall Ride Grind", duration: 7.5, timecode: "02:45.120", score: 85, image: clip3 },
-  { title: "Big Air Transfer", duration: 11.4, timecode: "03:12.600", score: 81, image: clip4 },
-  { title: "Bowl Carve Line", duration: 6.8, timecode: "04:08.300", score: 78, image: clip5 },
-  { title: "Last Trick Attempt", duration: 8.9, timecode: "05:31.900", score: 74, image: clip6 },
-  { title: "Crowd Reaction", duration: 6.2, timecode: "06:47.250", score: 70, image: clip7 },
-];
-
-function buildClips(settings) {
-  const limit = Math.max(1, Math.min(settings.maxClips, clipPool.length));
-  const targetLength = settings.target === "all" ? Infinity : Number(settings.target);
-  let total = 0;
-
-  return clipPool.slice(0, limit).map((clip, index) => {
-    const duration = Math.max(settings.minLength, clip.duration);
-    const kept = targetLength === Infinity || total + duration <= targetLength || index === 0;
-    if (kept) total += duration;
-    return {
-      id: `clip-${index + 1}`,
-      title: clip.title,
-      duration: Number(duration.toFixed(1)),
-      timecode: clip.timecode,
-      score: clip.score,
-      image: clip.image,
-      kept,
-    };
-  });
+function sourceFromProject(project) {
+  return {
+    name: project.original_name,
+    size: project.size_bytes,
+    duration: project.duration_seconds,
+  };
 }
 
-export const DEMO_CLIPS = buildClips({ ...DEFAULT_SETTINGS, minLength: 5 });
-
-function loadProject() {
+function loadSession() {
   try {
     const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
     if (!saved) {
-      return { source: null, settings: DEFAULT_SETTINGS, clips: DEMO_CLIPS, status: "demo" };
+      return { project: null, settings: DEFAULT_SETTINGS, clips: [], status: "idle", exportInfo: null };
     }
+    const project = saved.project ?? null;
     return {
-      source: saved.source ?? null,
+      project,
       settings: { ...DEFAULT_SETTINGS, ...saved.settings },
-      clips: Array.isArray(saved.clips) ? saved.clips : DEMO_CLIPS,
-      status: saved.status ?? "idle",
+      clips: Array.isArray(saved.clips) ? saved.clips : [],
+      status: project ? saved.status ?? project.status : "idle",
+      exportInfo: saved.exportInfo ?? null,
     };
   } catch {
-    return { source: null, settings: DEFAULT_SETTINGS, clips: DEMO_CLIPS, status: "demo" };
+    return { project: null, settings: DEFAULT_SETTINGS, clips: [], status: "idle", exportInfo: null };
   }
 }
 
 const ProjectContext = createContext(null);
 
 export function ProjectProvider({ children }) {
-  const [initial] = useState(loadProject);
-  const [source, setSource] = useState(initial.source);
+  const [initial] = useState(loadSession);
+  const [project, setProject] = useState(initial.project);
+  const [source, setSource] = useState(initial.project ? sourceFromProject(initial.project) : null);
+  const [pendingFile, setPendingFile] = useState(null);
   const [settings, setSettings] = useState(initial.settings);
   const [clips, setClips] = useState(initial.clips);
   const [status, setStatus] = useState(initial.status);
+  const [exportInfo, setExportInfo] = useState(initial.exportInfo);
+  const [exporting, setExporting] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ source, settings, clips, status }));
+      sessionStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ project, settings, clips, status, exportInfo }),
+      );
     } catch {
       return;
     }
-  }, [source, settings, clips, status]);
+  }, [project, settings, clips, status, exportInfo]);
 
-  const startNewProject = useCallback((fileMeta) => {
-    setSource(fileMeta);
+  useEffect(() => {
+    if (!initial.project?.id) return undefined;
+
+    let cancelled = false;
+    async function syncProject() {
+      try {
+        const data = await getProjectClips(initial.project.id);
+        if (cancelled) return;
+        setProject(data.project);
+        setSource(sourceFromProject(data.project));
+        setClips(data.clips);
+        setStatus(data.project.status);
+      } catch (syncError) {
+        if (cancelled) return;
+        if (syncError.status === 404) {
+          setProject(null);
+          setSource(null);
+          setClips([]);
+          setStatus("idle");
+          setExportInfo(null);
+        } else {
+          setError(syncError.message);
+        }
+      }
+    }
+
+    syncProject();
+    return () => {
+      cancelled = true;
+    };
+  }, [initial.project?.id]);
+
+  useEffect(() => {
+    if (status !== "processing" || !project?.id) return undefined;
+
+    const timer = window.setInterval(async () => {
+      try {
+        const data = await getProjectClips(project.id);
+        if (data.project.status === "complete") {
+          setProject(data.project);
+          setClips(data.clips);
+          setStatus("complete");
+          setError("");
+        } else if (data.project.status === "failed") {
+          setStatus("failed");
+          setError("Detection failed. Check the video and try again.");
+        }
+      } catch (pollError) {
+        if (pollError.status === 404) {
+          setStatus("failed");
+          setError("This project is no longer available.");
+        }
+      }
+    }, 2500);
+
+    return () => window.clearInterval(timer);
+  }, [status, project?.id]);
+
+  const chooseFile = useCallback((file) => {
+    setPendingFile(file);
+    setSource({ name: file.name, size: file.size, type: file.type });
+    setProject(null);
     setClips([]);
     setStatus("idle");
+    setExportInfo(null);
+    setError("");
   }, []);
 
   const clearSource = useCallback(() => {
+    setPendingFile(null);
     setSource(null);
+    setProject(null);
     setClips([]);
     setStatus("idle");
+    setExportInfo(null);
+    setError("");
   }, []);
+
+  const uploadSelectedFile = useCallback(async () => {
+    if (!pendingFile) {
+      throw new ApiError("Choose a video file before uploading.");
+    }
+
+    setStatus("uploading");
+    setError("");
+    try {
+      const uploaded = await uploadProject(pendingFile);
+      setProject(uploaded);
+      setSource(sourceFromProject(uploaded));
+      setPendingFile(null);
+      setClips([]);
+      setExportInfo(null);
+      setStatus("uploaded");
+      return uploaded;
+    } catch (uploadError) {
+      setStatus("idle");
+      setError(uploadError.message);
+      throw uploadError;
+    }
+  }, [pendingFile]);
 
   const updateSettings = useCallback((patch) => {
     setSettings((current) => ({ ...current, ...patch }));
   }, []);
 
-  const startDetection = useCallback(() => {
-    setClips(buildClips(settings));
+  const startDetection = useCallback(async () => {
+    if (!project || status === "processing" || status === "uploading") return null;
+
     setStatus("processing");
-  }, [settings]);
+    setError("");
+    setExportInfo(null);
+    try {
+      const data = await detectProject(project.id, settings);
+      setProject(data.project);
+      setClips(data.clips);
+      setStatus("complete");
+      return data;
+    } catch (detectError) {
+      setStatus("failed");
+      setError(detectError.message);
+      return null;
+    }
+  }, [project, settings, status]);
 
-  const completeProcessing = useCallback(() => {
-    setStatus("complete");
-  }, []);
+  const toggleKept = useCallback(
+    async (id) => {
+      const current = clips.find((clip) => clip.id === id);
+      if (!current || !project) return;
 
-  const toggleKept = useCallback((id) => {
-    setClips((current) => current.map((clip) => (clip.id === id ? { ...clip, kept: !clip.kept } : clip)));
-  }, []);
+      const kept = !current.kept;
+      setClips((items) => items.map((clip) => (clip.id === id ? { ...clip, kept } : clip)));
+      try {
+        const data = await setClipKept(project.id, id, kept);
+        setClips((items) => items.map((clip) => (clip.id === id ? data.clip : clip)));
+      } catch (toggleError) {
+        setClips((items) =>
+          items.map((clip) => (clip.id === id ? { ...clip, kept: current.kept } : clip)),
+        );
+        setError(toggleError.message);
+      }
+    },
+    [clips, project],
+  );
 
-  const moveClip = useCallback((index, direction) => {
-    setClips((current) => {
+  const moveClip = useCallback(
+    async (index, direction) => {
+      if (!project) return;
       const target = index + direction;
-      if (target < 0 || target >= current.length) return current;
-      const next = [...current];
+      if (target < 0 || target >= clips.length) return;
+
+      const previous = clips;
+      const next = [...clips];
       [next[index], next[target]] = [next[target], next[index]];
-      return next;
-    });
-  }, []);
+      setClips(next);
+      try {
+        const data = await reorderClips(project.id, next.map((clip) => clip.id));
+        setClips(data.clips);
+      } catch (reorderError) {
+        setClips(previous);
+        setError(reorderError.message);
+      }
+    },
+    [clips, project],
+  );
+
+  const exportMerged = useCallback(async () => {
+    if (!project) throw new ApiError("Upload a video before exporting.");
+
+    setExporting(true);
+    setError("");
+    try {
+      const data = await createExport(project.id);
+      setExportInfo(data.export);
+      triggerDownload(data.export.download_url);
+      return data.export;
+    } catch (exportError) {
+      setError(exportError.message);
+      throw exportError;
+    } finally {
+      setExporting(false);
+    }
+  }, [project]);
 
   const value = useMemo(
     () => ({
+      project,
       source,
+      pendingFile,
       settings,
       clips,
       status,
-      startNewProject,
+      exportInfo,
+      exporting,
+      error,
+      chooseFile,
       clearSource,
+      uploadSelectedFile,
       updateSettings,
       startDetection,
-      completeProcessing,
       toggleKept,
       moveClip,
+      exportMerged,
     }),
     [
+      project,
       source,
+      pendingFile,
       settings,
       clips,
       status,
-      startNewProject,
+      exportInfo,
+      exporting,
+      error,
+      chooseFile,
       clearSource,
+      uploadSelectedFile,
       updateSettings,
       startDetection,
-      completeProcessing,
       toggleKept,
       moveClip,
+      exportMerged,
     ],
   );
 
