@@ -36,7 +36,7 @@ class ApiTestCase(unittest.TestCase):
                     "-i",
                     "sine=frequency=440",
                     "-t",
-                    "2",
+                    "10",
                     "-c:v",
                     "libx264",
                     "-preset",
@@ -140,6 +140,40 @@ class ApiTestCase(unittest.TestCase):
         self.assertEqual(missing.status_code, 410)
         self.assertIn("no longer available", missing.get_json()["error"])
         self.assertEqual(self.client.get("/api/projects/9999").status_code, 404)
+
+    @unittest.skipUnless(shutil.which("ffmpeg"), "ffmpeg is required for detection tests")
+    def test_detection_export_and_download(self):
+        response = self.upload()
+        self.assertEqual(response.status_code, 201)
+        project_id = response.get_json()["id"]
+
+        detection = self.client.post(
+            f"/api/projects/{project_id}/detect",
+            json={
+                "motion": True,
+                "sound": True,
+                "sensitivity": 10,
+                "minLength": 5,
+                "maxClips": 3,
+                "target": "all",
+            },
+        )
+        self.assertEqual(detection.status_code, 200, detection.get_json())
+        detected = detection.get_json()
+        self.assertEqual(detected["project"]["status"], "complete")
+        self.assertGreaterEqual(len(detected["clips"]), 1)
+
+        export = self.client.post(f"/api/projects/{project_id}/export")
+        self.assertEqual(export.status_code, 201, export.get_json())
+        exported = export.get_json()["export"]
+        self.assertEqual(exported["clip_count"], len(detected["clips"]))
+        self.assertGreater(exported["size_bytes"], 0)
+
+        download = self.client.get(f"/api/exports/{exported['id']}/download")
+        self.assertEqual(download.status_code, 200)
+        self.assertEqual(download.mimetype, "video/mp4")
+        self.assertEqual(download.data[4:8], b"ftyp")
+        download.close()
 
     @unittest.skipUnless(shutil.which("ffmpeg"), "ffmpeg is required for upload tests")
     def test_recent_projects_include_stats_and_counts(self):

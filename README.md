@@ -72,7 +72,7 @@ Configure the backend in `backend/.env` (copy `backend/.env.example`). Add every
 
 ### Tests
 
-Backend regression tests use a temporary database and media folders, so they do not touch local uploads or projects:
+Backend regression tests use a temporary database and media folders, so they do not touch local uploads or projects. They cover upload guards, source streaming, detection, export/download, dashboard stats, and retention cleanup:
 
 ```bash
 cd backend
