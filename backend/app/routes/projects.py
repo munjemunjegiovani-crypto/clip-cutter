@@ -3,10 +3,11 @@ from pathlib import Path
 from uuid import uuid4
 
 from flask import Blueprint, current_app, jsonify, request, send_file
+from sqlalchemy import func
 from werkzeug.utils import secure_filename
 
 from ..extensions import db
-from ..models import Project
+from ..models import Clip, Export, Project
 from ..services.media import InvalidMedia, MediaToolUnavailable, probe_duration_seconds
 
 projects_bp = Blueprint("projects", __name__, url_prefix="/api")
@@ -17,6 +18,64 @@ TRUTHY_VALUES = {"1", "true", "yes", "on"}
 
 def api_error(message, status):
     return jsonify({"error": message}), status
+
+
+@projects_bp.get("/projects")
+def list_projects():
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    projects = (
+        Project.query.filter(Project.expires_at > now)
+        .order_by(Project.created_at.desc())
+        .limit(20)
+        .all()
+    )
+
+    project_ids = [project.id for project in projects]
+    clip_counts = {}
+    kept_counts = {}
+    export_counts = {}
+    if project_ids:
+        clip_counts = dict(
+            db.session.query(Clip.project_id, func.count(Clip.id))
+            .filter(Clip.project_id.in_(project_ids))
+            .group_by(Clip.project_id)
+            .all()
+        )
+        kept_counts = dict(
+            db.session.query(Clip.project_id, func.count(Clip.id))
+            .filter(Clip.project_id.in_(project_ids), Clip.kept.is_(True))
+            .group_by(Clip.project_id)
+            .all()
+        )
+        export_counts = dict(
+            db.session.query(Export.project_id, func.count(Export.id))
+            .filter(Export.project_id.in_(project_ids), Export.expires_at > now)
+            .group_by(Export.project_id)
+            .all()
+        )
+
+    jobs = []
+    for project in projects:
+        data = project.to_dict()
+        data["clip_count"] = clip_counts.get(project.id, 0)
+        data["kept_clip_count"] = kept_counts.get(project.id, 0)
+        data["export_count"] = export_counts.get(project.id, 0)
+        jobs.append(data)
+
+    stats = {
+        "videos_processed": Project.query.filter(
+            Project.expires_at > now, Project.status == "complete"
+        ).count(),
+        "clips_generated": Clip.query.join(Project, Clip.project_id == Project.id)
+        .filter(Project.expires_at > now)
+        .count(),
+        "merged_downloads": Export.query.join(Project, Export.project_id == Project.id)
+        .filter(Project.expires_at > now, Export.expires_at > now)
+        .count(),
+        "retention_hours": current_app.config["FILE_RETENTION_HOURS"],
+    }
+
+    return jsonify({"projects": jobs, "stats": stats})
 
 
 @projects_bp.post("/projects")

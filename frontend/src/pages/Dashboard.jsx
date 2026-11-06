@@ -1,51 +1,115 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Icon from "../components/Icon";
 import { useProject } from "../context/ProjectContext";
+import { getProjects } from "../services/api";
 
-const history = [
-  {
-    id: "JOB-104",
-    name: "Motocross_Run_01.mp4",
-    date: "2026-11-02",
-    duration: "08:45",
-    clips: 7,
-    status: "Completed",
-    size: "248 MB",
+const statusStyles = {
+  uploaded: { label: "Uploaded", dot: "bg-primary", badge: "bg-primary-container/25 text-primary" },
+  processing: {
+    label: "Processing",
+    dot: "animate-pulse bg-tertiary",
+    badge: "bg-tertiary-container/25 text-tertiary",
   },
-  {
-    id: "JOB-103",
-    name: "Skate_Session_Trim.mov",
-    date: "2026-11-01",
-    duration: "06:12",
-    clips: 5,
-    status: "Completed",
-    size: "186 MB",
-  },
-  {
-    id: "JOB-102",
-    name: "Game_Clutch.mp4",
-    date: "2026-10-31",
-    duration: "12:24",
-    clips: 9,
-    status: "Completed",
-    size: "322 MB",
-  },
-];
+  complete: { label: "Ready", dot: "bg-secondary", badge: "bg-secondary/10 text-secondary" },
+  failed: { label: "Failed", dot: "bg-error", badge: "bg-error-container/40 text-error" },
+};
 
-const stats = [
-  { label: "Videos processed", value: "3", icon: "movie" },
-  { label: "Clips generated", value: "21", icon: "video_library" },
-  { label: "Merged downloads", value: "3", icon: "download" },
-  { label: "Retention", value: "24h", icon: "timer_off" },
-];
+function formatDuration(seconds = 0) {
+  const total = Math.round(seconds);
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const secs = total % 60;
+  return hours
+    ? `${hours}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`
+    : `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+}
+
+function formatSize(bytes = 0) {
+  if (bytes >= 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function formatDate(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "—" : date.toLocaleDateString("en-CA");
+}
+
+function jobAction(job) {
+  if (job.status === "processing") return "Track";
+  if (job.status === "complete" && job.clip_count > 0) return "View";
+  return "Settings";
+}
 
 export default function Dashboard() {
-  const { source, clips, settings, status } = useProject();
+  const { source, clips, settings, status, openProject } = useProject();
+  const navigate = useNavigate();
+  const [jobs, setJobs] = useState([]);
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [openingId, setOpeningId] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+    getProjects()
+      .then((data) => {
+        if (!active) return;
+        setJobs(Array.isArray(data.projects) ? data.projects : []);
+        setStats(data.stats ?? null);
+      })
+      .catch((error) => {
+        if (active) setLoadError(error.message);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  async function handleOpen(job) {
+    if (openingId !== null) return;
+    setOpeningId(job.id);
+    setLoadError("");
+    try {
+      await openProject(job.id);
+      if (job.status === "processing") navigate("/processing");
+      else if (job.status === "complete" && job.clip_count > 0) navigate("/results");
+      else navigate("/settings");
+    } catch (error) {
+      setLoadError(error.message);
+    } finally {
+      setOpeningId(null);
+    }
+  }
+
+  const statCards = [
+    { label: "Videos processed", value: stats ? String(stats.videos_processed) : "—", icon: "movie" },
+    { label: "Clips generated", value: stats ? String(stats.clips_generated) : "—", icon: "video_library" },
+    { label: "Merged downloads", value: stats ? String(stats.merged_downloads) : "—", icon: "download" },
+    { label: "Retention", value: stats ? `${stats.retention_hours}h` : "—", icon: "timer_off" },
+  ];
   const kept = clips.filter((clip) => clip.kept).length;
   const detection = settings.motion && settings.sound ? "Motion + sound" : settings.motion ? "Motion only" : "Sound only";
   const statusLabel = !source
     ? "Idle"
     : { uploaded: "Uploaded", processing: "Processing", complete: "Ready", failed: "Failed" }[status] ?? status;
+  const activeTarget = !source
+    ? "/upload"
+    : status === "processing"
+      ? "/processing"
+      : status === "complete" && clips.length
+        ? "/results"
+        : "/settings";
+  const activeLabel = !source
+    ? "Upload video"
+    : status === "processing"
+      ? "View processing"
+      : status === "complete" && clips.length
+        ? "Open results"
+        : "Open settings";
 
   return (
     <div className="relative w-full overflow-hidden px-gutter py-space-lg md:px-gutter-lg lg:py-space-xl">
@@ -60,11 +124,11 @@ export default function Dashboard() {
                 Local dashboard
               </span>
               <span className="font-mono text-code-xs text-on-surface-variant">•</span>
-              <span className="font-mono text-code-xs text-on-surface-variant">Sample history only</span>
+              <span className="font-mono text-code-xs text-on-surface-variant">Local jobs · last 24h</span>
             </div>
             <h1 className="text-headline-lg tracking-tight text-on-surface">History &amp; Workflow</h1>
             <p className="max-w-2xl text-body-md text-on-surface-variant">
-              Local job history with motion+sound detection, minimum 5-second clips, and merged downloads.
+              Recent local projects with motion+sound detection, minimum 5-second clips, and merged downloads.
             </p>
           </div>
           <Link
@@ -76,8 +140,15 @@ export default function Dashboard() {
           </Link>
         </div>
 
+        {loadError && (
+          <div className="flex items-center gap-space-xs rounded-xl bg-error-container/40 px-space-md py-2.5 text-body-sm text-error shadow-md">
+            <Icon name="error" className="text-[18px]" />
+            {loadError}
+          </div>
+        )}
+
         <div className="grid grid-cols-1 gap-space-xs sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
+          {statCards.map((stat) => (
             <div key={stat.label} className="flex items-center gap-space-sm rounded-xl bg-surface-container-low/80 p-space-md shadow-md">
               <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-container-high text-secondary">
                 <Icon name={stat.icon} className="text-[20px]" />
@@ -113,10 +184,10 @@ export default function Dashboard() {
               {statusLabel}
             </span>
             <Link
-              to={source && clips.length ? "/results" : "/upload"}
+              to={activeTarget}
               className="inline-flex items-center gap-1 rounded-lg bg-surface-container-high px-space-sm py-1.5 text-label-md text-on-surface transition-colors hover:bg-surface-bright"
             >
-              {source && clips.length ? "Open results" : "Upload video"}
+              {activeLabel}
               <Icon name="arrow_forward" className="text-[16px]" />
             </Link>
           </div>
@@ -161,44 +232,69 @@ export default function Dashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {history.map((job) => (
-                      <tr key={job.id} className="border-t border-outline-variant/15 transition-colors hover:bg-surface-container">
-                        <td className="px-space-md py-3 font-mono text-code-xs text-secondary">{job.id}</td>
-                        <td className="px-space-md py-3 text-body-sm text-on-surface">{job.name}</td>
-                        <td className="px-space-md py-3 font-mono text-code-xs text-on-surface-variant">
-                          {job.date}
-                        </td>
-                        <td className="px-space-md py-3 font-mono text-code-xs text-on-surface-variant">
-                          {job.duration}
-                        </td>
-                        <td className="px-space-md py-3 font-mono text-code-xs text-on-surface-variant">
-                          {job.clips}
-                        </td>
-                        <td className="px-space-md py-3 font-mono text-code-xs text-on-surface-variant">
-                          {job.size}
-                        </td>
-                        <td className="px-space-md py-3">
-                          <span className="flex w-fit items-center gap-1 rounded bg-secondary/10 px-2 py-0.5 font-mono text-[9px] text-secondary">
-                            <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-                            {job.status}
-                          </span>
-                        </td>
-                        <td className="px-space-md py-3 text-right">
-                          <Link
-                            to="/results"
-                            className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-mono text-code-xs text-on-surface-variant transition-colors hover:text-on-surface"
-                          >
-                            View
-                            <Icon name="chevron_right" className="text-[14px]" />
-                          </Link>
+                    {loading ? (
+                      <tr>
+                        <td colSpan={8} className="px-space-md py-8 text-center text-body-sm text-on-surface-variant">
+                          Loading local jobs…
                         </td>
                       </tr>
-                    ))}
+                    ) : jobs.length === 0 ? (
+                      <tr>
+                        <td colSpan={8} className="px-space-md py-8 text-center text-body-sm text-on-surface-variant">
+                          No local jobs yet.{" "}
+                          <Link to="/upload" className="text-secondary hover:underline">
+                            Upload a video
+                          </Link>{" "}
+                          to start.
+                        </td>
+                      </tr>
+                    ) : (
+                      jobs.map((job) => {
+                        const jobStatus = statusStyles[job.status] ?? statusStyles.uploaded;
+                        return (
+                          <tr key={job.id} className="border-t border-outline-variant/15 transition-colors hover:bg-surface-container">
+                            <td className="px-space-md py-3 font-mono text-code-xs text-secondary">
+                              JOB-{String(job.id).padStart(3, "0")}
+                            </td>
+                            <td className="px-space-md py-3 text-body-sm text-on-surface">{job.original_name}</td>
+                            <td className="px-space-md py-3 font-mono text-code-xs text-on-surface-variant">
+                              {formatDate(job.created_at)}
+                            </td>
+                            <td className="px-space-md py-3 font-mono text-code-xs text-on-surface-variant">
+                              {formatDuration(job.duration_seconds)}
+                            </td>
+                            <td className="px-space-md py-3 font-mono text-code-xs text-on-surface-variant">
+                              {job.clip_count}
+                            </td>
+                            <td className="px-space-md py-3 font-mono text-code-xs text-on-surface-variant">
+                              {formatSize(job.size_bytes)}
+                            </td>
+                            <td className="px-space-md py-3">
+                              <span className={`flex w-fit items-center gap-1 rounded px-2 py-0.5 font-mono text-[9px] ${jobStatus.badge}`}>
+                                <span className={`h-1.5 w-1.5 rounded-full ${jobStatus.dot}`} />
+                                {jobStatus.label}
+                              </span>
+                            </td>
+                            <td className="px-space-md py-3 text-right">
+                              <button
+                                type="button"
+                                onClick={() => handleOpen(job)}
+                                disabled={openingId !== null}
+                                className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-mono text-code-xs text-on-surface-variant transition-colors hover:text-on-surface disabled:cursor-wait disabled:opacity-60"
+                              >
+                                {openingId === job.id ? "Opening…" : jobAction(job)}
+                                <Icon name="chevron_right" className="text-[14px]" />
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
                   </tbody>
                 </table>
               </div>
               <div className="px-space-md py-2 text-center font-mono text-code-xs text-on-surface-variant">
-                This is sample data shown in the UI. Real jobs appear once processing runs.
+                Jobs stay on this device. Files delete automatically after 24 hours.
               </div>
             </div>
           </div>

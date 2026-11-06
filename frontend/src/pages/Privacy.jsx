@@ -56,8 +56,9 @@ const sections = [
     body: (
       <>
         <p>
-          The theme toggle saves your dark or light preference in your browser&apos;s local storage. The upload
-          page uses session storage to carry the selected file name to the settings page.
+          The theme toggle saves your dark or light preference in your browser&apos;s local storage. Session
+          storage keeps the current project ID, settings, clip review state, and export notice so a refresh can
+          resume the flow. The selected video file itself is not stored in browser storage.
         </p>
         <p>Neither is used for tracking or advertising.</p>
       </>

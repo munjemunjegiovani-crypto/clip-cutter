@@ -26,6 +26,7 @@ clip-cutter/
 - Upload size and length limits
 - Motion and sound detection with adjustable sensitivity
 - Minimum 5-second clips, merging, and download
+- Local dashboard with recent jobs and processing stats
 - Copyright/takedown page with a contact email
 - Automatic file deletion after 24 hours
 
@@ -71,6 +72,7 @@ Configure the backend in `backend/.env` (copy `backend/.env.example`). Add every
 
 ```text
 GET   /api/health                        Check the API, database, and configured limits
+GET   /api/projects                      List recent local jobs and stats
 POST  /api/projects                      Upload a video with permission=true
 GET   /api/projects/:id                  Read uploaded project metadata
 GET   /api/projects/:id/source           Stream the source video (Range supported)
@@ -122,4 +124,4 @@ flask --app run cleanup-files
 
 ## Status
 
-Built in stages. The frontend upload, detection, clip review, keep/reorder, source preview, and merge/download flow is connected to the local Flask API. The backend handles uploads, motion/sound detection, clip thumbnails, FFmpeg merging, MP4 downloads, and automatic 24-hour file cleanup. Deployment hardening is added in later stages.
+Built in stages. The frontend upload, detection, clip review, keep/reorder, source preview, merge/download, and local dashboard flow is connected to the Flask API. The backend handles uploads, motion/sound detection, clip thumbnails, FFmpeg merging, MP4 downloads, recent-job stats, and automatic 24-hour file cleanup. Deployment hardening is added in later stages.

@@ -151,6 +151,18 @@ export function ProjectProvider({ children }) {
     setError("");
   }, []);
 
+  const openProject = useCallback(async (projectId) => {
+    setError("");
+    const data = await getProjectClips(projectId);
+    setPendingFile(null);
+    setProject(data.project);
+    setSource(sourceFromProject(data.project));
+    setClips(data.clips);
+    setStatus(data.project.status);
+    setExportInfo(null);
+    return data;
+  }, []);
+
   const uploadSelectedFile = useCallback(async () => {
     if (!pendingFile) {
       throw new ApiError("Choose a video file before uploading.");
@@ -269,6 +281,7 @@ export function ProjectProvider({ children }) {
       error,
       chooseFile,
       clearSource,
+      openProject,
       uploadSelectedFile,
       updateSettings,
       startDetection,
@@ -288,6 +301,7 @@ export function ProjectProvider({ children }) {
       error,
       chooseFile,
       clearSource,
+      openProject,
       uploadSelectedFile,
       updateSettings,
       startDetection,

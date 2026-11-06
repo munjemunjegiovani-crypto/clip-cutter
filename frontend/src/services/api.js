@@ -51,6 +51,10 @@ export function uploadProject(file) {
   return request("/api/projects", { method: "POST", body: form });
 }
 
+export function getProjects() {
+  return request("/api/projects");
+}
+
 export function getProjectClips(projectId) {
   return request(`/api/projects/${projectId}/clips`);
 }
