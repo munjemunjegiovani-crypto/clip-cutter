@@ -29,6 +29,25 @@ clip-cutter/
 - Copyright/takedown page with a contact email
 - Automatic file deletion after 24 hours
 
+## Development
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Vite prints the local URL (usually `http://localhost:5173`). To check the production build:
+
+```bash
+npm run build
+npm run preview
+```
+
+Optional frontend settings live in `frontend/.env` (copy `frontend/.env.example`). Set the support and takedown emails before deploying.
+
 ## Status
 
-Built in stages. Local run commands are added to this README as the frontend and backend come online.
+Built in stages. Frontend routes and UI are in place; backend processing commands are added when that stage starts.
