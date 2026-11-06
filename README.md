@@ -29,6 +29,7 @@ clip-cutter/
 - Local dashboard with recent jobs and processing stats
 - Copyright/takedown page with a contact email
 - Automatic file deletion after 24 hours
+- Production build and deployment configuration
 
 ## Development
 
@@ -68,10 +69,33 @@ curl http://127.0.0.1:5000/api/health
 
 Configure the backend in `backend/.env` (copy `backend/.env.example`). Add every frontend origin that should call the API to `CORS_ORIGINS`.
 
+### Deployment
+
+The root `netlify.toml` builds the frontend from `frontend/`, rewrites SPA routes to `index.html`, sets browser security headers, and caches hashed assets. On Netlify, set these build-time environment variables:
+
+```text
+VITE_API_URL=https://your-api-host
+VITE_SUPPORT_EMAIL=your-support-address
+VITE_TAKEDOWN_EMAIL=your-takedown-address
+```
+
+For the backend, deploy the `backend/` folder with FFmpeg installed, then run Gunicorn:
+
+```bash
+gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 1900 \
+  --access-logfile - --error-logfile - wsgi:app
+```
+
+The included `backend/Procfile` uses the same command. Keep one worker because the cleanup worker and local media files are process-local. Use a persistent disk for `uploads/`, `outputs/`, and `thumbnails/`; do not use an ephemeral or serverless filesystem. Set `CORS_ORIGINS` to the deployed frontend origin and set `FLASK_DEBUG=0`. Use a PostgreSQL `DATABASE_URL` for persistent job metadata; the video files still need a persistent disk.
+
+The API has no user accounts. Run it on a trusted network, or put your own authentication or access control in front of it before exposing it publicly. Project and export URLs use numeric IDs.
+
+Check `GET /api/health` after deployment. It returns `200` when the database, `ffmpeg`, and `ffprobe` are ready, and `503` otherwise.
+
 ### API
 
 ```text
-GET   /api/health                        Check the API, database, and configured limits
+GET   /api/health                        Check the API, database, tools, and limits
 GET   /api/projects                      List recent local jobs and stats
 POST  /api/projects                      Upload a video with permission=true
 GET   /api/projects/:id                  Read uploaded project metadata
@@ -124,4 +148,4 @@ flask --app run cleanup-files
 
 ## Status
 
-Built in stages. The frontend upload, detection, clip review, keep/reorder, source preview, merge/download, and local dashboard flow is connected to the Flask API. The backend handles uploads, motion/sound detection, clip thumbnails, FFmpeg merging, MP4 downloads, recent-job stats, and automatic 24-hour file cleanup. Deployment hardening is added in later stages.
+Built in stages. The frontend upload, detection, clip review, keep/reorder, source preview, merge/download, and local dashboard flow is connected to the Flask API. The backend handles uploads, motion/sound detection, clip thumbnails, FFmpeg merging, MP4 downloads, recent-job stats, and automatic 24-hour file cleanup. Production build and deployment configuration is in place.

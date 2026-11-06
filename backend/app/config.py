@@ -16,7 +16,14 @@ def _env_int(name, default):
 
 def _env_origins(name, default):
     value = os.getenv(name, default)
-    return [origin.strip() for origin in value.split(",") if origin.strip()]
+    return [origin.strip().rstrip("/") for origin in value.split(",") if origin.strip()]
+
+
+def _database_url():
+    value = os.getenv("DATABASE_URL", "sqlite:///clipcutter.db")
+    if value.startswith("postgres://"):
+        return value.replace("postgres://", "postgresql://", 1)
+    return value
 
 
 def _env_bool(name, default):
@@ -30,8 +37,10 @@ class Config:
         "FLASK_ENV", ""
     ).lower() == "development"
 
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///clipcutter.db")
+    SQLALCHEMY_DATABASE_URI = _database_url()
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True, "pool_recycle": 300}
+    SEND_FILE_MAX_AGE_DEFAULT = 0
 
     CORS_ORIGINS = _env_origins(
         "CORS_ORIGINS",

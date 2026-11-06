@@ -72,6 +72,16 @@ def create_app(config_class=Config, test_config=None):
     app.register_blueprint(projects_bp)
     app.register_blueprint(clips_bp)
 
+    @app.after_request
+    def add_security_headers(response):
+        response.headers.setdefault("X-Content-Type-Options", "nosniff")
+        response.headers.setdefault("X-Frame-Options", "DENY")
+        response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+        response.headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+        if request.path.startswith("/api/"):
+            response.headers.setdefault("Cache-Control", "no-store")
+        return response
+
     @app.errorhandler(RequestEntityTooLarge)
     def upload_too_large(_error):
         return jsonify({"error": f"Video exceeds the {app.config['MAX_UPLOAD_MB']} MB upload limit."}), 413
