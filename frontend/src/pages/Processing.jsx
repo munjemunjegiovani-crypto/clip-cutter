@@ -1,17 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Icon from "../components/Icon";
+import { useProject } from "../context/ProjectContext";
 import previewImage from "../assets/images/results-main.jpg";
-
-const logs = [
-  { at: 0, time: "00:00.042", tag: "INIT", text: "Loading source video and reading metadata." },
-  { at: 18, time: "00:01.184", tag: "FFMPEG", text: "Extracting audio waveform at 48 kHz." },
-  { at: 34, time: "00:02.560", tag: "OPENCV", text: "Sampling frames for motion difference." },
-  { at: 52, time: "00:04.902", tag: "SCORE", text: "Combining motion and sound peaks into a single score." },
-  { at: 68, time: "00:06.331", tag: "CUT", text: "Candidate 05 · 01:22.140 → 01:31.340 (9.2s)." },
-  { at: 84, time: "00:08.015", tag: "CUT", text: "Candidate 06 · 02:45.120 → 02:52.620 (7.5s)." },
-  { at: 100, time: "00:09.446", tag: "DONE", text: "7 clips found. Ready for review." },
-];
 
 const stages = [
   { label: "Read metadata", at: 6 },
@@ -24,9 +15,11 @@ const stages = [
 const waveform = [18, 30, 44, 28, 55, 72, 48, 88, 100, 76, 52, 36, 60, 82, 95, 68, 44, 30, 52, 78, 90, 62, 38, 24, 48, 70, 56, 34, 20, 42, 66, 50];
 
 export default function Processing() {
-  const [progress, setProgress] = useState(18);
+  const { clips, status, completeProcessing } = useProject();
+  const [progress, setProgress] = useState(status === "complete" ? 100 : 18);
   const navigate = useNavigate();
   const complete = progress >= 100;
+  const totalClips = clips.length || 7;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -35,9 +28,22 @@ export default function Processing() {
     return () => clearInterval(timer);
   }, []);
 
-  const clipsFound = Math.min(7, Math.floor(progress / 14));
-  const motionPeaks = Math.min(24, Math.floor(progress / 4.2));
-  const soundPeaks = Math.min(18, Math.floor(progress / 5.6));
+  useEffect(() => {
+    if (complete && status !== "complete") completeProcessing();
+  }, [complete, status, completeProcessing]);
+
+  const clipsFound = Math.min(totalClips, Math.floor((progress / 100) * totalClips));
+  const motionPeaks = Math.min(totalClips * 4, Math.floor(progress / 4.2));
+  const soundPeaks = Math.min(totalClips * 3, Math.floor(progress / 5.6));
+  const logs = [
+    { at: 0, time: "00:00.042", tag: "INIT", text: "Loading source video and reading metadata." },
+    { at: 18, time: "00:01.184", tag: "FFMPEG", text: "Extracting audio waveform at 48 kHz." },
+    { at: 34, time: "00:02.560", tag: "OPENCV", text: "Sampling frames for motion difference." },
+    { at: 52, time: "00:04.902", tag: "SCORE", text: "Combining motion and sound peaks into a single score." },
+    { at: 68, time: "00:06.331", tag: "SCORE", text: "Ranking candidate windows against the detection threshold." },
+    { at: 84, time: "00:08.015", tag: "CUT", text: "Checking minimum clip length and keeping clip order stable." },
+    { at: 100, time: "00:09.446", tag: "DONE", text: `${totalClips} clips found. Ready for review.` },
+  ];
 
   return (
     <div className="relative w-full overflow-hidden px-gutter py-space-lg md:px-gutter-lg lg:py-space-xl">
@@ -146,7 +152,7 @@ export default function Processing() {
                 <span className="font-mono text-code-xs uppercase tracking-wider text-secondary">
                   {complete ? "Complete" : "Live status"}
                 </span>
-                <h2 className="text-headline-md text-on-surface">{complete ? "7 clips found" : "Reading action peaks"}</h2>
+                <h2 className="text-headline-md text-on-surface">{complete ? `${totalClips} clips found` : "Reading action peaks"}</h2>
                 <p className="text-body-sm text-on-surface-variant">
                   {complete ? "Review the candidates before merging." : "This can take a minute on longer videos."}
                 </p>
@@ -201,7 +207,7 @@ export default function Processing() {
               }`}
             >
               <Icon name={complete ? "video_library" : "hourglass_top"} className="text-[20px]" />
-              {complete ? "Review 7 clips" : "Go to results"}
+              {complete ? `Review ${totalClips} clips` : "Go to results"}
               <Icon name="arrow_forward" className="text-[18px]" />
             </button>
           </div>

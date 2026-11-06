@@ -1,23 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "../components/Icon";
-import clip1 from "../assets/images/clip-1.jpg";
-import clip2 from "../assets/images/clip-2.jpg";
-import clip3 from "../assets/images/clip-3.jpg";
-import clip4 from "../assets/images/clip-4.jpg";
-import clip5 from "../assets/images/clip-5.jpg";
-import clip6 from "../assets/images/clip-6.jpg";
-import clip7 from "../assets/images/clip-7.jpg";
-
-const initialClips = [
-  { id: 1, title: "Kickflip Down Stairs", duration: 8.1, timecode: "00:14.200", score: 92, image: clip1, kept: true },
-  { id: 2, title: "Drop-In Send", duration: 9.2, timecode: "01:22.140", score: 88, image: clip2, kept: true },
-  { id: 3, title: "Wall Ride Grind", duration: 7.5, timecode: "02:45.120", score: 85, image: clip3, kept: true },
-  { id: 4, title: "Big Air Transfer", duration: 11.4, timecode: "03:12.600", score: 81, image: clip4, kept: true },
-  { id: 5, title: "Bowl Carve Line", duration: 6.8, timecode: "04:08.300", score: 78, image: clip5, kept: true },
-  { id: 6, title: "Last Trick Attempt", duration: 8.9, timecode: "05:31.900", score: 74, image: clip6, kept: true },
-  { id: 7, title: "Crowd Reaction", duration: 6.2, timecode: "06:47.250", score: 70, image: clip7, kept: true },
-];
+import { useProject } from "../context/ProjectContext";
 
 const segmentStyles = [
   "bg-primary-container/85 text-on-primary-container",
@@ -36,38 +20,66 @@ function formatDuration(seconds) {
 }
 
 export default function Results() {
-  const [clips, setClips] = useState(initialClips);
-  const [selectedId, setSelectedId] = useState(1);
+  const { clips, toggleKept, moveClip } = useProject();
+  const [selectedId, setSelectedId] = useState(clips[0]?.id ?? null);
   const [toast, setToast] = useState("");
+  const [exporting, setExporting] = useState(false);
 
-  const selected = clips.find((clip) => clip.id === selectedId) ?? clips[0];
+  useEffect(() => {
+    if (clips.length && !clips.some((clip) => clip.id === selectedId)) {
+      setSelectedId(clips[0].id);
+    }
+  }, [clips, selectedId]);
+
+  const selected = clips.find((clip) => clip.id === selectedId) ?? clips[0] ?? null;
   const kept = clips.filter((clip) => clip.kept);
   const totalDuration = kept.reduce((sum, clip) => sum + clip.duration, 0);
-  const allDuration = clips.reduce((sum, clip) => sum + clip.duration, 0);
+  const allDuration = clips.reduce((sum, clip) => sum + clip.duration, 0) || 1;
 
-  const selectedIndex = clips.findIndex((clip) => clip.id === selected.id);
-  const beforeSelected = clips.slice(0, selectedIndex).reduce((sum, clip) => sum + clip.duration, 0);
-  const playhead = ((beforeSelected + selected.duration / 2) / allDuration) * 100;
-
-  function toggleKept(id) {
-    setClips((current) =>
-      current.map((clip) => (clip.id === id ? { ...clip, kept: !clip.kept } : clip)),
-    );
-  }
-
-  function moveClip(index, direction) {
-    const target = index + direction;
-    if (target < 0 || target >= clips.length) return;
-    setClips((current) => {
-      const next = [...current];
-      [next[index], next[target]] = [next[target], next[index]];
-      return next;
-    });
-  }
+  const selectedIndex = selected ? clips.findIndex((clip) => clip.id === selected.id) : -1;
+  const beforeSelected = selected
+    ? clips.slice(0, selectedIndex).reduce((sum, clip) => sum + clip.duration, 0)
+    : 0;
+  const playhead = selected ? ((beforeSelected + selected.duration / 2) / allDuration) * 100 : 0;
 
   function handleMerge() {
-    if (!kept.length) return;
-    setToast("Merge preview: the local backend will create the downloaded file in the next build stage.");
+    if (!kept.length || exporting) return;
+    setExporting(true);
+    setToast("");
+    window.setTimeout(() => {
+      setExporting(false);
+      setToast("Export preview complete. The local MP4 renderer will be connected in the backend stage.");
+    }, 1400);
+  }
+
+  if (!selected) {
+    return (
+      <div className="relative flex min-h-[70vh] w-full flex-col items-center justify-center px-gutter py-space-2xl text-center">
+        <span className="mb-space-md flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-container-low text-secondary shadow-xl">
+          <Icon name="video_library" className="text-[32px]" />
+        </span>
+        <h1 className="text-headline-lg text-on-surface">No clips yet</h1>
+        <p className="mt-space-sm max-w-md text-body-md text-on-surface-variant">
+          Upload a video and run detection to fill the results studio.
+        </p>
+        <div className="mt-space-lg flex flex-col gap-space-sm sm:flex-row">
+          <Link
+            to="/upload"
+            className="inline-flex items-center justify-center gap-space-xs rounded-xl bg-gradient-to-r from-primary-container to-secondary px-space-lg py-3 text-label-lg text-on-primary-container shadow-xl"
+          >
+            <Icon name="upload_file" className="text-[18px]" />
+            Upload video
+          </Link>
+          <Link
+            to="/settings"
+            className="inline-flex items-center justify-center gap-space-xs rounded-xl bg-surface-container-high px-space-lg py-3 text-label-lg text-on-surface shadow-md"
+          >
+            <Icon name="tune" className="text-[18px] text-secondary" />
+            Open settings
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -84,7 +96,7 @@ export default function Results() {
               </span>
               <span className="font-mono text-code-xs text-on-surface-variant">•</span>
               <span className="flex items-center gap-1 font-mono text-code-xs text-on-surface-variant">
-                <span className="h-1.5 w-1.5 rounded-full bg-secondary" />7 clips detected
+                <span className="h-1.5 w-1.5 rounded-full bg-secondary" />{clips.length} clips detected
               </span>
             </div>
             <h1 className="text-headline-lg tracking-tight text-on-surface">Your Clips. Ready to Review.</h1>
@@ -344,11 +356,11 @@ export default function Results() {
               <button
                 type="button"
                 onClick={handleMerge}
-                disabled={!kept.length}
+                disabled={!kept.length || exporting}
                 className="flex w-full items-center justify-center gap-space-xs rounded-xl bg-gradient-to-r from-primary-container via-inverse-primary to-secondary py-3 text-label-lg font-bold text-on-primary-container shadow-[0_0_24px_rgba(124,58,237,0.45)] transition-all hover:shadow-[0_0_32px_rgba(76,215,246,0.55)] disabled:cursor-not-allowed disabled:opacity-40"
               >
-                <Icon name="merge" className="text-[18px]" />
-                Merge &amp; download
+                <Icon name={exporting ? "progress_activity" : "merge"} className={`text-[18px] ${exporting ? "animate-spin" : ""}`} />
+                {exporting ? "Preparing merge..." : "Merge & download"}
               </button>
 
               {toast && (

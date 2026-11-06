@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "../components/Icon";
+import { useProject } from "../context/ProjectContext";
 import sourceImage from "../assets/images/upload-source.jpg";
 
 const MAX_SIZE_MB = 500;
@@ -15,13 +16,14 @@ function formatSize(bytes) {
 }
 
 export default function Upload() {
-  const [file, setFile] = useState(null);
+  const { source, startNewProject, clearSource } = useProject();
   const [permission, setPermission] = useState(false);
   const [error, setError] = useState("");
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
+  const file = source;
   const canContinue = Boolean(file && permission);
 
   function selectFile(nextFile) {
@@ -36,7 +38,13 @@ export default function Upload() {
       return;
     }
     setError("");
-    setFile(nextFile);
+    setPermission(false);
+    startNewProject({
+      name: nextFile.name,
+      size: nextFile.size,
+      type: nextFile.type,
+      lastModified: nextFile.lastModified,
+    });
   }
 
   function handleDrop(event) {
@@ -47,8 +55,13 @@ export default function Upload() {
 
   function handleSubmit() {
     if (!canContinue) return;
-    sessionStorage.setItem("clipcutter-source", JSON.stringify({ name: file.name, size: file.size }));
     navigate("/settings");
+  }
+
+  function removeFile() {
+    clearSource();
+    setPermission(false);
+    setError("");
   }
 
   return (
@@ -134,7 +147,10 @@ export default function Upload() {
                     type="file"
                     accept=".mp4,.mov,.mkv,video/mp4,video/quicktime,video/x-matroska"
                     className="hidden"
-                    onChange={(event) => selectFile(event.target.files?.[0])}
+                    onChange={(event) => {
+                      selectFile(event.target.files?.[0]);
+                      event.target.value = "";
+                    }}
                   />
                 </div>
 
@@ -165,7 +181,7 @@ export default function Upload() {
                       </button>
                       <button
                         type="button"
-                        onClick={() => setFile(null)}
+                        onClick={removeFile}
                         className="rounded-md p-1 text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-error"
                         title="Remove file"
                       >

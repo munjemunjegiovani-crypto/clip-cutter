@@ -50,4 +50,4 @@ Optional frontend settings live in `frontend/.env` (copy `frontend/.env.example`
 
 ## Status
 
-Built in stages. Frontend routes and UI are in place; backend processing commands are added when that stage starts.
+Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. Backend processing commands are added when that stage starts.

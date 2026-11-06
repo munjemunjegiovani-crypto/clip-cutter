@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Icon from "../components/Icon";
+import { useProject } from "../context/ProjectContext";
 
 const history = [
   {
@@ -39,6 +40,11 @@ const stats = [
 ];
 
 export default function Dashboard() {
+  const { source, clips, settings, status } = useProject();
+  const kept = clips.filter((clip) => clip.kept).length;
+  const detection = settings.motion && settings.sound ? "Motion + sound" : settings.motion ? "Motion only" : "Sound only";
+  const statusLabel = status === "demo" ? "sample" : status;
+
   return (
     <div className="relative w-full overflow-hidden px-gutter py-space-lg md:px-gutter-lg lg:py-space-xl">
       <div className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-primary-container/20 blur-[130px]" />
@@ -82,6 +88,36 @@ export default function Dashboard() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="flex flex-col gap-space-sm rounded-xl bg-surface-container-low/70 p-space-md shadow-md backdrop-blur-md sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 items-center gap-space-sm">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
+              <Icon name={source ? "video_file" : "video_library"} className="text-[20px]" />
+            </span>
+            <div className="min-w-0">
+              <span className="block truncate text-label-lg text-on-surface">
+                {source ? source.name : "No active session"}
+              </span>
+              <span className="block font-mono text-code-xs text-on-surface-variant">
+                {source
+                  ? `${clips.length} clips · ${kept} kept · ${detection} · min ${settings.minLength}s`
+                  : "Upload a video to start a local project."}
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center gap-space-xs self-end sm:self-center">
+            <span className="rounded bg-surface-container-high px-space-xs py-1 font-mono text-code-xs capitalize text-on-surface-variant">
+              {statusLabel}
+            </span>
+            <Link
+              to={source && clips.length ? "/results" : "/upload"}
+              className="inline-flex items-center gap-1 rounded-lg bg-surface-container-high px-space-sm py-1.5 text-label-md text-on-surface transition-colors hover:bg-surface-bright"
+            >
+              {source && clips.length ? "Open results" : "Upload video"}
+              <Icon name="arrow_forward" className="text-[16px]" />
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 items-start gap-space-md xl:grid-cols-12">

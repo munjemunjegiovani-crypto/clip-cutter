@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Icon from "../components/Icon";
+import { useProject } from "../context/ProjectContext";
 
 const targets = [
   { value: "all", label: "All clips" },
@@ -8,14 +8,6 @@ const targets = [
   { value: "60", label: "60s" },
   { value: "90", label: "90s" },
 ];
-
-function readSource() {
-  try {
-    return JSON.parse(sessionStorage.getItem("clipcutter-source")) || null;
-  } catch {
-    return null;
-  }
-}
 
 function sensitivityLabel(value) {
   if (value <= 3) return "Careful";
@@ -58,23 +50,23 @@ function SignalToggle({ icon, title, detail, active, onToggle }) {
 }
 
 export default function Settings() {
-  const [source] = useState(readSource);
-  const [motion, setMotion] = useState(true);
-  const [sound, setSound] = useState(true);
-  const [sensitivity, setSensitivity] = useState(6);
-  const [minLength, setMinLength] = useState(8);
-  const [maxClips, setMaxClips] = useState(10);
-  const [target, setTarget] = useState("all");
+  const { source, settings, updateSettings, startDetection } = useProject();
+  const { motion, sound, sensitivity, minLength, maxClips, target } = settings;
   const navigate = useNavigate();
 
   function toggleSignal(signal) {
     if (signal === "motion") {
       if (motion && !sound) return;
-      setMotion((value) => !value);
+      updateSettings({ motion: !motion });
       return;
     }
     if (sound && !motion) return;
-    setSound((value) => !value);
+    updateSettings({ sound: !sound });
+  }
+
+  function handleDetect() {
+    startDetection();
+    navigate("/processing");
   }
 
   const detectionText = motion && sound ? "Motion + sound" : motion ? "Motion only" : "Sound only";
@@ -192,7 +184,7 @@ export default function Settings() {
                   max="10"
                   step="1"
                   value={sensitivity}
-                  onChange={(event) => setSensitivity(Number(event.target.value))}
+                  onChange={(event) => updateSettings({ sensitivity: Number(event.target.value) })}
                   aria-label="Detection sensitivity"
                   className="range-slider"
                   style={{
@@ -233,7 +225,7 @@ export default function Settings() {
                     max="60"
                     step="1"
                     value={minLength}
-                    onChange={(event) => setMinLength(Number(event.target.value))}
+                    onChange={(event) => updateSettings({ minLength: Number(event.target.value) })}
                     aria-label="Minimum clip length in seconds"
                     className="range-slider"
                     style={{
@@ -257,7 +249,7 @@ export default function Settings() {
                   <div className="mt-space-sm flex items-center justify-between gap-space-sm">
                     <button
                       type="button"
-                      onClick={() => setMaxClips((value) => Math.max(3, value - 1))}
+                      onClick={() => updateSettings({ maxClips: Math.max(3, maxClips - 1) })}
                       className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-container-high text-on-surface transition-colors hover:bg-surface-bright"
                       aria-label="Decrease max clips"
                     >
@@ -271,7 +263,7 @@ export default function Settings() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => setMaxClips((value) => Math.min(30, value + 1))}
+                      onClick={() => updateSettings({ maxClips: Math.min(30, maxClips + 1) })}
                       className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-container-high text-on-surface transition-colors hover:bg-surface-bright"
                       aria-label="Increase max clips"
                     >
@@ -294,7 +286,7 @@ export default function Settings() {
                     <button
                       key={item.value}
                       type="button"
-                      onClick={() => setTarget(item.value)}
+                      onClick={() => updateSettings({ target: item.value })}
                       className={`rounded-md py-1.5 font-mono text-code-xs transition-colors ${
                         target === item.value
                           ? "bg-secondary/20 font-bold text-secondary shadow-sm"
@@ -364,7 +356,7 @@ export default function Settings() {
 
               <button
                 type="button"
-                onClick={() => navigate("/processing")}
+                onClick={handleDetect}
                 className="flex w-full items-center justify-center gap-space-xs rounded-xl bg-gradient-to-r from-primary-container via-inverse-primary to-secondary py-3.5 px-space-lg text-label-lg font-bold text-on-primary-container shadow-[0_0_24px_rgba(124,58,237,0.45)] transition-all hover:shadow-[0_0_32px_rgba(76,215,246,0.55)]"
               >
                 <Icon name="auto_awesome" className="text-[20px]" />
