@@ -70,6 +70,16 @@ curl http://127.0.0.1:5000/api/health
 
 Configure the backend in `backend/.env` (copy `backend/.env.example`). Add every frontend origin that should call the API to `CORS_ORIGINS`.
 
+### Tests
+
+Backend regression tests use a temporary database and media folders, so they do not touch local uploads or projects:
+
+```bash
+cd backend
+source venv/bin/activate
+python -m unittest discover -s tests -v
+```
+
 ### Deployment
 
 The root `netlify.toml` builds the frontend from `frontend/`, rewrites SPA routes to `index.html`, sets browser security headers, and caches hashed assets. On Netlify, set these build-time environment variables:
