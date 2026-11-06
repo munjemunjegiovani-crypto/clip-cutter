@@ -48,3 +48,4 @@ class Config:
 
     UPLOAD_FOLDER = str(BASE_DIR / "uploads")
     OUTPUT_FOLDER = str(BASE_DIR / "outputs")
+    THUMBNAIL_FOLDER = str(BASE_DIR / "thumbnails")

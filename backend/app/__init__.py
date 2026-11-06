@@ -59,7 +59,11 @@ def create_app(config_class=Config, test_config=None):
         app.config.update(test_config)
 
     Path(app.instance_path).mkdir(parents=True, exist_ok=True)
-    for folder in (app.config["UPLOAD_FOLDER"], app.config["OUTPUT_FOLDER"]):
+    for folder in (
+        app.config["UPLOAD_FOLDER"],
+        app.config["OUTPUT_FOLDER"],
+        app.config["THUMBNAIL_FOLDER"],
+    ):
         Path(folder).mkdir(parents=True, exist_ok=True)
 
     db.init_app(app)

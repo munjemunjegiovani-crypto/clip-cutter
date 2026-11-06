@@ -75,6 +75,7 @@ POST  /api/projects                      Upload a video with permission=true
 GET   /api/projects/:id                  Read uploaded project metadata
 POST  /api/projects/:id/detect           Run motion/sound detection
 GET   /api/projects/:id/clips            Read saved clip candidates
+GET   /api/clips/:id/thumbnail           Read a clip thumbnail
 PATCH /api/projects/:id/clips/:clip_id   Keep or remove a clip
 PUT   /api/projects/:id/clips/order      Reorder clips
 POST  /api/projects/:id/export           Merge kept clips into one MP4
@@ -95,7 +96,7 @@ curl -X POST http://127.0.0.1:5000/api/projects/1/detect \
   -d '{"motion":true,"sound":true,"sensitivity":6,"minLength":8,"maxClips":10,"target":"all"}'
 ```
 
-Detection runs synchronously on the local CPU with FFmpeg and OpenCV. It samples video motion, measures audio loudness, scores the combined signal, and stores non-overlapping clips that respect the minimum length, maximum clip count, and target length.
+Detection runs synchronously on the local CPU with FFmpeg and OpenCV. It samples video motion, measures audio loudness, scores the combined signal, and stores non-overlapping clips that respect the minimum length, maximum clip count, and target length. Each clip also gets a JPEG thumbnail from its midpoint.
 
 Export example:
 
@@ -120,4 +121,4 @@ flask --app run cleanup-files
 
 ## Status
 
-Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend now handles uploads, motion/sound detection, clip keep/reorder controls, FFmpeg merging, MP4 downloads, and automatic 24-hour file cleanup. The frontend is not connected to the API yet; thumbnails and final deployment hardening are added in later stages.
+Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend now handles uploads, motion/sound detection, clip thumbnails, clip keep/reorder controls, FFmpeg merging, MP4 downloads, and automatic 24-hour file cleanup. The frontend is not connected to the API yet; frontend integration and final deployment hardening are added in later stages.

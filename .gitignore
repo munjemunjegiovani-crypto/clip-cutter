@@ -14,6 +14,7 @@ build/
 # User media and database
 uploads/
 outputs/
+thumbnails/
 instance/
 *.db
 

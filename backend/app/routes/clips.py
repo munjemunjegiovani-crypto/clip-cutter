@@ -15,6 +15,7 @@ from ..services.media import (
     has_audio_stream,
     probe_duration_seconds,
 )
+from ..services.thumbnails import ThumbnailError, generate_clip_thumbnail
 
 clips_bp = Blueprint("clips", __name__, url_prefix="/api")
 
@@ -23,6 +24,27 @@ TRUE_VALUES = {"1", "true", "yes", "on"}
 
 def api_error(message, status):
     return jsonify({"error": message}), status
+
+
+def _clip_data(clip):
+    data = clip.to_dict()
+    data["thumbnail_url"] = (
+        url_for("clips.clip_thumbnail", clip_id=clip.id) if clip.thumbnail_name else None
+    )
+    return data
+
+
+def _thumbnail_path(filename):
+    return Path(current_app.config["THUMBNAIL_FOLDER"]) / Path(filename).name
+
+
+def _remove_thumbnail(filename):
+    if not filename:
+        return
+    try:
+        _thumbnail_path(filename).unlink(missing_ok=True)
+    except OSError:
+        current_app.logger.warning("Could not delete clip thumbnail: %s", filename, exc_info=True)
 
 
 def _as_bool(value, default):
@@ -84,6 +106,9 @@ def detect(project_id):
     if not video_path.exists():
         return api_error("The source video is no longer available.", 410)
 
+    old_clips = Clip.query.filter_by(project_id=project.id).all()
+    old_thumbnails = [clip.thumbnail_name for clip in old_clips if clip.thumbnail_name]
+
     project.status = "processing"
     db.session.commit()
 
@@ -95,9 +120,26 @@ def detect(project_id):
         current_app.logger.exception("Video analysis failed")
         return api_error(str(exc), 500)
 
+    new_thumbnails = []
     try:
         Clip.query.filter_by(project_id=project.id).delete(synchronize_session=False)
         for index, candidate in enumerate(candidates):
+            thumbnail_name = None
+            midpoint = (candidate["start_seconds"] + candidate["end_seconds"]) / 2
+            name = f"{uuid4().hex}.jpg"
+            try:
+                generate_clip_thumbnail(video_path, midpoint, _thumbnail_path(name))
+            except (ThumbnailError, OSError) as exc:
+                current_app.logger.warning(
+                    "Could not generate thumbnail for %s at %.2fs: %s",
+                    video_path,
+                    midpoint,
+                    exc,
+                )
+            else:
+                thumbnail_name = name
+                new_thumbnails.append(name)
+
             db.session.add(
                 Clip(
                     project_id=project.id,
@@ -107,19 +149,25 @@ def detect(project_id):
                     duration_seconds=candidate["duration_seconds"],
                     score=candidate["score"],
                     kept=True,
+                    thumbnail_name=thumbnail_name,
                 )
             )
         project.status = "complete"
         db.session.commit()
     except Exception:
         db.session.rollback()
+        for name in new_thumbnails:
+            _remove_thumbnail(name)
         project.status = "failed"
         db.session.commit()
         current_app.logger.exception("Could not save detection results")
         return api_error("Detection results could not be saved.", 500)
 
+    for name in old_thumbnails:
+        _remove_thumbnail(name)
+
     clips = Clip.query.filter_by(project_id=project.id).order_by(Clip.order_index).all()
-    return jsonify({"project": project.to_dict(), "clips": [clip.to_dict() for clip in clips]})
+    return jsonify({"project": project.to_dict(), "clips": [_clip_data(clip) for clip in clips]})
 
 
 @clips_bp.get("/projects/<int:project_id>/clips")
@@ -129,7 +177,20 @@ def list_clips(project_id):
         return api_error("Project not found.", 404)
 
     clips = Clip.query.filter_by(project_id=project.id).order_by(Clip.order_index).all()
-    return jsonify({"project": project.to_dict(), "clips": [clip.to_dict() for clip in clips]})
+    return jsonify({"project": project.to_dict(), "clips": [_clip_data(clip) for clip in clips]})
+
+
+@clips_bp.get("/clips/<int:clip_id>/thumbnail")
+def clip_thumbnail(clip_id):
+    clip = db.session.get(Clip, clip_id)
+    if not clip or not clip.thumbnail_name:
+        return api_error("Thumbnail not found.", 404)
+
+    thumbnail_path = _thumbnail_path(clip.thumbnail_name)
+    if not thumbnail_path.exists():
+        return api_error("Thumbnail not found.", 404)
+
+    return send_file(thumbnail_path, mimetype="image/jpeg", max_age=0)
 
 
 @clips_bp.patch("/projects/<int:project_id>/clips/<int:clip_id>")
@@ -148,7 +209,7 @@ def update_clip(project_id, clip_id):
 
     clip.kept = payload["kept"]
     db.session.commit()
-    return jsonify({"clip": clip.to_dict()})
+    return jsonify({"clip": _clip_data(clip)})
 
 
 @clips_bp.put("/projects/<int:project_id>/clips/order")
@@ -174,7 +235,7 @@ def reorder_clips(project_id):
 
     db.session.commit()
     ordered = Clip.query.filter_by(project_id=project_id).order_by(Clip.order_index).all()
-    return jsonify({"clips": [clip.to_dict() for clip in ordered]})
+    return jsonify({"clips": [_clip_data(clip) for clip in ordered]})
 
 
 @clips_bp.post("/projects/<int:project_id>/export")

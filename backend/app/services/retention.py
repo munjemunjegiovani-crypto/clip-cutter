@@ -28,6 +28,10 @@ def _remove_orphans():
     folders = (
         (current_app.config["UPLOAD_FOLDER"], {project.stored_name for project in Project.query.all()}),
         (current_app.config["OUTPUT_FOLDER"], {export.filename for export in Export.query.all()}),
+        (
+            current_app.config["THUMBNAIL_FOLDER"],
+            {clip.thumbnail_name for clip in Clip.query.all() if clip.thumbnail_name},
+        ),
     )
 
     removed = 0
@@ -62,7 +66,12 @@ def cleanup_expired():
             db.session.delete(export)
             deleted_exports += 1
 
-        Clip.query.filter_by(project_id=project.id).delete(synchronize_session=False)
+        clips = Clip.query.filter_by(project_id=project.id).all()
+        for clip in clips:
+            if clip.thumbnail_name:
+                files_to_remove.append((current_app.config["THUMBNAIL_FOLDER"], clip.thumbnail_name))
+            db.session.delete(clip)
+
         db.session.delete(project)
         deleted_projects += 1
 

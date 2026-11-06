@@ -16,6 +16,7 @@ class Clip(db.Model):
     duration_seconds = db.Column(db.Float, nullable=False)
     score = db.Column(db.Float, nullable=False)
     kept = db.Column(db.Boolean, nullable=False, default=True)
+    thumbnail_name = db.Column(db.String(64))
     created_at = db.Column(
         db.DateTime(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc)
     )
