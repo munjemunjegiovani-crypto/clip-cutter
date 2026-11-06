@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"error":"#ffb4ab","surface":"#0f131d","tertiary-fixed":"#dbe1ff","on-secondary-container":"#00424e","on-primary-fixed-variant":"#5a00c6","on-tertiary":"#002a78","surface-container-lowest":"#0a0e18","primary-fixed":"#eaddff","surface-container-low":"#171b26","on-tertiary-container":"#e0e5ff","on-primary-container":"#ede0ff","surface-tint":"#d2bbff","tertiary-container":"#185ce4","on-secondary-fixed-variant":"#004e5c","surface-container-highest":"#313540","surface-container-high":"#262a35","on-surface":"#dfe2f1","tertiary-fixed-dim":"#b4c5ff","surface-variant":"#313540","on-tertiary-fixed":"#00174b","outline":"#958da1","surface-container":"#1c1f2a","surface-dim":"#0f131d","secondary-container":"#03b5d3","on-secondary":"#003640","secondary":"#4cd7f6","primary":"#d2bbff","inverse-on-surface":"#2c303b","on-error":"#690005","inverse-primary":"#732ee4","on-surface-variant":"#ccc3d8","error-container":"#93000a","on-primary":"#3f008e","on-secondary-fixed":"#001f26","secondary-fixed-dim":"#4cd7f6","tertiary":"#b4c5ff","surface-bright":"#353944","background":"#0f131d","secondary-fixed":"#acedff","on-background":"#dfe2f1","on-error-container":"#ffdad6","primary-container":"#7c3aed","outline-variant":"#4a4455","on-primary-fixed":"#25005a","primary-fixed-dim":"#d2bbff","on-tertiary-fixed-variant":"#003ea8","inverse-surface":"#dfe2f1"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-2xl":"3rem","gutter-lg":"1.5rem","space-md":"1rem","gutter":"1rem","margin-lg":"2rem","space-lg":"1.5rem","margin-md":"1.5rem","space-xl":"2rem","space-sm":"0.5rem","margin":"1rem","space-xs":"0.25rem"},"fontFamily":{"headline-lg":["Inter"],"body-md":["Inter"],"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-md":["Inter"],"label-md":["Inter"],"body-sm":["Inter"],"headline-xl":["Inter"],"code-xs":["JetBrains Mono"],"label-lg":["Inter"],"label-sm":["Inter"],"code-sm":["JetBrains Mono"],"headline-lg-mobile":["Inter"]},"fontSize":{"headline-lg":["28px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-xl-mobile":["30px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"code-xs":["10px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"500"}],"code-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-dim/75 backdrop-blur-2xl shadow-[0_4px_24px_rgba(0,0,0,0.35),inset_0_1px_0_0_rgba(255,255,255,0.08)]"><div class="h-16 w-full px-gutter-lg flex items-center justify-between"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm group" data-path="dashboard" href="#"><img alt="ClipCutter Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WrYfaifAmvvsrvxvU2QrqLZ59Ssge9t_Q_26hNzX5BqdA6Gre-UhRYpqo8DMQxrzTh5-Iv_5JUZWFxkSpPw10kYATI5FL7eEPgqJCo0lBt7YflgZdIbTe1Sp5RPVMnAexjHKAKUUsNwH8L0mKZoUPOSCNDQJiAqlkFOuO5ADVtK0dbwK3pbrqhuci0nhcXWNUvDZRix6WKHsSLcib6EGRlFXBKMnZ-9ZH-xyNKuib89w"/><span class="font-headline-md text-headline-md tracking-tight text-on-surface">ClipCutter</span><span class="font-code-xs text-code-xs px-space-xs py-0.5 rounded-full bg-surface-container-high text-secondary uppercase tracking-wider">AI</span></a><nav class="hidden md:flex items-center gap-space-md ml-space-md" data-active-classes="text-primary font-semibold drop-shadow-[0_0_8px_rgba(210,187,255,0.4)]"><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="studio" href="#">Studio</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="upload" href="#">Upload</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="pricing" href="#">Pricing</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="faq" href="#">FAQ</a></nav></div><div class="flex items-center gap-space-md"><button aria-label="Toggle Light and Dark Theme" class="h-9 px-space-sm rounded-full bg-surface-container-low/80 hover:bg-surface-container text-on-surface-variant hover:text-on-surface backdrop-blur-md flex items-center justify-center gap-space-xs transition-colors shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]" type="button"><span class="material-symbols-outlined text-[18px] text-secondary">dark_mode</span><span class="material-symbols-outlined text-[18px]">light_mode</span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="relative flex items-center"><img alt="User Avatar" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPGmDcYWEczFNzczcey6VGBZ_7WyuuRKgZH8WYzWj7crA4c3_uiHk1KD0NFbY4c1M5UYOsxJ0GZbtmQLVWaAKCt0bHmKiSJtDLNEJuiwkCtnvqvflVIU5Psc4MXRzyAmD_R2GKzUyguuCcXUxLz0152KUB-iM1x7ByFLlLMRYdrkkXucJl5U_Rw2vLWaJ6erXeHu_L1c3Ai7rdadGSne2-DQ6ZA7-MYqURJXigt0Iq"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-secondary rounded-full ring-2 ring-surface-dim shadow-[0_0_6px_rgba(76,215,246,0.6)]"></span></div><button aria-label="User Profile Menu" class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center p-0.5" type="button"><span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span></button></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<!-- Subtle Ambient Glows -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute top-0 right-1/4 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<div class="absolute top-48 left-10 w-80 h-80 bg-secondary/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<div class="w-full max-w-7xl mx-auto px-gutter-lg py-space-xl">
+<!-- Top Meta Navigation & Breadcrumb Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md mb-space-lg">
+<div class="flex flex-wrap items-center gap-space-xs font-code-xs text-code-xs tracking-wider uppercase text-on-surface-variant">
+<span class="text-secondary font-semibold">ClipCutter Trust &amp; Safety</span>
+<span class="text-outline-variant">/</span>
+<span>Legal Repository</span>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-semibold">Privacy &amp; Data Deletion</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="h-8 px-space-md rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm transition-all flex items-center gap-space-xs shadow-sm" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant">print</span>
+<span>Print Policy</span>
+</button>
+<a class="h-8 px-space-md rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface text-label-sm font-label-sm transition-all flex items-center gap-space-xs shadow-sm" download="" href="#">
+<span class="material-symbols-outlined text-[15px] text-secondary">picture_as_pdf</span>
+<span>Export PDF</span>
+</a>
+</div>
+</div>
+<!-- Hero Header Panel -->
+<div class="relative p-space-xl rounded-xl bg-surface-container-low shadow-xl mb-space-xl overflow-hidden">
+<div class="absolute -right-12 -top-12 w-64 h-64 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg relative z-10">
+<div class="max-w-3xl">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-high text-secondary font-code-xs text-code-xs tracking-wide uppercase mb-space-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span>Effective: Oct 24, 2024 • GDPR &amp; CCPA Verified • v2.4 Production</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl tracking-tight text-on-surface mb-space-xs">
+              Privacy &amp; Cryptographic Data Deletion
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+              ClipCutter is architected from hardware silicon to cache memory as an ephemeral video action refinery. We guarantee surgical privacy: zero foundation model training, zero raw media persistence, and automated irreversible cryptographic purging within 24 hours.
+            </p>
+</div>
+<!-- Quick Metrics Bar -->
+<div class="flex items-center gap-space-lg self-start lg:self-auto p-space-md rounded-lg bg-surface-container-lowest/80 backdrop-blur-md">
+<div>
+<div class="font-code-xs text-code-xs text-on-surface-variant uppercase">Retention Window</div>
+<div class="font-headline-md text-headline-md text-secondary font-code-sm">24:00:00</div>
+</div>
+<div class="w-px h-8 bg-surface-container-highest"></div>
+<div>
+<div class="font-code-xs text-code-xs text-on-surface-variant uppercase">Model Training</div>
+<div class="font-headline-md text-headline-md text-primary font-code-sm">0.00%</div>
+</div>
+</div>
+</div>
+<!-- Segmented Legal Nav Pills -->
+<div class="flex flex-wrap gap-space-xs mt-space-xl pt-space-lg border-t-0 bg-surface-container/40 -mx-space-xl -mb-space-xl px-space-xl py-space-sm">
+<a class="px-space-md py-1.5 rounded-full text-label-md font-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="#">
+            Copyright &amp; DMCA Notice
+          </a>
+<a class="px-space-md py-1.5 rounded-full text-label-md font-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="#">
+            Terms of Service
+          </a>
+<a class="px-space-md py-1.5 rounded-full text-label-md font-label-md bg-primary-container text-on-primary-container shadow-md flex items-center gap-1.5 transition-colors" href="#">
+<span>Privacy &amp; Data Deletion</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_rgba(76,215,246,0.8)]"></span>
+</a>
+<a class="px-space-md py-1.5 rounded-full text-label-md font-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="#">
+            Law Enforcement &amp; Compliance
+          </a>
+</div>
+</div>
+<!-- Main Two-Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- Left Column: Primary Clauses & Interactive Expunge Utility (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-xl">
+<!-- Clause 01: Architectural Privacy by Design -->
+<section class="p-space-xl rounded-xl bg-surface-container-low shadow-lg" id="clause-01">
+<div class="flex items-center gap-space-sm mb-space-sm">
+<span class="font-code-xs text-code-xs text-secondary font-semibold uppercase tracking-wider">Clause 01 //</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Architectural Privacy by Design</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md">
+              ClipCutter does not operate as long-term video asset storage or cloud archive hosting. From initial upload chunking to optical action detection, our processing environment is isolated within ephemeral NVMe RAM caches and encrypted scratch volumes. Raw user footage is never stored in persistent, permanent multi-tenant cloud buckets.
+            </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md mb-space-md">
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined text-[20px]">memory</span>
+<span class="font-label-lg text-label-lg font-semibold">Zero Model Training on Footage</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  We maintain an immutable operational guarantee: ClipCutter never feeds user video, audio spectrograms, actor faces, voiceprints, or motion heatmaps into machine learning model training loops or foundation dataset weights.
+                </p>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+<span class="font-label-lg text-label-lg font-semibold">Local Buffer &amp; TLS 1.3 Ingestion</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Footage ingress operates through high-throughput, TLS 1.3 encrypted sockets directly to runtime worker nodes. All in-transit packets are decoded into volatile scratch disks using hardware AES-256-XTS envelope encryption keys.
+                </p>
+</div>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest font-code-xs text-code-xs text-on-surface-variant flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+<span>VOLATILE RAM ALLOCATION ENGINE: ISO/IEC 27701 COMPLIANT</span>
+</div>
+<span class="text-outline uppercase">RUNTIME NODE LEVEL 4</span>
+</div>
+</section>
+<!-- Clause 02: 24-Hour Automated Cryptographic Purge Pipeline -->
+<section class="p-space-xl rounded-xl bg-surface-container-low shadow-lg" id="clause-02">
+<div class="flex items-center gap-space-sm mb-space-sm">
+<span class="font-code-xs text-code-xs text-secondary font-semibold uppercase tracking-wider">Clause 02 //</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">24-Hour Cryptographic Shredding SLA</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg">
+              Every uploaded media frame, cut sequence, audio stem, and intermediate proxy file is tagged with a hardware timestamp upon ingress. Exactly 24 hours post-ingestion, our autonomous cryptographic daemon shreds the allocated partition keys. Once the purge completes, neither ClipCutter support engineers, cloud administrators, nor automated algorithms can inspect, reconstruct, or retrieve your media.
+            </p>
+<!-- Visual Interactive Pipeline Card -->
+<div class="p-space-lg rounded-xl bg-surface-container-lowest">
+<div class="flex items-center justify-between mb-space-md">
+<span class="font-code-xs text-code-xs text-secondary uppercase font-semibold">Chronological Lifecycle Architecture</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant font-code-sm">SLA IRREVERSIBLE PURGE</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md relative">
+<!-- Step 1 -->
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-code-xs text-code-xs px-2 py-0.5 rounded bg-surface-container-high text-primary font-semibold">T+0:00</span>
+<span class="material-symbols-outlined text-[18px] text-primary">cloud_upload</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface mb-1">Encrypted Chunk Ingestion</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                      Source media chunked and buffered in transient NVMe RAM. Ephemeral AES-256 session key generated in hardware HSM.
+                    </p>
+</div>
+<div class="mt-space-md pt-space-xs font-code-xs text-code-xs text-outline flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>Zero Cold Backups</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-code-xs text-code-xs px-2 py-0.5 rounded bg-surface-container-high text-secondary font-semibold">T+05:00</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">movie_edit</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface mb-1">Active AI Synthesis &amp; Export</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                      Motion vectors identified. Output cut list made ready for CapCut and Final Cut XML export via transient download link.
+                    </p>
+</div>
+<div class="mt-space-md pt-space-xs font-code-xs text-code-xs text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span>Download Ready</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-code-xs text-code-xs px-2 py-0.5 rounded bg-surface-container-high text-error font-semibold">T+24:00:00</span>
+<span class="material-symbols-outlined text-[18px] text-error">auto_delete</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface mb-1">Irreversible Crypto Shred</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                      Hardware keys destroyed in HSM. Memory cells overwritten via multi-pass DoD 5220.22-M crypto wiping. Zero residual payload.
+                    </p>
+</div>
+<div class="mt-space-md pt-space-xs font-code-xs text-code-xs text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>Permanent Obliteration</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Clause 03: Data We Collect vs. Data We Never Touch -->
+<section class="p-space-xl rounded-xl bg-surface-container-low shadow-lg" id="clause-03">
+<div class="flex items-center gap-space-sm mb-space-sm">
+<span class="font-code-xs text-code-xs text-secondary font-semibold uppercase tracking-wider">Clause 03 //</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Data Collection Perimeter</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md">
+              We separate transient compute media from essential administrative account operations with a strict logical boundary.
+            </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- What We Collect -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col">
+<div class="flex items-center gap-space-xs text-secondary mb-space-sm">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<h3 class="font-label-lg text-label-lg font-semibold uppercase tracking-wide">Telemetry We Store</h3>
+</div>
+<ul class="flex flex-col gap-space-sm font-body-sm text-body-sm text-on-surface-variant flex-grow">
+<li class="flex items-start gap-space-xs">
+<span class="font-code-xs text-code-xs text-secondary mt-0.5">•</span>
+<div><strong class="text-on-surface">Account Authentication:</strong> OAuth identifier or verified primary email address for user login.</div>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="font-code-xs text-code-xs text-secondary mt-0.5">•</span>
+<div><strong class="text-on-surface">Billing Cryptographic Tokens:</strong> Stripe token IDs for processing membership subscriptions. ClipCutter never stores raw credit card details.</div>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="font-code-xs text-code-xs text-secondary mt-0.5">•</span>
+<div><strong class="text-on-surface">Aggregate Quota Tracking:</strong> Total minutes of video cut, remaining subscription balance, and plan tier markers.</div>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="font-code-xs text-code-xs text-secondary mt-0.5">•</span>
+<div><strong class="text-on-surface">Diagnostics:</strong> Anonymized GPU rendering crash reports and operational system health metrics.</div>
+</li>
+</ul>
+</div>
+<!-- What We Never Touch -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col">
+<div class="flex items-center gap-space-xs text-error mb-space-sm">
+<span class="material-symbols-outlined text-[20px]">block</span>
+<h3 class="font-label-lg text-label-lg font-semibold uppercase tracking-wide">Data We Never Store or Monetize</h3>
+</div>
+<ul class="flex flex-col gap-space-sm font-body-sm text-body-sm text-on-surface-variant flex-grow">
+<li class="flex items-start gap-space-xs">
+<span class="font-code-xs text-code-xs text-error mt-0.5">×</span>
+<div><strong class="text-on-surface">Video Frames &amp; Raw Visuals:</strong> No user footage is saved into permanent galleries or shared pools.</div>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="font-code-xs text-code-xs text-error mt-0.5">×</span>
+<div><strong class="text-on-surface">Biometrics &amp; Facial Recognition:</strong> Optical action tracking detects kinetic motion vectors, not individual biometric faceprints.</div>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="font-code-xs text-code-xs text-error mt-0.5">×</span>
+<div><strong class="text-on-surface">Voiceprints &amp; Transcripts:</strong> Audio speech waveforms are purged immediately after silence/peak velocity cuts.</div>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="font-code-xs text-code-xs text-error mt-0.5">×</span>
+<div><strong class="text-on-surface">Advertiser Tracking Profiles:</strong> Zero data sharing with external advertising brokers or behavioral analytics networks.</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Clause 04: Creator Privacy Rights (GDPR, CCPA, PIPEDA) -->
+<section class="p-space-xl rounded-xl bg-surface-container-low shadow-lg" id="clause-04">
+<div class="flex items-center gap-space-sm mb-space-sm">
+<span class="font-code-xs text-code-xs text-secondary font-semibold uppercase tracking-wider">Clause 04 //</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Global Creator Privacy Rights</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md">
+              Whether you are an independent video editor in Europe, North America, or across the globe, we provide consistent, unified digital rights under GDPR (Articles 15-22), California Consumer Privacy Act / CPRA (Cal. Civ. Code § 1798.100), and Canadian PIPEDA.
+            </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="p-space-md rounded-lg bg-surface-container">
+<div class="font-label-lg text-label-lg text-primary mb-1">Right to Access &amp; Portability</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Request a machine-readable JSON export of your account balance, transaction receipts, and processing logs within 7 business days.
+                </p>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container">
+<div class="font-label-lg text-label-lg text-secondary mb-1">Right to Erasure (RTBF)</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Obliterate all records tied to your email identifier. Once authorized, our pipeline executes complete removal across active databases and backups.
+                </p>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container">
+<div class="font-label-lg text-label-lg text-on-surface mb-1">Absolute Prohibition of Sale</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  ClipCutter has never sold, leased, or rented personal consumer data or raw media footage to third parties. We do not maintain an ad exchange.
+                </p>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container">
+<div class="font-label-lg text-label-lg text-on-surface mb-1">Cross-Border Cloud Protection</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  All international data transfers comply strictly with the EU Standard Contractual Clauses (SCCs) and UK International Data Transfer Addendum.
+                </p>
+</div>
+</div>
+</section>
+<!-- Clause 05: Instant Self-Service Data Expunge & Account Purge Utility -->
+<section class="p-space-xl rounded-xl bg-surface-container-low shadow-xl relative overflow-hidden" id="clause-05">
+<div class="absolute -right-16 -bottom-16 w-60 h-60 bg-error/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-xs text-code-xs text-error font-semibold uppercase tracking-wider">Clause 05 // Interactive Utility</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Self-Service Instant Expunge Tool</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-code-xs text-code-xs uppercase font-semibold">Immediate Execution</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg">
+              Do not wish to wait for the standard 24-hour cryptographic purge cycle? Use this tool to instantly shred all active render sessions, temporary cache hashes, and queued export links associated with your account or session token.
+            </p>
+<form class="p-space-lg rounded-xl bg-surface-container-lowest flex flex-col gap-space-md" id="expungeForm" onsubmit="event.preventDefault(); handleImmediatePurge();">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="purgeEmail">Account Email Address <span class="text-error">*</span></label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container text-on-surface placeholder:text-outline-variant font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" id="purgeEmail" placeholder="creator@studio.com" required="" type="email"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="sessionToken">Session ID / Cut Task Token <span class="text-outline font-normal">(Optional)</span></label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container text-on-surface placeholder:text-outline-variant font-code-sm text-code-sm focus:outline-none focus:ring-1 focus:ring-secondary shadow-inner" id="sessionToken" placeholder="cc-task-948f219d-2024" type="text"/>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-md rounded-lg bg-surface-container/60">
+<input class="mt-1 h-4 w-4 rounded bg-surface-container-high text-primary focus:ring-primary" id="confirmPurge" required="" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface-variant select-none" for="confirmPurge">
+                  I understand that triggering an instant expunge immediately and irreversibly obliterates all pending CapCut ready files, temporary cache partitions, and active renders across our global cluster. <span class="text-error font-semibold">This action cannot be undone.</span>
+</label>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-md pt-space-xs">
+<div class="font-code-xs text-code-xs text-on-surface-variant flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span>Cryptographic key destruction daemon standby</span>
+</div>
+<button class="w-full sm:w-auto h-11 px-space-xl rounded-lg bg-error hover:bg-error-container text-on-error hover:text-on-error-container font-label-lg text-label-lg font-semibold transition-all shadow-lg flex items-center justify-center gap-space-xs" id="purgeBtn" type="submit">
+<span class="material-symbols-outlined text-[20px]">delete_forever</span>
+<span>Purge All Session Data Immediately</span>
+</button>
+</div>
+<div class="hidden p-space-md rounded-lg bg-surface-container font-code-sm text-code-sm text-secondary flex items-center gap-space-sm" id="purgeStatus">
+<span class="material-symbols-outlined text-[18px] text-secondary animate-spin">sync</span>
+<span id="purgeStatusText">Transmitting crypto shredding instruction to cluster...</span>
+</div>
+</form>
+</section>
+</div>
+<!-- Right Column: Compliance Sidebar, Status & Governance (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- 1. Purge Engine Status Card -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-code-xs text-code-xs text-secondary font-semibold uppercase">Hardware Infrastructure</span>
+<span class="flex items-center gap-1 font-code-xs text-code-xs text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Active &amp; Verified</span>
+</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Purge Engine Status</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+              Real-time audit telemetry across worker memory nodes and automated cryptographic shredding queues.
+            </p>
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container-lowest font-code-xs text-code-xs mb-space-md">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span>Shredding Algorithm:</span>
+<span class="text-on-surface font-semibold">DoD 5220.22-M 3-Pass</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span>Active Temp Partitions:</span>
+<span class="text-secondary font-semibold">3,492 Volatile</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span>Residual Bitrate Guarantee:</span>
+<span class="text-on-surface font-semibold">0.000 b/sec</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span>Last Automated Sweep:</span>
+<span class="text-primary font-semibold">14 seconds ago</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full w-full"></div>
+</div>
+<div class="flex justify-between font-code-xs text-code-xs text-on-surface-variant mt-1">
+<span>SLA Health</span>
+<span class="text-secondary font-semibold">100% Compliant</span>
+</div>
+</div>
+<!-- 2. Privacy & Trust Commitments Card -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">Trust &amp; Certifications</h3>
+<div class="flex flex-col gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">verified</span>
+<div>
+<div class="font-label-md text-label-md text-on-surface">100% Ephemeral Media</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Zero permanent cloud cold storage buckets.</div>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[22px]">psychology</span>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Zero AI Training Guarantee</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Never fed into LLMs or model datasets.</div>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">visibility_off</span>
+<div>
+<div class="font-label-md text-label-md text-on-surface">No Third-Party Ad Trackers</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Zero ad beacons, cookies, or telemetry broker sales.</div>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[22px]">security</span>
+<div>
+<div class="font-label-md text-label-md text-on-surface">SOC2 Type II Aligned</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Annual third-party security audits.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Data Protection Officer & Governance -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-space-xs">DPO &amp; Governance</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+              Direct escalation channel to ClipCutter Legal, Compliance, and Data Protection Officers.
+            </p>
+<div class="flex flex-col gap-space-sm mb-space-md">
+<a class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors" href="mailto:dpo@clipcutter.ai">
+<span class="font-body-sm text-body-sm text-on-surface font-code-sm">dpo@clipcutter.ai</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">mail</span>
+</a>
+<a class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors" href="mailto:privacy@clipcutter.ai">
+<span class="font-body-sm text-body-sm text-on-surface font-code-sm">privacy@clipcutter.ai</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">mail</span>
+</a>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Registered Headquarters:</span>
+<span>ClipCutter AI Technologies Inc.</span>
+<span>555 Mission Street, Suite 2400</span>
+<span>San Francisco, California, USA</span>
+<span class="text-outline font-code-xs text-code-xs mt-1">EU/UK Representative: ClipCutter Ireland Ltd.</span>
+</div>
+</div>
+<!-- 4. Archival & Legal Downloads -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-space-sm">Official Legal Documents</h3>
+<div class="flex flex-col gap-space-xs">
+<a class="p-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors flex items-center justify-between" href="#">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-secondary">description</span>
+<span class="font-label-md text-label-md text-on-surface">Privacy Policy (PDF)</span>
+</div>
+<span class="font-code-xs text-code-xs text-on-surface-variant">162 KB</span>
+</a>
+<a class="p-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors flex items-center justify-between" href="#">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">gavel</span>
+<span class="font-label-md text-label-md text-on-surface">Data Processing Addendum (DPA)</span>
+</div>
+<span class="font-code-xs text-code-xs text-on-surface-variant">240 KB</span>
+</a>
+<a class="p-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors flex items-center justify-between" href="#">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">list_alt</span>
+<span class="font-label-md text-label-md text-on-surface">Subprocessor Registry</span>
+</div>
+<span class="font-code-xs text-code-xs text-on-surface-variant">v2.4 diff</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function handleImmediatePurge() {
+      const email = document.getElementById('purgeEmail').value;
+      const statusBox = document.getElementById('purgeStatus');
+      const statusText = document.getElementById('purgeStatusText');
+      const purgeBtn = document.getElementById('purgeBtn');
+
+      if (!email) return;
+
+      purgeBtn.disabled = true;
+      purgeBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      statusBox.classList.remove('hidden');
+
+      setTimeout(() => {
+        statusText.innerText = 'Transmitting cryptographic shredding request for ' + email + '...';
+      }, 500);
+
+      setTimeout(() => {
+        statusText.innerText = 'Overwriting RAM scratch disks and destroying HSM cryptographic tokens...';
+      }, 1500);
+
+      setTimeout(() => {
+        statusBox.classList.remove('text-secondary');
+        statusBox.classList.add('text-error');
+        statusText.innerHTML = '<span class="font-semibold text-on-surface">SUCCESS:</span> All active sessions and transient caches purged. SHA-256 erasure verified.';
+        purgeBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span><span>Data Obliterated</span>';
+      }, 2600);
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest mt-space-2xl"><div class="w-full px-gutter-lg py-space-xl"><div class="flex flex-col md:flex-row items-center justify-between gap-space-lg mb-space-lg"><div class="flex items-center gap-space-sm"><img alt="ClipCutter Logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WrYfaifAmvvsrvxvU2QrqLZ59Ssge9t_Q_26hNzX5BqdA6Gre-UhRYpqo8DMQxrzTh5-Iv_5JUZWFxkSpPw10kYATI5FL7eEPgqJCo0lBt7YflgZdIbTe1Sp5RPVMnAexjHKAKUUsNwH8L0mKZoUPOSCNDQJiAqlkFOuO5ADVtK0dbwK3pbrqhuci0nhcXWNUvDZRix6WKHsSLcib6EGRlFXBKMnZ-9ZH-xyNKuib89w"/><span class="font-headline-md text-headline-md text-on-surface">ClipCutter</span><span class="font-body-sm text-body-sm text-on-surface-variant ml-space-xs">— Surgical AI Action Cutter</span></div><div class="flex flex-wrap items-center gap-space-lg"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="terms-of-service" href="#">Terms of Service</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="privacy-policy" href="#">Privacy Policy</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="copyright-takedown-notice" href="#">Copyright/Takedown Notice</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="support" href="#">Support</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="system-status" href="#">Status</a></div><div class="flex items-center gap-space-sm"><a aria-label="Community" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">forum</span></a><a aria-label="Terminal" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span></a><a aria-label="Share Feed" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">share</span></a></div></div><div class="flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-code-xs text-code-xs"><p>© 2025 ClipCutter AI Technologies Inc. All rights reserved.</p><p class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span><span>Timeline Engine v2.4 Active</span></p></div></div></footer></body></html>

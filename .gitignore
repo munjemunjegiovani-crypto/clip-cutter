@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Build output
+dist/
+build/
+
+# User media and database
+uploads/
+outputs/
+*.db
+
+# Secrets and local env files
+.env
+.env.local
+
+# Logs
+*.log
+
+# OS files
+.DS_Store

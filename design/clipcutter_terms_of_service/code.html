@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"error":"#ffb4ab","surface":"#0f131d","tertiary-fixed":"#dbe1ff","on-secondary-container":"#00424e","on-primary-fixed-variant":"#5a00c6","on-tertiary":"#002a78","surface-container-lowest":"#0a0e18","primary-fixed":"#eaddff","surface-container-low":"#171b26","on-tertiary-container":"#e0e5ff","on-primary-container":"#ede0ff","surface-tint":"#d2bbff","tertiary-container":"#185ce4","on-secondary-fixed-variant":"#004e5c","surface-container-highest":"#313540","surface-container-high":"#262a35","on-surface":"#dfe2f1","tertiary-fixed-dim":"#b4c5ff","surface-variant":"#313540","on-tertiary-fixed":"#00174b","outline":"#958da1","surface-container":"#1c1f2a","surface-dim":"#0f131d","secondary-container":"#03b5d3","on-secondary":"#003640","secondary":"#4cd7f6","primary":"#d2bbff","inverse-on-surface":"#2c303b","on-error":"#690005","inverse-primary":"#732ee4","on-surface-variant":"#ccc3d8","error-container":"#93000a","on-primary":"#3f008e","on-secondary-fixed":"#001f26","secondary-fixed-dim":"#4cd7f6","tertiary":"#b4c5ff","surface-bright":"#353944","background":"#0f131d","secondary-fixed":"#acedff","on-background":"#dfe2f1","on-error-container":"#ffdad6","primary-container":"#7c3aed","outline-variant":"#4a4455","on-primary-fixed":"#25005a","primary-fixed-dim":"#d2bbff","on-tertiary-fixed-variant":"#003ea8","inverse-surface":"#dfe2f1"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-2xl":"3rem","gutter-lg":"1.5rem","space-md":"1rem","gutter":"1rem","margin-lg":"2rem","space-lg":"1.5rem","margin-md":"1.5rem","space-xl":"2rem","space-sm":"0.5rem","margin":"1rem","space-xs":"0.25rem"},"fontFamily":{"headline-lg":["Inter"],"body-md":["Inter"],"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-md":["Inter"],"label-md":["Inter"],"body-sm":["Inter"],"headline-xl":["Inter"],"code-xs":["JetBrains Mono"],"label-lg":["Inter"],"label-sm":["Inter"],"code-sm":["JetBrains Mono"],"headline-lg-mobile":["Inter"]},"fontSize":{"headline-lg":["28px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-xl-mobile":["30px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"code-xs":["10px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"500"}],"code-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-dim/75 backdrop-blur-2xl shadow-[0_4px_24px_rgba(0,0,0,0.35),inset_0_1px_0_0_rgba(255,255,255,0.08)]"><div class="h-16 w-full px-gutter-lg flex items-center justify-between"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm group" data-path="dashboard" href="#"><img alt="ClipCutter Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WrYfaifAmvvsrvxvU2QrqLZ59Ssge9t_Q_26hNzX5BqdA6Gre-UhRYpqo8DMQxrzTh5-Iv_5JUZWFxkSpPw10kYATI5FL7eEPgqJCo0lBt7YflgZdIbTe1Sp5RPVMnAexjHKAKUUsNwH8L0mKZoUPOSCNDQJiAqlkFOuO5ADVtK0dbwK3pbrqhuci0nhcXWNUvDZRix6WKHsSLcib6EGRlFXBKMnZ-9ZH-xyNKuib89w"/><span class="font-headline-md text-headline-md tracking-tight text-on-surface">ClipCutter</span><span class="font-code-xs text-code-xs px-space-xs py-0.5 rounded-full bg-surface-container-high text-secondary uppercase tracking-wider">AI</span></a><nav class="hidden md:flex items-center gap-space-md ml-space-md" data-active-classes="text-primary font-semibold drop-shadow-[0_0_8px_rgba(210,187,255,0.4)]"><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="studio" href="#">Studio</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="upload" href="#">Upload</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="pricing" href="#">Pricing</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="faq" href="#">FAQ</a></nav></div><div class="flex items-center gap-space-md"><button aria-label="Toggle Light and Dark Theme" class="h-9 px-space-sm rounded-full bg-surface-container-low/80 hover:bg-surface-container text-on-surface-variant hover:text-on-surface backdrop-blur-md flex items-center justify-center gap-space-xs transition-colors shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]" type="button"><span class="material-symbols-outlined text-[18px] text-secondary">dark_mode</span><span class="material-symbols-outlined text-[18px]">light_mode</span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="relative flex items-center"><img alt="User Avatar" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPGmDcYWEczFNzczcey6VGBZ_7WyuuRKgZH8WYzWj7crA4c3_uiHk1KD0NFbY4c1M5UYOsxJ0GZbtmQLVWaAKCt0bHmKiSJtDLNEJuiwkCtnvqvflVIU5Psc4MXRzyAmD_R2GKzUyguuCcXUxLz0152KUB-iM1x7ByFLlLMRYdrkkXucJl5U_Rw2vLWaJ6erXeHu_L1c3Ai7rdadGSne2-DQ6ZA7-MYqURJXigt0Iq"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-secondary rounded-full ring-2 ring-surface-dim shadow-[0_0_6px_rgba(76,215,246,0.6)]"></span></div><button aria-label="User Profile Menu" class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center p-0.5" type="button"><span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span></button></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<div class="relative w-full overflow-hidden">
+<!-- Ambient Luminous Glow Underlays -->
+<div class="pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-primary-container/15 blur-3xl"></div>
+<div class="pointer-events-none absolute top-96 right-10 h-80 w-80 rounded-full bg-secondary-container/10 blur-3xl"></div>
+<div class="mx-auto w-full max-w-7xl px-gutter-lg py-space-xl">
+<!-- Breadcrumb & Version Header Section -->
+<header class="flex flex-col gap-space-md pb-space-lg">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<nav aria-label="Breadcrumb" class="flex items-center gap-space-xs font-code-xs text-code-xs tracking-wider uppercase text-on-surface-variant">
+<span class="text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+              CLIPCUTER TRUST &amp; SAFETY
+            </span>
+<span class="text-outline-variant">/</span>
+<span class="hover:text-on-surface transition-colors cursor-pointer">Legal Repository</span>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-semibold">Terms of Service</span>
+</nav>
+<div class="flex items-center gap-space-xs rounded-full bg-surface-container-high/80 px-space-md py-1 shadow-sm backdrop-blur-md">
+<span class="inline-block h-2 w-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(76,215,246,0.8)]"></span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Effective: <strong class="text-on-surface">Oct 24, 2024</strong></span>
+<span class="text-outline-variant">•</span>
+<span class="font-code-xs text-code-xs text-secondary font-medium">v2.4 Production</span>
+</div>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="max-w-3xl">
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Terms of Service</h1>
+<p class="mt-space-xs font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+              Transparent guidelines governing your use of the ClipCutter automated action workstation, creator copyright ownership, and zero-retention ephemeral processing.
+            </p>
+</div>
+<div class="flex items-center gap-space-xs self-start md:self-auto">
+<button class="group flex items-center gap-space-xs rounded-lg bg-surface-container-high hover:bg-surface-bright px-space-md py-2 font-label-md text-label-md text-on-surface transition-all shadow-sm" onclick="window.print()">
+<span class="material-symbols-outlined text-[16px] text-secondary group-hover:rotate-12 transition-transform">print</span>
+<span>Print Terms</span>
+</button>
+<button class="flex items-center gap-space-xs rounded-lg bg-primary-container hover:bg-primary-container/90 px-space-md py-2 font-label-md text-label-md text-on-primary font-semibold shadow-[0_0_16px_rgba(124,58,237,0.35)] transition-all">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Export Legal PDF</span>
+</button>
+</div>
+</div>
+<!-- Legal Repository Navigation Pill Tabs -->
+<div class="mt-space-md flex flex-wrap items-center gap-space-xs rounded-xl bg-surface-container-lowest/80 p-1.5 backdrop-blur-xl shadow-inner">
+<a class="flex items-center gap-space-xs rounded-lg px-space-md py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined text-[16px]">gavel</span>
+<span>Copyright &amp; DMCA Notice</span>
+</a>
+<a class="flex items-center gap-space-xs rounded-lg bg-surface-container px-space-md py-2 font-label-md text-label-md text-primary font-semibold shadow-[0_0_20px_rgba(124,58,237,0.25)] transition-all" href="#">
+<span class="material-symbols-outlined text-[16px] text-secondary">description</span>
+<span>Terms of Service</span>
+<span class="h-1.5 w-1.5 rounded-full bg-secondary"></span>
+</a>
+<a class="flex items-center gap-space-xs rounded-lg px-space-md py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+<span>Privacy &amp; Data Deletion</span>
+</a>
+<a class="flex items-center gap-space-xs rounded-lg px-space-md py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined text-[16px]">policy</span>
+<span>Law Enforcement &amp; Compliance</span>
+</a>
+</div>
+</header>
+<!-- Main Asymmetric 2-Column Workbench Layout -->
+<div class="mt-space-lg grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Left Main Content Column (8/12 Desktop) -->
+<main class="lg:col-span-8 flex flex-col gap-space-xl">
+<!-- Section 1: Acceptance & Service Description -->
+<article class="group relative rounded-2xl bg-surface-container/70 p-space-xl backdrop-blur-xl shadow-lg transition-all hover:shadow-xl" id="workstation-scope">
+<div class="flex items-start gap-space-md">
+<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-container/20 text-primary shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)]">
+<span class="material-symbols-outlined text-[24px]">task_alt</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-code-xs text-code-xs text-secondary font-medium uppercase tracking-wider">
+<span>Clause 01</span>
+<span>//</span>
+<span>Operational Framework</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">1. Acceptance &amp; Workstation Scope</h2>
+</div>
+</div>
+<p class="mt-space-md font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              ClipCutter operates as a specialized, client-driven automated computational utility engineered for video editors and social creators. The workstation ingests raw footage supplied directly by you, analyzes decibel transients and motion vector spikes using real-time algorithmic heuristics, extracts discrete clips of no less than five (5.0) seconds, and stitches them into consolidated assembly bundles tailored for downstream non-linear post-production in CapCut.
+            </p>
+<p class="mt-space-sm font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              By accessing the workstation, authenticating via OAuth, invoking our rendering endpoints, or uploading media chunks to our ingestion buffers, you unequivocally agree to be bound by these Terms of Service. If you disagree, you must immediately terminate your session and cease all workstation requests.
+            </p>
+<!-- Callout sub-cards -->
+<div class="mt-space-lg grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="rounded-xl bg-surface-container-low/90 p-space-md shadow-sm">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<h3 class="font-label-lg text-label-lg font-semibold text-on-surface">Non-Affiliation Notice</h3>
+</div>
+<p class="mt-space-xs font-body-sm text-body-sm text-on-surface-variant leading-normal">
+                  ClipCutter is an autonomous workflow bridge. We are not officially partnered with, endorsed by, sponsored by, or affiliated with ByteDance Ltd. or CapCut. <span class="font-code-xs text-code-xs text-on-surface">"CapCut"</span> remains the trademark of its respective proprietor.
+                </p>
+</div>
+<div class="rounded-xl bg-surface-container-low/90 p-space-md shadow-sm">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">conversion_path</span>
+<h3 class="font-label-lg text-label-lg font-semibold text-on-surface">Non-Destructive Processing</h3>
+</div>
+<p class="mt-space-xs font-body-sm text-body-sm text-on-surface-variant leading-normal">
+                  Our clusters function purely as a pipeline format accelerator. ClipCutter does not publish, showcase, syndicate, monetize, or publicly distribute your media assets across any third-party streaming destination.
+                </p>
+</div>
+</div>
+</article>
+<!-- Section 2: User Content Ownership & Permitted Ingestion -->
+<article class="group relative rounded-2xl bg-surface-container/70 p-space-xl backdrop-blur-xl shadow-lg transition-all hover:shadow-xl" id="content-ownership">
+<div class="flex items-start gap-space-md">
+<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary-container/20 text-secondary shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)]">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-code-xs text-code-xs text-secondary font-medium uppercase tracking-wider">
+<span>Clause 02</span>
+<span>//</span>
+<span>Intellectual Property</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">2. Content Ownership &amp; Creator Warranties</h2>
+</div>
+</div>
+<p class="mt-space-md font-body-md text-body-md text-on-surface-variant leading-relaxed">
+<strong class="text-on-surface font-semibold">You retain 100% full legal title, copyright, and moral ownership</strong> over all ingested video frames, high-fidelity audio tracks, and derivative stitched files synthesized through your pipeline. ClipCutter claims absolutely zero proprietary interest, perpetual license, or royalty rights in your creative creations.
+            </p>
+<!-- Detailed Creator Warranties Specification -->
+<div class="mt-space-lg flex flex-col gap-space-sm">
+<div class="flex items-start gap-space-md rounded-xl bg-surface-container-high/60 p-space-md shadow-sm">
+<span class="material-symbols-outlined text-secondary shrink-0 mt-0.5 text-[20px]">verified_user</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Mandatory Rights Warranty</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-normal">
+                    You represent and warrant that you hold legitimate copyright, synchronized master rights, or express written licensing authorizations to submit every video, audio stem, visual effect, and voiceover fed into the ingestion cluster.
+                  </span>
+</div>
+</div>
+<div class="flex items-start gap-space-md rounded-xl bg-surface-container-high/60 p-space-md shadow-sm">
+<span class="material-symbols-outlined text-error shrink-0 mt-0.5 text-[20px]">block</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Prohibition Against Pirated Broadcasts</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-normal">
+                    Ingesting pay-per-view broadcasts (combat sports, live league feeds), commercially released cinema films, television episodes, or ripped live-streams without explicit licensing is strictly prohibited and constitutes grounds for immediate API suspension.
+                  </span>
+</div>
+</div>
+<!-- Crucial Zero Training Guarantee Bento Unit -->
+<div class="flex items-start gap-space-md rounded-xl bg-gradient-to-r from-primary-container/20 to-surface-container-high/80 p-space-md shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+<span class="material-symbols-outlined text-primary shrink-0 mt-0.5 text-[20px]">psychology_alt</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Zero Training On Your Creative Footage</span>
+<span class="rounded bg-primary-container px-1.5 py-0.5 font-code-xs text-code-xs text-on-primary uppercase font-bold tracking-wider">Ironclad Guarantee</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-normal">
+                    ClipCutter unequivocally certifies that no customer footage, speech audio, transcript tokens, or motion vectors are ever fed into neural network weights, foundation model pre-training sets, or generative AI training loops.
+                  </span>
+</div>
+</div>
+</div>
+</article>
+<!-- Section 3: Ephemeral Storage & 24-Hour Purge SLA -->
+<article class="group relative rounded-2xl bg-surface-container/70 p-space-xl backdrop-blur-xl shadow-lg transition-all hover:shadow-xl" id="ephemeral-sla">
+<div class="flex items-start gap-space-md">
+<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-tertiary-container/20 text-tertiary shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)]">
+<span class="material-symbols-outlined text-[24px]">timer</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-code-xs text-code-xs text-secondary font-medium uppercase tracking-wider">
+<span>Clause 03</span>
+<span>//</span>
+<span>Data Retention</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">3. Ephemeral Storage &amp; 24-Hour Purge SLA</h2>
+</div>
+</div>
+<p class="mt-space-md font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              ClipCutter operates strictly as a ephemeral throughput engine, intentionally structured around an aggressive zero-retention policy to shield creators against unauthorized leaks and cloud bloat.
+            </p>
+<!-- Visual Pipeline Lifecycle Infographic -->
+<div class="mt-space-lg rounded-xl bg-surface-container-lowest p-space-lg shadow-inner">
+<div class="flex items-center justify-between border-b border-surface-variant/40 pb-space-sm mb-space-md">
+<span class="font-code-xs text-code-xs uppercase tracking-wider text-secondary flex items-center gap-1.5">
+<span class="h-2 w-2 rounded-full bg-secondary animate-pulse"></span>
+                  Automated Lifespan Timeline
+                </span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">T+0:00 to T+24:00</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md text-left">
+<div class="flex flex-col gap-1 rounded-lg bg-surface-container-high/40 p-space-sm">
+<span class="font-code-xs text-code-xs text-outline font-bold">01 // INGESTION</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">T+00m Chunk Staging</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">Footage lands in transient NVMe cache with AES-256 in-flight encryption.</span>
+</div>
+<div class="flex flex-col gap-1 rounded-lg bg-surface-container-high/40 p-space-sm">
+<span class="font-code-xs text-code-xs text-primary font-bold">02 // STITCH EXPORT</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">T+05m Ready for DL</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">Assembly bundle generated; downloadable via secure presigned S3 URLs.</span>
+</div>
+<div class="flex flex-col gap-1 rounded-lg bg-surface-container-high/40 p-space-sm">
+<span class="font-code-xs text-code-xs text-error font-bold">03 // HARD PURGE</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">T+24h Crypto-Shred</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">Cryptographic key deletion; zero raw or derivative blocks remain recoverable.</span>
+</div>
+</div>
+<!-- Visual progress bar simulating 24-hour ticker -->
+<div class="mt-space-md w-full bg-surface-container-high rounded-full h-2 overflow-hidden flex">
+<div class="bg-secondary h-full w-1/4"></div>
+<div class="bg-primary h-full w-1/2"></div>
+<div class="bg-error h-full w-1/4"></div>
+</div>
+</div>
+<!-- Two Sub-cards on Backup Responsibility -->
+<div class="mt-space-md grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="rounded-xl bg-surface-container-low/90 p-space-md">
+<div class="flex items-center gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-secondary">security_update_good</span>
+<h3 class="font-label-lg text-label-lg font-semibold">24-Hour Cryptographic Shred</h3>
+</div>
+<p class="mt-space-xs font-body-sm text-body-sm text-on-surface-variant leading-normal">
+                  All source reels, audio spectrograms, transient audio stems, and stitched master archives are obliterated precisely 1,440 minutes after processing termination. No cold backups are preserved.
+                </p>
+</div>
+<div class="rounded-xl bg-surface-container-low/90 p-space-md">
+<div class="flex items-center gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-error">cloud_download</span>
+<h3 class="font-label-lg text-label-lg font-semibold">Creator Backup Imperative</h3>
+</div>
+<p class="mt-space-xs font-body-sm text-body-sm text-on-surface-variant leading-normal">
+                  You are exclusively liable for retrieving your finalized assets within the active 24-hour window. Once expired, files cannot be salvaged, reconstituted, or restored by ClipCutter support.
+                </p>
+</div>
+</div>
+</article>
+<!-- Section 4: Subscription Tiers, Compute Quotas & Fair Use -->
+<article class="group relative rounded-2xl bg-surface-container/70 p-space-xl backdrop-blur-xl shadow-lg transition-all hover:shadow-xl" id="quotas-tiers">
+<div class="flex items-start gap-space-md">
+<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-container/20 text-primary shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)]">
+<span class="material-symbols-outlined text-[24px]">tune</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-code-xs text-code-xs text-secondary font-medium uppercase tracking-wider">
+<span>Clause 04</span>
+<span>//</span>
+<span>Compute Allocation</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">4. Plans, Quotas &amp; Fair Usage</h2>
+</div>
+</div>
+<p class="mt-space-md font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              ClipCutter allocates GPU compute acceleration across both Free Starter and Subscription tiers to maintain high availability and real-time processing speeds.
+            </p>
+<!-- Entitlement Matrix Bento -->
+<div class="mt-space-lg grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col justify-between rounded-xl bg-surface-container-low p-space-md shadow-sm">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Free Starter Tier</span>
+<span class="rounded bg-surface-variant px-2 py-0.5 font-code-xs text-code-xs text-on-surface font-semibold">$0 / month</span>
+</div>
+<ul class="mt-space-md flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+<span>Maximum 15-minute input duration per reel</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+<span>Rendered resolution capped at 720p / 30fps</span>
+</li>
+<li class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-[16px] text-outline">info</span>
+<span>Discreet "Clipped with ClipCutter" watermark</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+<span>Standard queue priority (best effort compute)</span>
+</li>
+</ul>
+</div>
+<div class="mt-space-md pt-space-xs font-code-xs text-code-xs text-outline-variant">
+                  Standard Fair-Use applies. Single stream ingest.
+                </div>
+</div>
+<div class="flex flex-col justify-between rounded-xl bg-surface-container-high/70 p-space-md shadow-md relative overflow-hidden">
+<div class="pointer-events-none absolute -top-10 -right-10 h-24 w-24 rounded-full bg-primary-container/30 blur-xl"></div>
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Pro Creator Tier</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">bolt</span>
+</div>
+<span class="rounded bg-primary-container px-2 py-0.5 font-code-xs text-code-xs text-on-primary font-bold">$19 / month</span>
+</div>
+<ul class="mt-space-md flex flex-col gap-2 font-body-sm text-body-sm text-on-surface">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+<span>Unlimited ingest timeline duration</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+<span>Full 4K (3840×2160) 60fps ProRes / H.265 export</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+<span>Watermark-free raw outputs &amp; CapCut bundles</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+<span>Dedicated low-latency GPU lane scheduling</span>
+</li>
+</ul>
+</div>
+<div class="mt-space-md pt-space-xs font-code-xs text-code-xs text-secondary font-medium">
+                  30-day rolling refund policy for unconsumed render cycles.
+                </div>
+</div>
+</div>
+<!-- Anti-Scraping / Concurrency notice -->
+<div class="mt-space-md rounded-xl bg-surface-container-low p-space-md flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-outline shrink-0 mt-0.5">smart_toy</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="text-on-surface">Algorithmic Anti-Abuse:</strong> Automated head-less scraping, denial-of-service stress tests, headless bot scripts, or circumvention of concurrent worker bounds is strictly prohibited and subject to instant IP rate limiting.
+              </p>
+</div>
+</article>
+<!-- Section 5: Disclaimers, Liability & Dispute Resolution -->
+<article class="group relative rounded-2xl bg-surface-container/70 p-space-xl backdrop-blur-xl shadow-lg transition-all hover:shadow-xl" id="liability-termination">
+<div class="flex items-start gap-space-md">
+<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-surface-container-highest text-on-surface shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)]">
+<span class="material-symbols-outlined text-[24px]">balance</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-code-xs text-code-xs text-secondary font-medium uppercase tracking-wider">
+<span>Clause 05</span>
+<span>//</span>
+<span>Statutory Disclaimers</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">5. Disclaimers, Liability &amp; Termination</h2>
+</div>
+</div>
+<div class="mt-space-md space-y-space-sm font-body-md text-body-md text-on-surface-variant leading-relaxed">
+<p>
+<strong class="text-on-surface">"As-Is" Computational Provision:</strong> The ClipCutter platform, audio transcription heuristics, transient detection, and stitch builders are provided strictly on an "AS-IS" and "AS-AVAILABLE" basis without warranties of uninterrupted uptime or error-free rendering.
+              </p>
+<p>
+<strong class="text-on-surface">Limitation of Damages:</strong> In no event shall ClipCutter AI Technologies Inc., its directors, employees, or cloud providers be liable for indirect, punitive, or consequential damages resulting from unsaved timeline states or expired 24-hour files. Our total liability is strictly capped at the amount paid by you during the three (3) calendar months preceding the claim.
+              </p>
+<p>
+<strong class="text-on-surface">Repeat Infringer &amp; 3-Strike Termination:</strong> In strict alignment with our DMCA &amp; Copyright Policy, accounts found to repeatedly upload copyrighted television feeds, unlicensed concert stems, or infringing visual assets will have their access terminated immediately and forfeit remaining subscription credit.
+              </p>
+<p>
+<strong class="text-on-surface">Governing Law:</strong> These terms are governed exclusively by the laws of the State of California, United States, without regard to conflict of law principles. Any dispute shall be resolved through binding arbitration in the City and County of San Francisco.
+              </p>
+</div>
+</article>
+</main>
+<!-- Right Trust & Quick Reference Sidebar (4/12 Desktop) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg lg:sticky lg:top-24">
+<!-- Card 1: Key Commitments at a Glance -->
+<div class="rounded-2xl bg-surface-container/70 p-space-lg backdrop-blur-xl shadow-lg">
+<div class="flex items-center gap-space-xs border-b border-surface-variant/40 pb-space-sm mb-space-md">
+<span class="material-symbols-outlined text-secondary text-[20px]">thumb_up</span>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[17px]">Key Commitments</h3>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start gap-space-xs rounded-xl bg-surface-container-low p-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5">copyright</span>
+<div>
+<div class="font-label-md text-label-md font-bold text-on-surface">100% Creator Ownership</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">All raw source reels and edited output clips remain your intellectual property.</div>
+</div>
+</div>
+<div class="flex items-start gap-space-xs rounded-xl bg-surface-container-low p-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">memory</span>
+<div>
+<div class="font-label-md text-label-md font-bold text-on-surface">Zero Model Training</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">No uploaded footage is utilized to train AI base models.</div>
+</div>
+</div>
+<div class="flex items-start gap-space-xs rounded-xl bg-surface-container-low p-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5">auto_delete</span>
+<div>
+<div class="font-label-md text-label-md font-bold text-on-surface">24h Automatic Purge</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Zero cloud retention; files permanently wiped 24 hours after completion.</div>
+</div>
+</div>
+<div class="flex items-start gap-space-xs rounded-xl bg-surface-container-low p-space-sm">
+<span class="material-symbols-outlined text-tertiary text-[18px] mt-0.5">extension</span>
+<div>
+<div class="font-label-md text-label-md font-bold text-on-surface">Independent Utility</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Crafted solely to bridge raw multi-camera takes into CapCut.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Summary of Prohibited Content -->
+<div class="rounded-2xl bg-surface-container/70 p-space-lg backdrop-blur-xl shadow-lg">
+<div class="flex items-center justify-between border-b border-surface-variant/40 pb-space-sm mb-space-md">
+<div class="flex items-center gap-space-xs text-error">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[17px]">Prohibited Ingestion</h3>
+</div>
+<span class="rounded bg-error-container/40 px-2 py-0.5 font-code-xs text-code-xs text-error font-bold uppercase tracking-wider">Zero Tolerance</span>
+</div>
+<ul class="flex flex-col gap-2.5 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">close</span>
+<span>Commercial broadcast TV or cable events</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">close</span>
+<span>Pay-per-view UFC / Boxing / Sports streams</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">close</span>
+<span>Theatrical feature films &amp; DRM protected media</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">close</span>
+<span>Defamatory, harassment, or CSAM material</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">close</span>
+<span>Malicious payload injection / Shellcode in MP4 headers</span>
+</li>
+</ul>
+</div>
+<!-- Card 3: Legal Contacts & Governance -->
+<div class="rounded-2xl bg-surface-container/70 p-space-lg backdrop-blur-xl shadow-lg">
+<div class="flex items-center gap-space-xs border-b border-surface-variant/40 pb-space-sm mb-space-md">
+<span class="material-symbols-outlined text-secondary text-[20px]">contact_support</span>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[17px]">Legal &amp; Governance</h3>
+</div>
+<div class="flex flex-col gap-space-sm font-body-sm text-body-sm">
+<div class="flex flex-col">
+<span class="font-code-xs text-code-xs text-outline uppercase font-semibold">General Counsel</span>
+<a class="text-secondary hover:underline font-code-sm text-code-sm" href="mailto:legal@clipcutter.ai">legal@clipcutter.ai</a>
+</div>
+<div class="flex flex-col">
+<span class="font-code-xs text-code-xs text-outline uppercase font-semibold">Terms Clarifications</span>
+<a class="text-secondary hover:underline font-code-sm text-code-sm" href="mailto:terms@clipcutter.ai">terms@clipcutter.ai</a>
+</div>
+<div class="flex flex-col">
+<span class="font-code-xs text-code-xs text-outline uppercase font-semibold">Trust &amp; Security Officer</span>
+<a class="text-secondary hover:underline font-code-sm text-code-sm" href="mailto:security@clipcutter.ai">security@clipcutter.ai</a>
+</div>
+<div class="mt-space-xs rounded-lg bg-surface-container-low p-space-sm font-code-xs text-code-xs text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline">location_on</span>
+<span>San Francisco, California, USA</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Quick Action Utilities -->
+<div class="rounded-2xl bg-surface-container-low/90 p-space-lg shadow-sm">
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface mb-space-sm">Archival Copies</h4>
+<div class="flex flex-col gap-space-xs">
+<a class="flex items-center justify-between rounded-lg bg-surface-container-high px-space-md py-2.5 font-label-md text-label-md text-on-surface hover:bg-surface-bright transition-all" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">picture_as_pdf</span>
+<span>Terms of Service (PDF)</span>
+</span>
+<span class="font-code-xs text-code-xs text-outline">184 KB</span>
+</a>
+<a class="flex items-center justify-between rounded-lg bg-surface-container-high px-space-md py-2.5 font-label-md text-label-md text-on-surface hover:bg-surface-bright transition-all" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">history</span>
+<span>Review Version Changelog</span>
+</span>
+<span class="font-code-xs text-code-xs text-secondary">v2.4 diff</span>
+</a>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full bg-surface-container-lowest mt-space-2xl"><div class="w-full px-gutter-lg py-space-xl"><div class="flex flex-col md:flex-row items-center justify-between gap-space-lg mb-space-lg"><div class="flex items-center gap-space-sm"><img alt="ClipCutter Logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WrYfaifAmvvsrvxvU2QrqLZ59Ssge9t_Q_26hNzX5BqdA6Gre-UhRYpqo8DMQxrzTh5-Iv_5JUZWFxkSpPw10kYATI5FL7eEPgqJCo0lBt7YflgZdIbTe1Sp5RPVMnAexjHKAKUUsNwH8L0mKZoUPOSCNDQJiAqlkFOuO5ADVtK0dbwK3pbrqhuci0nhcXWNUvDZRix6WKHsSLcib6EGRlFXBKMnZ-9ZH-xyNKuib89w"/><span class="font-headline-md text-headline-md text-on-surface">ClipCutter</span><span class="font-body-sm text-body-sm text-on-surface-variant ml-space-xs">— Surgical AI Action Cutter</span></div><div class="flex flex-wrap items-center gap-space-lg"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="terms-of-service" href="#">Terms of Service</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="privacy-policy" href="#">Privacy Policy</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="copyright-takedown-notice" href="#">Copyright/Takedown Notice</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="support" href="#">Support</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="system-status" href="#">Status</a></div><div class="flex items-center gap-space-sm"><a aria-label="Community" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">forum</span></a><a aria-label="Terminal" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span></a><a aria-label="Share Feed" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">share</span></a></div></div><div class="flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-code-xs text-code-xs"><p>© 2025 ClipCutter AI Technologies Inc. All rights reserved.</p><p class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span><span>Timeline Engine v2.4 Active</span></p></div></div></footer></body></html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"primary":"#7c3aed","primary-container":"#6d28d9","on-primary":"#ffffff","secondary":"#0891b2","secondary-container":"#06b6d4","surface":"#f8fafc","surface-card":"#ffffff","surface-alt":"#f1f5f9","text-primary":"#0f172a","text-secondary":"#334155","text-muted":"#64748b","border-subtle":"#e2e8f0"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","2xl":"1rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","space-sm":"0.5rem","space-md":"1rem","space-lg":"1.5rem","space-xl":"2rem","space-2xl":"3rem","gutter":"1rem","gutter-lg":"1.5rem"},"fontFamily":{"sans":["Inter","sans-serif"],"mono":["JetBrains Mono","monospace"]}}}};</script></head><body class="bg-surface font-sans text-text-secondary antialiased min-h-screen selection:bg-purple-100 selection:text-purple-900"><header class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-xl border-b border-border-subtle shadow-sm"><div class="h-16 w-full max-w-7xl mx-auto px-gutter md:px-gutter-lg flex items-center justify-between"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm group" data-path="landing" href="#"><img alt="ClipCutter Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WrYfaifAmvvsrvxvU2QrqLZ59Ssge9t_Q_26hNzX5BqdA6Gre-UhRYpqo8DMQxrzTh5-Iv_5JUZWFxkSpPw10kYATI5FL7eEPgqJCo0lBt7YflgZdIbTe1Sp5RPVMnAexjHKAKUUsNwH8L0mKZoUPOSCNDQJiAqlkFOuO5ADVtK0dbwK3pbrqhuci0nhcXWNUvDZRix6WKHsSLcib6EGRlFXBKMnZ-9ZH-xyNKuib89w"/><span class="text-xl font-bold tracking-tight text-text-primary">ClipCutter</span><span class="font-mono text-xs px-2 py-0.5 rounded-full bg-cyan-50 text-secondary font-semibold uppercase tracking-wider border border-cyan-200">AI</span></a><nav class="hidden lg:flex items-center gap-6 ml-4"><a class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors" data-path="features" href="#features">Features</a><a class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors" data-path="how-it-works" href="#how-it-works">How it works</a><a class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors" data-path="use-cases" href="#use-cases">Use Cases</a><a class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors" data-path="pricing" href="#pricing">Pricing</a><a class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors" data-path="faq" href="#faq">FAQ</a></nav></div><div class="flex items-center gap-space-md"><button aria-label="Toggle Light/Dark Theme" class="h-9 px-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center gap-1 transition-colors border border-slate-200" type="button"><span class="material-symbols-outlined text-[18px] text-amber-500 font-semibold">light_mode</span><span class="material-symbols-outlined text-[18px] text-slate-400">dark_mode</span></button><button class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-white font-medium text-sm hover:bg-primary-container transition-all shadow-sm hover:shadow" type="button"><span class="material-symbols-outlined text-[18px]">cloud_upload</span><span>Upload Video</span></button><div class="flex items-center gap-2 pl-1"><div class="relative flex items-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-slate-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPGmDcYWEczFNzczcey6VGBZ_7WyuuRKgZH8WYzWj7crA4c3_uiHk1KD0NFbY4c1M5UYOsxJ0GZbtmQLVWaAKCt0bHmKiSJtDLNEJuiwkCtnvqvflVIU5Psc4MXRzyAmD_R2GKzUyguuCcXUxLz0152KUB-iM1x7ByFLlLMRYdrkkXucJl5U_Rw2vLWaJ6erXeHu_L1c3Ai7rdadGSne2-DQ6ZA7-MYqURJXigt0Iq"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white"></span></div><button aria-label="User Options" class="text-slate-400 hover:text-slate-600 transition-colors flex items-center" type="button"><span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span></button></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<!-- HERO SECTION -->
+<section class="relative w-full overflow-hidden px-gutter md:px-gutter-lg pb-space-2xl pt-10">
+<!-- Soft Clean Glow Accents -->
+<div class="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-100/60 blur-[100px] rounded-full pointer-events-none -z-10"></div>
+<div class="absolute top-44 right-10 w-[350px] h-[250px] bg-cyan-100/50 blur-[90px] rounded-full pointer-events-none -z-10"></div>
+<div class="max-w-7xl mx-auto flex flex-col items-center text-center">
+<!-- Grounded Hero Pill -->
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-space-lg">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-xs font-semibold text-text-secondary">Automatic Motion &amp; Sound Peak Detection</span>
+<span class="text-slate-300">•</span>
+<span class="text-xs text-text-muted">Clips at least 5 seconds</span>
+<span class="text-slate-300">•</span>
+<span class="text-xs font-medium text-secondary">Ready to edit in CapCut</span>
+</div>
+<!-- Main Headline -->
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-text-primary max-w-4xl tracking-tight mb-space-md leading-tight">
+        Turn long videos into <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">action-packed clips</span> in seconds
+      </h1>
+<!-- Subtitle -->
+<p class="text-base sm:text-lg text-text-secondary max-w-3xl mb-space-xl leading-relaxed">
+        Upload your video, choose your settings, and ClipCutter detects action using motion and sound—cutting clips of at least 5 seconds and merging them into one video ready to edit in CapCut.
+      </p>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row items-center gap-space-md mb-space-2xl w-full sm:w-auto">
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-primary text-white font-semibold text-sm shadow-md hover:bg-primary-container hover:shadow-lg transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+<span>Upload your video (Free)</span>
+</button>
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-slate-200 text-text-primary font-semibold text-sm shadow-sm hover:bg-slate-50 transition-all" id="openDemoBtn" type="button">
+<span class="material-symbols-outlined text-[20px] text-secondary">play_circle</span>
+<span>Watch 60s Demo</span>
+</button>
+</div>
+<!-- HERO WORKBENCH SHOWCASE -->
+<div class="relative w-full max-w-5xl rounded-2xl bg-white border border-slate-200/80 shadow-xl p-3 sm:p-4">
+<!-- Floating Clean Badges -->
+<div class="hidden md:flex absolute -top-4 left-8 items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-slate-200 shadow-sm z-20">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-mono text-xs text-secondary font-semibold uppercase">Action Peak Found</span>
+<span class="text-xs text-text-secondary font-medium">Clip #3 (8.4s)</span>
+</div>
+<div class="hidden md:flex absolute -top-4 right-8 items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-slate-200 shadow-sm z-20">
+<span class="material-symbols-outlined text-[16px] text-primary">speed</span>
+<span class="text-xs text-text-muted">Detected Peak:</span>
+<span class="font-mono text-xs px-1.5 py-0.5 rounded bg-purple-50 text-primary font-bold">Motion + Audio</span>
+</div>
+<!-- Video Player Display Card -->
+<div class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-900 flex items-center justify-center group shadow-inner">
+<img class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" data-alt="High energy cyber video editor interface playing a dynamic motocross jump sequence with vivid neon lights and trajectory overlays, high resolution cinematic frame, dark tech aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtfhq_vBWyQq3tj3H_CN6e-nPrLhywGsFPN77bUuFHKL6F3ZF7jUqCLv9XpG_JMWWzROmpWL3REH6eGRUlq3JUHmEqpyyy7a_M_avHi_1wNCs8atpeWXl2PIrGdhMiM8HAOQ_c_fGwcdxAUn578OwWH3hNIiiYFFIaBOflCHLh1uLwPZFnnqIWYzFgSdYMOQy6n-NttY9unwALx4KScV9EKqgg413SNH1VwuFif9PU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40"></div>
+<div class="absolute top-4 left-4 flex items-center gap-2">
+<span class="px-2.5 py-1 rounded bg-rose-600/90 text-white font-mono text-xs font-semibold uppercase tracking-wider flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-white"></span> Scrubbing Preview
+</span>
+<span class="px-2.5 py-1 rounded bg-black/50 backdrop-blur-md text-white font-mono text-xs">
+              4K 60FPS
+            </span>
+</div>
+<div class="relative z-10 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 backdrop-blur-xl flex items-center justify-center text-primary shadow-lg group-hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-[36px] sm:text-[44px]">play_arrow</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white font-mono text-xs">
+<div class="flex items-center gap-2 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg">
+<span class="text-cyan-400">SCENE 03</span>
+<span class="text-slate-400">|</span>
+<span class="text-slate-200">00:01:22.14 / 00:08:45.00</span>
+</div>
+<div class="hidden sm:flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg">
+<span class="text-slate-300">Extracted Action:</span>
+<span class="text-cyan-400 font-bold">6 Clips (Min 5s each)</span>
+</div>
+</div>
+</div>
+<!-- Timeline Track Control Area -->
+<div class="mt-3 bg-slate-50 border border-slate-200/80 rounded-xl p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between font-mono text-xs text-text-muted">
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1 text-text-primary font-semibold">
+<span class="material-symbols-outlined text-[16px] text-secondary">graphic_eq</span>
+                Motion &amp; Audio Spikes
+              </span>
+<span class="hidden sm:inline px-2 py-0.5 rounded bg-white border border-slate-200 text-primary font-mono text-[11px] font-semibold">Min Clip: 5.0s</span>
+</div>
+<span class="text-secondary font-medium">Export: Merged CapCut Ready Video</span>
+</div>
+<div class="relative w-full h-14 bg-white border border-slate-200 rounded-lg overflow-hidden flex items-center px-1 cursor-pointer select-none" id="timelineBar">
+<div class="absolute inset-0 opacity-40 flex items-center justify-between px-3 gap-0.5 pointer-events-none">
+<div class="w-1 h-3 bg-slate-300 rounded"></div>
+<div class="w-1 h-6 bg-slate-300 rounded"></div>
+<div class="w-1 h-10 bg-cyan-400 rounded"></div>
+<div class="w-1 h-4 bg-slate-300 rounded"></div>
+<div class="w-1 h-8 bg-slate-400 rounded"></div>
+<div class="w-1 h-11 bg-purple-500 rounded"></div>
+<div class="w-1 h-9 bg-purple-400 rounded"></div>
+<div class="w-1 h-2 bg-slate-300 rounded"></div>
+<div class="w-1 h-5 bg-slate-300 rounded"></div>
+<div class="w-1 h-10 bg-cyan-400 rounded"></div>
+<div class="w-1 h-12 bg-cyan-500 rounded"></div>
+<div class="w-1 h-4 bg-slate-300 rounded"></div>
+<div class="w-1 h-3 bg-slate-300 rounded"></div>
+<div class="w-1 h-8 bg-slate-400 rounded"></div>
+<div class="w-1 h-11 bg-purple-500 rounded"></div>
+<div class="w-1 h-7 bg-slate-300 rounded"></div>
+<div class="w-1 h-4 bg-slate-300 rounded"></div>
+<div class="w-1 h-9 bg-cyan-400 rounded"></div>
+<div class="w-1 h-12 bg-cyan-500 rounded"></div>
+<div class="w-1 h-6 bg-slate-300 rounded"></div>
+<div class="w-1 h-3 bg-slate-300 rounded"></div>
+<div class="w-1 h-8 bg-purple-400 rounded"></div>
+<div class="w-1 h-11 bg-purple-500 rounded"></div>
+<div class="w-1 h-5 bg-slate-300 rounded"></div>
+<div class="w-1 h-10 bg-cyan-400 rounded"></div>
+<div class="w-1 h-3 bg-slate-300 rounded"></div>
+<div class="w-1 h-7 bg-slate-400 rounded"></div>
+<div class="w-1 h-12 bg-cyan-500 rounded"></div>
+</div>
+<!-- Segment 1 -->
+<div class="absolute left-[8%] w-[14%] h-10 rounded bg-cyan-100 border border-cyan-300 flex items-center justify-center">
+<span class="font-mono text-[11px] text-cyan-800 font-bold">00:14 (6.0s)</span>
+</div>
+<!-- Segment 2 -->
+<div class="absolute left-[36%] w-[20%] h-10 rounded bg-purple-100 border border-purple-300 shadow-sm flex items-center justify-between px-2">
+<span class="material-symbols-outlined text-[14px] text-primary">auto_awesome</span>
+<span class="font-mono text-[11px] text-purple-900 font-bold">01:22 (9.2s)</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<!-- Segment 3 -->
+<div class="absolute left-[70%] w-[16%] h-10 rounded bg-cyan-100 border border-cyan-300 flex items-center justify-center">
+<span class="font-mono text-[11px] text-cyan-800 font-bold">02:45 (7.5s)</span>
+</div>
+<!-- Scrub Playhead -->
+<div class="absolute left-[44%] top-0 bottom-0 w-0.5 bg-secondary shadow z-10 flex flex-col items-center">
+<div class="w-3 h-3 -mt-1 bg-secondary rounded-full shadow"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trust / Grounded Benefit Strip -->
+<div class="mt-space-xl flex flex-wrap items-center justify-center gap-space-lg text-text-muted text-sm">
+<span class="flex items-center gap-1.5 text-text-primary font-medium">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+          Zero manual timeline scrubbing
+        </span>
+<span class="text-slate-300">•</span>
+<span>Automatic clips stitched into 1 video</span>
+<span class="text-slate-300">•</span>
+<span class="flex items-center gap-1.5 text-text-primary font-medium">
+<span class="material-symbols-outlined text-primary text-[18px]">movie</span>
+          Ready to edit directly in CapCut
+        </span>
+</div>
+</div>
+</section>
+<!-- HOW IT WORKS (4 STEPS) -->
+<section class="w-full px-gutter md:px-gutter-lg py-space-2xl bg-surface-alt border-y border-border-subtle" id="how-it-works">
+<div class="max-w-7xl mx-auto">
+<div class="text-center max-w-2xl mx-auto mb-space-2xl">
+<span class="font-mono text-xs uppercase tracking-widest text-secondary font-semibold mb-1 block">Simple Process</span>
+<h2 class="text-3xl font-bold text-text-primary mb-2">How ClipCutter Works</h2>
+<p class="text-text-secondary text-sm sm:text-base">Four straightforward steps from long video to action-packed cut.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Step 1 Card -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+<div>
+<div class="w-10 h-10 rounded-lg bg-cyan-50 border border-cyan-100 flex items-center justify-center text-secondary mb-space-md">
+<span class="material-symbols-outlined text-[22px]">upload_file</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-mono text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold">STEP 01</span>
+<span class="text-xs text-text-muted font-medium">Upload</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">Upload Video</h3>
+<p class="text-sm text-text-secondary mb-4 leading-relaxed">
+              Upload your video file (MP4, MOV, MKV) directly from your device or cloud folder.
+            </p>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between text-text-muted font-mono text-xs">
+<span>MP4, MOV, MKV</span>
+<span class="text-secondary font-semibold">Easy Upload</span>
+</div>
+</div>
+<!-- Step 2 Card -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+<div>
+<div class="w-10 h-10 rounded-lg bg-purple-50 border border-purple-100 flex items-center justify-center text-primary mb-space-md">
+<span class="material-symbols-outlined text-[22px]">tune</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-mono text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold">STEP 02</span>
+<span class="text-xs text-text-muted font-medium">Configure</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">Choose Settings</h3>
+<p class="text-sm text-text-secondary mb-4 leading-relaxed">
+              Select your detection sensitivity and set minimum clip length (default 5s) to capture complete moments.
+            </p>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between text-text-muted font-mono text-xs">
+<span>Length Filter</span>
+<span class="text-primary font-semibold">Min 5.0s</span>
+</div>
+</div>
+<!-- Step 3 Card -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+<div>
+<div class="w-10 h-10 rounded-lg bg-cyan-50 border border-cyan-100 flex items-center justify-center text-secondary mb-space-md">
+<span class="material-symbols-outlined text-[22px]">psychology</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-mono text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold">STEP 03</span>
+<span class="text-xs text-text-muted font-medium">Analyze</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">Detect Action</h3>
+<p class="text-sm text-text-secondary mb-4 leading-relaxed">
+              ClipCutter scans for rapid visual movement and audio volume peaks to isolate engaging highlights.
+            </p>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between text-text-muted font-mono text-xs">
+<span>Motion + Audio</span>
+<span class="text-secondary font-semibold">Automatic</span>
+</div>
+</div>
+<!-- Step 4 Card -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+<div>
+<div class="w-10 h-10 rounded-lg bg-purple-50 border border-purple-100 flex items-center justify-center text-primary mb-space-md">
+<span class="material-symbols-outlined text-[22px]">movie_edit</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-mono text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold">STEP 04</span>
+<span class="text-xs text-text-muted font-medium">Export</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">Download &amp; Stitch</h3>
+<p class="text-sm text-text-secondary mb-4 leading-relaxed">
+              Download your highlights merged into a single video or save separate clips ready to open in CapCut.
+            </p>
+</div>
+<div class="p-2.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between text-text-muted font-mono text-xs">
+<span>1 Merged Video</span>
+<span class="text-primary font-semibold">For CapCut</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FEATURES GRID -->
+<section class="w-full px-gutter md:px-gutter-lg py-space-2xl" id="features">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-2xl gap-4">
+<div>
+<span class="font-mono text-xs uppercase tracking-widest text-primary font-semibold mb-1 block">Key Features</span>
+<h2 class="text-3xl font-bold text-text-primary">Built for Fast, Clean Highlight Creation</h2>
+</div>
+<p class="text-text-secondary text-sm sm:text-base max-w-md">
+          Simple, reliable tools to find peak excitement in your footage without spending hours rewatching.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Feature 1 -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg shadow-sm hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-primary mb-space-md">
+<span class="material-symbols-outlined text-[26px]">graphic_eq</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">Action &amp; Sound Peak Detection</h3>
+<p class="text-sm text-text-secondary leading-relaxed">
+            Identifies rapid visual motion combined with audio volume spikes to locate exciting sequences automatically.
+          </p>
+</div>
+<!-- Feature 2 -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg shadow-sm hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-secondary mb-space-md">
+<span class="material-symbols-outlined text-[26px]">timer</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">Custom Clip Lengths (Min 5s)</h3>
+<p class="text-sm text-text-secondary leading-relaxed">
+            Avoid disorienting split-second snippets. Keep clips at a minimum of 5 seconds so each moment maintains clear context.
+          </p>
+</div>
+<!-- Feature 3 -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg shadow-sm hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-primary mb-space-md">
+<span class="material-symbols-outlined text-[26px]">auto_fix_high</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">One-Click Auto-Merge</h3>
+<p class="text-sm text-text-secondary leading-relaxed">
+            Combine all selected clips into a single stitched video with clean cuts so you can immediately review or share.
+          </p>
+</div>
+<!-- Feature 4 -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg shadow-sm hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-secondary mb-space-md">
+<span class="material-symbols-outlined text-[26px]">checklist</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">Selective Keep &amp; Remove</h3>
+<p class="text-sm text-text-secondary leading-relaxed">
+            Review candidate clips in an easy visual preview. Check the clips you want, uncheck the ones you don't.
+          </p>
+</div>
+<!-- Feature 5 -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg shadow-sm hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-primary mb-space-md">
+<span class="material-symbols-outlined text-[26px]">lock</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">Privacy First (24hr Auto-Delete)</h3>
+<p class="text-sm text-text-secondary leading-relaxed">
+            Your footage stays private. Uploaded files and generated cuts are automatically and permanently deleted after 24 hours.
+          </p>
+</div>
+<!-- Feature 6 -->
+<div class="rounded-xl bg-white border border-border-subtle p-space-lg shadow-sm hover:shadow-md transition-all">
+<div class="w-12 h-12 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-secondary mb-space-md">
+<span class="material-symbols-outlined text-[26px]">video_settings</span>
+</div>
+<h3 class="text-lg font-bold text-text-primary mb-2">Made for CapCut</h3>
+<p class="text-sm text-text-secondary leading-relaxed">
+            Exported videos are formatted perfectly for CapCut, so you can easily add captions, music, effects, and transitions.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- USE CASES SECTION -->
+<section class="w-full px-gutter md:px-gutter-lg py-space-2xl bg-surface-alt border-y border-border-subtle" id="use-cases">
+<div class="max-w-7xl mx-auto">
+<div class="text-center max-w-2xl mx-auto mb-space-2xl">
+<span class="font-mono text-xs uppercase tracking-widest text-secondary font-semibold mb-1 block">Ideal Formats</span>
+<h2 class="text-3xl font-bold text-text-primary mb-2">Great for Any High-Energy Footage</h2>
+<p class="text-text-secondary text-sm sm:text-base">Easily cut long recordings across popular content genres.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Gaming & Esports -->
+<div class="group relative rounded-xl overflow-hidden bg-white border border-border-subtle shadow-sm flex flex-col">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Intense competitive gaming tournament arena with glowing neon keyboards, hyper focused players, and colorful neon esports victory graphics on dark monitors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh9F0hFpocWuVC-fcJMNyVvbUSENYC2QSvf-StMgk6hD94iswczwALUBLI4GEyd37ncIrVk26MbKO0rnOXImJfoqgLmvJfBtABdgWbubteL06895rgpTuYqxRsJ4h6OQc8Zt6VbIlRZDmMD6D9aNhw0LJh_IuJMBwFnUoxTQR48cVzf2W8BLBbtirOX9eiqK8UEntzz_u9SXe2kZcG9GXZTeGLeYH2M8LJEFu5ftmv"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-white/90 backdrop-blur-md text-text-primary font-mono text-[11px] font-semibold border border-slate-200">Gaming &amp; Esports</span>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between">
+<div>
+<h4 class="text-base font-bold text-text-primary mb-1">Gameplay Highlights</h4>
+<p class="text-xs text-text-secondary leading-relaxed">Isolate intense battle sequences, match points, and loud reaction moments from long stream archives.</p>
+</div>
+<div class="mt-3 font-mono text-xs text-primary font-medium flex items-center gap-1">
+<span>Motion &amp; Voice Spikes</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Action Sports -->
+<div class="group relative rounded-xl overflow-hidden bg-white border border-border-subtle shadow-sm flex flex-col">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="GoPro point of view extreme snowboarder jumping over a massive snow cliff under bright winter sunlight with dramatic spray and dynamic motion perspective" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0S0VqmI39jdIUOYA1mjt30BVP3ZSx9MvQ540VHVPd4E96H31Hi3jOqw6Kh0QRveFsG_xeFnh3rpHyWKAIj45BKRAaVg4sgLRG6yhx5-sjQY3YLme3nNsfXQ35wP4LoWDPEcMls9oL_VhdEWRPluKhGIvPoRRVniaEvsxgvpNwoK7Ti-ukRuQ2SXKaPhpJje7R40tOD6I7-lkUd5WsuzKinzq-L6pr7a4gf0F4cljE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-white/90 backdrop-blur-md text-text-primary font-mono text-[11px] font-semibold border border-slate-200">Action Sports</span>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between">
+<div>
+<h4 class="text-base font-bold text-text-primary mb-1">Stunts &amp; Outdoor Trips</h4>
+<p class="text-xs text-text-secondary leading-relaxed">Turn continuous action camera footage into punchy downhill runs, surf rides, and park tricks.</p>
+</div>
+<div class="mt-3 font-mono text-xs text-primary font-medium flex items-center gap-1">
+<span>Fast Motion Detection</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Travel Vlogs -->
+<div class="group relative rounded-xl overflow-hidden bg-white border border-border-subtle shadow-sm flex flex-col">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cinematic aerial perspective of a tropical coastal adventure road trip through lush green jungle cliffs beside crystal clear turquoise ocean water with sunny flare" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcTUO583sOGw-jKQ2ORhiVxL_dIxJ6cuKFnC8MkleVcP4HyNcOPDcyer4Rgel7RFI70YuAARHsvyDboZy_ksUu-CCzO2m_eD1nkHYCZNHJg3MEElC0qKLKMZ9QR79J76z6FG5G7-5oV7Ph-Gjre5CW9VEH3EBSWPwDC6SLTjJX3EA-c6ook2eJzg8HKclhV88xugkZ1DXNsnAjJ-qNz2zxMXmVeBf-jXGrOJc2NtWW"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-white/90 backdrop-blur-md text-text-primary font-mono text-[11px] font-semibold border border-slate-200">Travel Vlogs</span>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between">
+<div>
+<h4 class="text-base font-bold text-text-primary mb-1">Scenic Montages</h4>
+<p class="text-xs text-text-secondary leading-relaxed">Find quick panoramic pans, walking moments, and memorable vacation highlights in minutes.</p>
+</div>
+<div class="mt-3 font-mono text-xs text-primary font-medium flex items-center gap-1">
+<span>Dynamic Pacing</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Podcasts & Conversations -->
+<div class="group relative rounded-xl overflow-hidden bg-white border border-border-subtle shadow-sm flex flex-col">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern studio podcast setup with studio condenser microphones, warm mood ambient lighting, and two creators gesturing excitedly during an engaging debate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARO8ZEW2qWaciH1FZpxuA-pTqX1QcfBQw5SxRzSMX0O-JLg_pN5rJqpodrcg8fNmU0GdECkJ_KeMS0b0C8xfqNG8PwQ-Vv2vsqf-NnhRsRAbIYJAY8iS1pjoayXriD5tiycgb04n-3zm3Gw61J-w4xecqSfDHr7pjgvCb3MTX2JqYzBelfd9iTfxExgpD5oUHWAqkXs9Q1sFWKr77QNk8y0S37tJl7F_AVkYx_SXaz"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-white/90 backdrop-blur-md text-text-primary font-mono text-[11px] font-semibold border border-slate-200">Podcasts &amp; Live</span>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between">
+<div>
+<h4 class="text-base font-bold text-text-primary mb-1">Podcasts &amp; Conversations</h4>
+<p class="text-xs text-text-secondary leading-relaxed">Detect laughter, loud reactions, and energetic vocal points across lengthy talk shows.</p>
+</div>
+<div class="mt-3 font-mono text-xs text-primary font-medium flex items-center gap-1">
+<span>Audio Spike Trigger</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- HONEST PRICING SECTION -->
+<section class="w-full px-gutter md:px-gutter-lg py-space-2xl" id="pricing">
+<div class="max-w-5xl mx-auto">
+<div class="text-center max-w-xl mx-auto mb-space-2xl">
+<span class="font-mono text-xs uppercase tracking-widest text-primary font-semibold mb-1 block">Simple &amp; Honest Pricing</span>
+<h2 class="text-3xl font-bold text-text-primary mb-2">Straightforward Plans</h2>
+<p class="text-text-secondary text-sm sm:text-base">Start for free or upgrade for longer videos and high-definition exports.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg items-stretch">
+<!-- Free Plan -->
+<div class="rounded-2xl bg-white border border-border-subtle p-space-xl flex flex-col justify-between shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-base font-bold text-text-primary">Free Starter</span>
+<span class="font-mono text-xs px-2.5 py-0.5 rounded bg-slate-100 text-text-muted">Basic</span>
+</div>
+<div class="flex items-baseline gap-1 mb-6">
+<span class="text-4xl font-extrabold text-text-primary">$0</span>
+<span class="text-sm text-text-muted">/ month</span>
+</div>
+<ul class="space-y-3 mb-8 text-sm text-text-secondary">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check</span>
+<span>Max 15-minute video uploads</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check</span>
+<span>720p HD exports</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check</span>
+<span>Automatic motion &amp; sound peak detection</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600">check</span>
+<span>Clips at least 5 seconds</span>
+</li>
+<li class="flex items-center gap-2 text-text-muted">
+<span class="material-symbols-outlined text-[18px] text-slate-400">info</span>
+<span>Includes small ClipCutter watermark</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-text-primary font-semibold text-sm transition-colors border border-slate-200" type="button">
+            Start Free
+          </button>
+</div>
+<!-- Pro Plan -->
+<div class="relative rounded-2xl bg-white border-2 border-primary p-space-xl flex flex-col justify-between shadow-lg">
+<div class="absolute -top-3.5 right-6 px-3 py-0.5 rounded-full bg-primary text-white font-mono text-xs font-bold tracking-wider uppercase shadow-sm">
+            Best Value
+          </div>
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-base font-bold text-primary">Pro Cutter</span>
+<span class="font-mono text-xs px-2.5 py-0.5 rounded bg-purple-50 text-primary font-semibold">Unlimited</span>
+</div>
+<div class="flex items-baseline gap-1 mb-6">
+<span class="text-4xl font-extrabold text-text-primary">$19</span>
+<span class="text-sm text-text-muted">/ month</span>
+</div>
+<ul class="space-y-3 mb-8 text-sm text-text-primary">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+<span>Unlimited video length</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+<span>1080p and 4K exports</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+<span>No watermarks</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+<span>Custom minimum clip length (5s - 60s)</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+<span>One-click stitched video ready for CapCut</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-container text-white font-semibold text-sm shadow-md transition-all" type="button">
+            Upgrade to Pro
+          </button>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ ACCORDION SECTION -->
+<section class="w-full px-gutter md:px-gutter-lg py-space-2xl bg-surface-alt border-t border-border-subtle" id="faq">
+<div class="max-w-4xl mx-auto">
+<div class="text-center max-w-xl mx-auto mb-space-2xl">
+<span class="font-mono text-xs uppercase tracking-widest text-secondary font-semibold mb-1 block">Help &amp; Answers</span>
+<h2 class="text-3xl font-bold text-text-primary mb-2">Frequently Asked Questions</h2>
+<p class="text-text-secondary text-sm sm:text-base">Clear answers on how clips are detected and exported.</p>
+</div>
+<div class="space-y-3" id="faqAccordion">
+<!-- FAQ 1 -->
+<div class="rounded-xl bg-white border border-border-subtle overflow-hidden shadow-sm">
+<button class="faq-btn w-full p-4 sm:p-5 flex items-center justify-between text-left text-text-primary hover:text-primary transition-colors" data-target="faq1" type="button">
+<span class="text-base font-semibold">How does ClipCutter detect action in videos?</span>
+<span class="material-symbols-outlined faq-icon transition-transform duration-200 text-slate-400">expand_more</span>
+</button>
+<div class="faq-content hidden px-4 sm:px-5 pb-5 text-text-secondary text-sm leading-relaxed" id="faq1">
+            ClipCutter scans your video for sudden pixel motion (such as fast camera pans, quick movement, or stunts) as well as audio volume spikes (cheers, shouts, loud impacts). When these peaks happen, ClipCutter marks that segment as an action highlight.
+          </div>
+</div>
+<!-- FAQ 2 -->
+<div class="rounded-xl bg-white border border-border-subtle overflow-hidden shadow-sm">
+<button class="faq-btn w-full p-4 sm:p-5 flex items-center justify-between text-left text-text-primary hover:text-primary transition-colors" data-target="faq2" type="button">
+<span class="text-base font-semibold">Can I set minimum clip lengths?</span>
+<span class="material-symbols-outlined faq-icon transition-transform duration-200 text-slate-400">expand_more</span>
+</button>
+<div class="faq-content hidden px-4 sm:px-5 pb-5 text-text-secondary text-sm leading-relaxed" id="faq2">
+            Yes! All clips are set to at least 5 seconds by default so you get complete, watchable moments rather than jarring jump-cuts. You can adjust the minimum duration in your settings before processing.
+          </div>
+</div>
+<!-- FAQ 3 -->
+<div class="rounded-xl bg-white border border-border-subtle overflow-hidden shadow-sm">
+<button class="faq-btn w-full p-4 sm:p-5 flex items-center justify-between text-left text-text-primary hover:text-primary transition-colors" data-target="faq3" type="button">
+<span class="text-base font-semibold">How do I open the merged video in CapCut?</span>
+<span class="material-symbols-outlined faq-icon transition-transform duration-200 text-slate-400">expand_more</span>
+</button>
+<div class="faq-content hidden px-4 sm:px-5 pb-5 text-text-secondary text-sm leading-relaxed" id="faq3">
+            ClipCutter merges your selected highlights into one standard video file (MP4). Once downloaded, open CapCut, tap 'New Project', and select the downloaded video. It will appear on your timeline ready for captions, filters, transitions, and audio tweaks.
+          </div>
+</div>
+<!-- FAQ 4 -->
+<div class="rounded-xl bg-white border border-border-subtle overflow-hidden shadow-sm">
+<button class="faq-btn w-full p-4 sm:p-5 flex items-center justify-between text-left text-text-primary hover:text-primary transition-colors" data-target="faq4" type="button">
+<span class="text-base font-semibold">Are my original videos stored permanently?</span>
+<span class="material-symbols-outlined faq-icon transition-transform duration-200 text-slate-400">expand_more</span>
+</button>
+<div class="faq-content hidden px-4 sm:px-5 pb-5 text-text-secondary text-sm leading-relaxed" id="faq4">
+            No. ClipCutter uses an automatic 24-hour deletion rule. Both uploaded source files and rendered videos are permanently erased from our servers after 24 hours.
+          </div>
+</div>
+<!-- FAQ 5 -->
+<div class="rounded-xl bg-white border border-border-subtle overflow-hidden shadow-sm">
+<button class="faq-btn w-full p-4 sm:p-5 flex items-center justify-between text-left text-text-primary hover:text-primary transition-colors" data-target="faq5" type="button">
+<span class="text-base font-semibold">Can I choose which clips to include before downloading?</span>
+<span class="material-symbols-outlined faq-icon transition-transform duration-200 text-slate-400">expand_more</span>
+</button>
+<div class="faq-content hidden px-4 sm:px-5 pb-5 text-text-secondary text-sm leading-relaxed" id="faq5">
+            Yes. The visual clip selector lets you preview each detected segment and toggle them on or off, ensuring only the highlights you want are merged into the final file.
+          </div>
+</div>
+</div>
+</div>
+</section>
+<!-- BOTTOM CALL TO ACTION -->
+<section class="w-full px-gutter md:px-gutter-lg py-space-2xl">
+<div class="max-w-5xl mx-auto rounded-2xl bg-gradient-to-r from-purple-700 to-indigo-800 p-8 sm:p-12 relative overflow-hidden shadow-xl flex flex-col items-center text-center text-white">
+<div class="absolute -right-10 -bottom-10 w-72 h-72 bg-cyan-400/20 rounded-full blur-2xl pointer-events-none"></div>
+<span class="font-mono text-xs px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white font-medium uppercase tracking-wider mb-4">Fast Highlight Workflow</span>
+<h2 class="text-3xl sm:text-4xl font-extrabold max-w-2xl mb-3 leading-tight">
+        Ready to turn long videos into action-packed clips?
+      </h2>
+<p class="text-base text-purple-100 max-w-xl mb-8 leading-relaxed">
+        Upload your video, set your preferences, and let ClipCutter find the best moments ready for CapCut.
+      </p>
+<div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-white text-purple-900 font-bold text-sm shadow hover:bg-slate-100 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px] text-primary">cloud_upload</span>
+<span>Upload your video for Free</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Scripts -->
+<script>
+    // FAQ Accordion functionality
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const target = document.getElementById(targetId);
+        const icon = btn.querySelector('.faq-icon');
+        const isOpen = !target.classList.contains('hidden');
+
+        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+        document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate-180'));
+
+        if (!isOpen) {
+          target.classList.remove('hidden');
+          icon.classList.add('rotate-180');
+        }
+      });
+    });
+
+    // Shell Theme Toggle Bridge
+    const themeBtn = document.querySelector('button[aria-label="Toggle Light/Dark Theme"]');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const html = document.documentElement;
+        if (html.classList.contains('dark')) {
+          html.classList.remove('dark');
+          html.classList.add('light');
+        } else {
+          html.classList.remove('light');
+          html.classList.add('dark');
+        }
+      });
+    }
+
+    // Mini Timeline scrubber interaction
+    const timeline = document.getElementById('timelineBar');
+    if (timeline) {
+      timeline.addEventListener('mousemove', (e) => {
+        const rect = timeline.getBoundingClientRect();
+        const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+        const pct = (x / rect.width) * 100;
+        const playhead = timeline.querySelector('.w-0\\.5');
+        if (playhead) {
+          playhead.style.left = pct + '%';
+        }
+      });
+    }
+  </script>
+</div></main><footer class="w-full bg-white border-t border-border-subtle mt-space-2xl"><div class="max-w-7xl mx-auto px-gutter md:px-gutter-lg py-10"><div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8"><div class="flex items-center gap-2"><img alt="ClipCutter Logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WrYfaifAmvvsrvxvU2QrqLZ59Ssge9t_Q_26hNzX5BqdA6Gre-UhRYpqo8DMQxrzTh5-Iv_5JUZWFxkSpPw10kYATI5FL7eEPgqJCo0lBt7YflgZdIbTe1Sp5RPVMnAexjHKAKUUsNwH8L0mKZoUPOSCNDQJiAqlkFOuO5ADVtK0dbwK3pbrqhuci0nhcXWNUvDZRix6WKHsSLcib6EGRlFXBKMnZ-9ZH-xyNKuib89w"/><span class="text-base font-bold text-text-primary">ClipCutter</span><span class="text-xs text-text-muted ml-1">— Automatic Action Highlight Cutter</span></div><div class="flex flex-wrap items-center gap-6"><a class="text-xs text-text-muted hover:text-text-primary transition-colors" data-path="terms-of-service" href="#">Terms of Service</a><a class="text-xs text-text-muted hover:text-text-primary transition-colors" data-path="privacy-policy" href="#">Privacy Policy</a><a class="text-xs text-text-muted hover:text-text-primary transition-colors" data-path="support" href="#">Support</a><a class="text-xs text-text-muted hover:text-text-primary transition-colors" data-path="faq-footer" href="#faq">FAQ</a></div><div class="flex items-center gap-2"><a aria-label="Community" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">forum</span></a><a aria-label="Terminal" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">terminal</span></a><a aria-label="Share" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">share</span></a></div></div><div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-text-muted font-mono text-xs border-t border-slate-100 pt-6"><p>© 2025 ClipCutter. All rights reserved.</p><p class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>Ready to edit in CapCut</span></p></div></div></footer></body></html>

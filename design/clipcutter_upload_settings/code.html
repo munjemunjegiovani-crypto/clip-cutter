@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"error":"#ffb4ab","surface":"#0f131d","tertiary-fixed":"#dbe1ff","on-secondary-container":"#00424e","on-primary-fixed-variant":"#5a00c6","on-tertiary":"#002a78","surface-container-lowest":"#0a0e18","primary-fixed":"#eaddff","surface-container-low":"#171b26","on-tertiary-container":"#e0e5ff","on-primary-container":"#ede0ff","surface-tint":"#d2bbff","tertiary-container":"#185ce4","on-secondary-fixed-variant":"#004e5c","surface-container-highest":"#313540","surface-container-high":"#262a35","on-surface":"#dfe2f1","tertiary-fixed-dim":"#b4c5ff","surface-variant":"#313540","on-tertiary-fixed":"#00174b","outline":"#958da1","surface-container":"#1c1f2a","surface-dim":"#0f131d","secondary-container":"#03b5d3","on-secondary":"#003640","secondary":"#4cd7f6","primary":"#d2bbff","inverse-on-surface":"#2c303b","on-error":"#690005","inverse-primary":"#732ee4","on-surface-variant":"#ccc3d8","error-container":"#93000a","on-primary":"#3f008e","on-secondary-fixed":"#001f26","secondary-fixed-dim":"#4cd7f6","tertiary":"#b4c5ff","surface-bright":"#353944","background":"#0f131d","secondary-fixed":"#acedff","on-background":"#dfe2f1","on-error-container":"#ffdad6","primary-container":"#7c3aed","outline-variant":"#4a4455","on-primary-fixed":"#25005a","primary-fixed-dim":"#d2bbff","on-tertiary-fixed-variant":"#003ea8","inverse-surface":"#dfe2f1"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-2xl":"3rem","gutter-lg":"1.5rem","space-md":"1rem","gutter":"1rem","margin-lg":"2rem","space-lg":"1.5rem","margin-md":"1.5rem","space-xl":"2rem","space-sm":"0.5rem","margin":"1rem","space-xs":"0.25rem"},"fontFamily":{"headline-lg":["Inter"],"body-md":["Inter"],"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-md":["Inter"],"label-md":["Inter"],"body-sm":["Inter"],"headline-xl":["Inter"],"code-xs":["JetBrains Mono"],"label-lg":["Inter"],"label-sm":["Inter"],"code-sm":["JetBrains Mono"],"headline-lg-mobile":["Inter"]},"fontSize":{"headline-lg":["28px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-xl-mobile":["30px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"code-xs":["10px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"500"}],"code-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-dim/75 backdrop-blur-2xl shadow-[0_4px_24px_rgba(0,0,0,0.35),inset_0_1px_0_0_rgba(255,255,255,0.08)]"><div class="h-16 w-full px-gutter-lg flex items-center justify-between"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm group" data-path="dashboard" href="#"><img alt="ClipCutter Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WrYfaifAmvvsrvxvU2QrqLZ59Ssge9t_Q_26hNzX5BqdA6Gre-UhRYpqo8DMQxrzTh5-Iv_5JUZWFxkSpPw10kYATI5FL7eEPgqJCo0lBt7YflgZdIbTe1Sp5RPVMnAexjHKAKUUsNwH8L0mKZoUPOSCNDQJiAqlkFOuO5ADVtK0dbwK3pbrqhuci0nhcXWNUvDZRix6WKHsSLcib6EGRlFXBKMnZ-9ZH-xyNKuib89w"/><span class="font-headline-md text-headline-md tracking-tight text-on-surface">ClipCutter</span><span class="font-code-xs text-code-xs px-space-xs py-0.5 rounded-full bg-surface-container-high text-secondary uppercase tracking-wider">AI</span></a><nav class="hidden md:flex items-center gap-space-md ml-space-md" data-active-classes="text-primary font-semibold drop-shadow-[0_0_8px_rgba(210,187,255,0.4)]"><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="studio" href="#">Studio</a><a aria-current="page" class="transition-colors text-primary font-semibold drop-shadow-[0_0_8px_rgba(210,187,255,0.4)]" data-path="upload" href="#">Upload</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="pricing" href="#">Pricing</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="faq" href="#">FAQ</a></nav></div><div class="flex items-center gap-space-md"><button aria-label="Toggle Light and Dark Theme" class="h-9 px-space-sm rounded-full bg-surface-container-low/80 hover:bg-surface-container text-on-surface-variant hover:text-on-surface backdrop-blur-md flex items-center justify-center gap-space-xs transition-colors shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]" type="button"><span class="material-symbols-outlined text-[18px] text-secondary">dark_mode</span><span class="material-symbols-outlined text-[18px]">light_mode</span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="relative flex items-center"><img alt="User Avatar" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPGmDcYWEczFNzczcey6VGBZ_7WyuuRKgZH8WYzWj7crA4c3_uiHk1KD0NFbY4c1M5UYOsxJ0GZbtmQLVWaAKCt0bHmKiSJtDLNEJuiwkCtnvqvflVIU5Psc4MXRzyAmD_R2GKzUyguuCcXUxLz0152KUB-iM1x7ByFLlLMRYdrkkXucJl5U_Rw2vLWaJ6erXeHu_L1c3Ai7rdadGSne2-DQ6ZA7-MYqURJXigt0Iq"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-secondary rounded-full ring-2 ring-surface-dim shadow-[0_0_6px_rgba(76,215,246,0.6)]"></span></div><button aria-label="User Profile Menu" class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center p-0.5" type="button"><span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span></button></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<div class="relative w-full overflow-hidden px-gutter md:px-gutter-lg py-space-lg lg:py-space-xl">
+<div class="pointer-events-none absolute -top-40 -left-40 w-96 h-96 rounded-full bg-primary-container/20 blur-[120px]"></div>
+<div class="pointer-events-none absolute top-1/3 -right-40 w-96 h-96 rounded-full bg-secondary/15 blur-[130px]"></div>
+<div class="max-w-7xl mx-auto w-full flex flex-col gap-space-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-code-xs text-code-xs text-secondary tracking-widest uppercase bg-surface-container-high px-space-xs py-0.5 rounded-full">Pipeline Stage 01</span>
+<span class="text-on-surface-variant font-code-xs text-code-xs">•</span>
+<span class="text-on-surface-variant font-code-xs text-code-xs flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+              Neural Engine Ready
+            </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Ingest Media &amp; Tune Heuristics</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Drop high-bitrate source material, calibrate spatial-audio triggers, and let our vision transformers excise low-tempo downtime.</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">cloud_done</span>
+<span class="font-code-xs text-code-xs text-on-surface">GPU Cluster: Tier-1 US-East</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<div class="relative rounded-2xl bg-surface-container/70 backdrop-blur-xl p-space-md lg:p-space-lg shadow-xl overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-r from-primary-container/30 via-secondary/20 to-primary-container/30 opacity-40 blur-sm pointer-events-none"></div>
+<div class="relative bg-surface-container-lowest/90 rounded-xl p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">movie_edit</span>
+<span class="font-label-lg text-label-lg text-on-surface">Source Monitor</span>
+</div>
+<span class="font-code-xs text-code-xs bg-surface-container-high text-primary px-space-xs py-0.5 rounded-full uppercase tracking-wider">Loaded into VRAM</span>
+</div>
+<div class="relative rounded-lg overflow-hidden bg-surface-container-high aspect-video group/player">
+<img class="w-full h-full object-cover" data-alt="High contrast 4K first-person shooter cinematic screenshot featuring glowing cyan crosshairs, violet neon muzzle flashes, dramatic lighting, and deep dark cinematic shadows inside a futuristic arena." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl5sth1nPv1D4_XrEreB_2V2Z7kPCuZ4m2K4RsHs6XWWkthqlkMA9t1b1nwM-Nd_8byCL4b1mpiQyDq1dEMC6kbtOeAuenGV2mdj9cU0suNX49VYjcsbyx8NAO2TNMgb6ZHYaituUhEAjXH7_kZwqaXizJER05QD8dHCY9K4eywYUXRgZGdHs1JN_wK4wgRpemTVSZhBuMMWgXG4-xLf6h8AyteEbLgNj8JDhRvYyu"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-surface-container-lowest/40 opacity-70"></div>
+<div class="absolute top-space-sm left-space-sm flex items-center gap-space-xs bg-surface-container-lowest/80 backdrop-blur-md px-space-sm py-1 rounded-full shadow-md">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+<span class="font-code-xs text-code-xs text-on-surface uppercase">Peak Spike @ 04:12</span>
+</div>
+<div class="absolute top-space-sm right-space-sm flex items-center gap-1 bg-surface-container-lowest/80 backdrop-blur-md px-space-xs py-1 rounded-md text-secondary font-code-xs text-code-xs">
+<span class="material-symbols-outlined text-[14px]">high_quality</span>
+<span>4K 60FPS</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center">
+<button class="w-14 h-14 rounded-full bg-surface-dim/80 backdrop-blur-md text-secondary hover:text-on-surface hover:scale-105 transition-all shadow-xl flex items-center justify-center" id="playBtn">
+<span class="material-symbols-outlined text-[32px] ml-1">play_arrow</span>
+</button>
+</div>
+<div class="absolute bottom-0 inset-x-0 p-space-sm bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/80 to-transparent flex flex-col gap-1.5">
+<div class="relative w-full h-1.5 bg-surface-variant/70 rounded-full overflow-hidden cursor-pointer">
+<div class="h-full bg-gradient-to-r from-primary via-secondary to-primary-container w-[28%] rounded-full"></div>
+<div class="absolute top-0 bottom-0 left-[28%] w-2 bg-on-surface rounded-full shadow-[0_0_8px_rgba(76,215,246,0.9)]"></div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-code-xs text-code-xs">
+<div class="flex items-center gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">volume_up</span>
+<span>05:14</span>
+<span class="text-on-surface-variant">/</span>
+<span class="text-on-surface-variant">18:42</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="hover:text-on-surface transition-colors cursor-pointer material-symbols-outlined text-[16px]">aspect_ratio</span>
+<span class="hover:text-on-surface transition-colors cursor-pointer material-symbols-outlined text-[16px]">fullscreen</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[22px]">video_file</span>
+</div>
+<div class="min-w-0 flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface truncate">Valorant_Ranked_Ace_Gameplay_4K.mp4</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">18m 42s • 1.4 GB • 3840×2160 @ 60.00fps</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs self-end sm:self-center shrink-0">
+<span class="font-code-xs text-code-xs text-secondary bg-surface-container-highest px-space-xs py-1 rounded">H.265 / AAC</span>
+<button class="text-on-surface-variant hover:text-on-surface p-1 rounded-md hover:bg-surface-container-high transition-colors" title="Replace file">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+<button class="text-on-surface-variant hover:text-error p-1 rounded-md hover:bg-surface-container-high transition-colors" title="Remove file">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    Upload &amp; Frame Indexing
+                  </span>
+<span class="font-code-xs text-code-xs text-secondary font-semibold">100% Complete</span>
+</div>
+<div class="h-2 w-full rounded-full bg-surface-container-highest overflow-hidden p-[1px]">
+<div class="h-full rounded-full bg-gradient-to-r from-primary-container via-primary to-secondary w-full shadow-[0_0_12px_rgba(76,215,246,0.6)]"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Accepted: MP4, MOV, MKV</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg">
+<span class="material-symbols-outlined text-primary text-[16px]">sd_card_alert</span>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Maximum Container: 4GB</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low/70 rounded-2xl p-space-md lg:p-space-lg flex flex-col gap-space-md shadow-md backdrop-blur-md">
+<div class="flex items-start gap-space-sm">
+<label class="relative flex items-center pt-0.5 cursor-pointer select-none">
+<input checked="" class="peer sr-only" id="complianceCheck" type="checkbox"/>
+<div class="w-5 h-5 rounded bg-surface-container-highest peer-checked:bg-primary-container flex items-center justify-center transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-on-primary-container scale-0 peer-checked:scale-100 transition-transform font-bold">check</span>
+</div>
+</label>
+<div class="flex flex-col gap-0.5">
+<label class="font-label-lg text-label-lg text-on-surface cursor-pointer" for="complianceCheck">
+                  I own or have explicit permission to edit and publish this video material.
+                </label>
+<p class="font-body-sm text-body-sm text-on-surface-variant" id="complianceWarning">
+                  Mandatory: Unchecking this verification will disable timeline generation &amp; AI inference.
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-container-lowest/60 text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0">timer_off</span>
+<p class="font-body-sm text-body-sm">
+                Ephemeral Ingestion: Uploaded binary frames are stored temporarily and automatically purged from scratch disks after 24 hours.
+              </p>
+</div>
+</div>
+<div class="relative rounded-2xl bg-surface-container-low/50 p-space-md flex flex-col gap-space-sm overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-code-xs text-code-xs text-on-surface uppercase tracking-wider">Audio Energy Vector Spectrum</span>
+<span class="font-code-xs text-code-xs text-secondary">Peak: -2.1 dBFS @ 04:12</span>
+</div>
+<div class="h-14 w-full flex items-end justify-between gap-[2px] bg-surface-container-lowest/90 px-space-sm py-2 rounded-lg">
+<span class="w-1 bg-secondary/40 rounded-t h-[20%]"></span>
+<span class="w-1 bg-secondary/40 rounded-t h-[35%]"></span>
+<span class="w-1 bg-secondary/60 rounded-t h-[25%]"></span>
+<span class="w-1 bg-secondary/70 rounded-t h-[50%]"></span>
+<span class="w-1 bg-secondary/50 rounded-t h-[30%]"></span>
+<span class="w-1 bg-secondary/80 rounded-t h-[65%]"></span>
+<span class="w-1 bg-secondary rounded-t h-[45%]"></span>
+<span class="w-1 bg-secondary rounded-t h-[80%]"></span>
+<span class="w-1 bg-error rounded-t h-[95%] shadow-[0_0_6px_rgba(255,180,171,0.8)]"></span>
+<span class="w-1 bg-error rounded-t h-[100%] shadow-[0_0_6px_rgba(255,180,171,0.8)]"></span>
+<span class="w-1 bg-secondary rounded-t h-[75%]"></span>
+<span class="w-1 bg-secondary/70 rounded-t h-[60%]"></span>
+<span class="w-1 bg-secondary/40 rounded-t h-[35%]"></span>
+<span class="w-1 bg-secondary/50 rounded-t h-[40%]"></span>
+<span class="w-1 bg-secondary/60 rounded-t h-[55%]"></span>
+<span class="w-1 bg-secondary/80 rounded-t h-[70%]"></span>
+<span class="w-1 bg-secondary rounded-t h-[85%]"></span>
+<span class="w-1 bg-error rounded-t h-[92%] shadow-[0_0_6px_rgba(255,180,171,0.8)]"></span>
+<span class="w-1 bg-secondary rounded-t h-[65%]"></span>
+<span class="w-1 bg-secondary/70 rounded-t h-[45%]"></span>
+<span class="w-1 bg-secondary/40 rounded-t h-[30%]"></span>
+<span class="w-1 bg-secondary/50 rounded-t h-[40%]"></span>
+<span class="w-1 bg-secondary/60 rounded-t h-[50%]"></span>
+<span class="w-1 bg-secondary/80 rounded-t h-[75%]"></span>
+<span class="w-1 bg-secondary/50 rounded-t h-[40%]"></span>
+<span class="w-1 bg-secondary/30 rounded-t h-[20%]"></span>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<div class="relative rounded-2xl bg-surface-container/75 backdrop-blur-xl p-space-md lg:p-space-lg shadow-xl flex flex-col gap-space-lg">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex flex-col">
+<span class="font-code-xs text-code-xs text-secondary uppercase tracking-wider">Parameters Engine</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Detection &amp; Output Configuration</h2>
+</div>
+<span class="material-symbols-outlined text-primary text-[24px]">tune</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-on-surface">Action Sensitivity</label>
+<span class="font-code-xs text-code-xs bg-primary-container text-on-primary-container px-space-xs py-0.5 rounded uppercase font-semibold" id="sensitivityBadge">High Intensity</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Detects rapid mouse flicks, high velocity camera sweeps, and weapon fire.</p>
+<div class="grid grid-cols-3 gap-space-xs pt-1">
+<button class="sensitivity-btn py-2 px-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface text-center font-label-md text-label-md transition-all" data-sensitivity="low" type="button">
+                  Low
+                </button>
+<button class="sensitivity-btn py-2 px-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface text-center font-label-md text-label-md transition-all" data-sensitivity="medium" type="button">
+                  Medium
+                </button>
+<button class="sensitivity-btn py-2 px-space-xs rounded-xl bg-primary-container text-on-primary-container text-center font-label-md text-label-md shadow-md transition-all" data-sensitivity="high" type="button">
+                  High
+                </button>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-on-surface" for="clipLengthSlider">Minimum Clip Length</label>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-space-xs py-0.5 rounded text-secondary font-code-sm text-code-sm">
+<span id="clipLengthVal">5</span>
+<span class="text-on-surface-variant">sec</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pt-1">
+<input class="w-full accent-secondary bg-surface-container-highest rounded-lg h-2 cursor-pointer" id="clipLengthSlider" max="15" min="3" step="1" type="range" value="5"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Default 5s minimum to keep full combat context and killfeeds.</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-lg text-label-lg text-on-surface">Target Final Video Duration</label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-xs pt-1">
+<button class="duration-btn py-2 px-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant text-center font-label-md text-label-md transition-all" data-duration="30s" type="button">
+                  30 seconds
+                </button>
+<button class="duration-btn py-2 px-space-xs rounded-xl bg-primary-container text-on-primary-container text-center font-label-md text-label-md shadow-md transition-all" data-duration="60s" type="button">
+                  60 seconds
+                </button>
+<button class="duration-btn py-2 px-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant text-center font-label-md text-label-md transition-all" data-duration="120s" type="button">
+                  2 minutes
+                </button>
+<button class="duration-btn py-2 px-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant text-center font-label-md text-label-md transition-all" data-duration="custom" type="button">
+                  Custom
+                </button>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-lg text-label-lg text-on-surface">Detection Type</label>
+<div class="flex flex-wrap gap-space-xs pt-1">
+<button class="detect-btn px-space-md py-2 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-all flex items-center gap-1.5" data-detect="motion" type="button">
+<span class="material-symbols-outlined text-[16px]">speed</span>
+                  Motion peaks
+                </button>
+<button class="detect-btn px-space-md py-2 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-all flex items-center gap-1.5" data-detect="sound" type="button">
+<span class="material-symbols-outlined text-[16px]">graphic_eq</span>
+                  Loud sound peaks
+                </button>
+<button class="detect-btn px-space-md py-2 rounded-xl bg-surface-container-high text-primary shadow-[0_0_12px_rgba(210,187,255,0.4)] font-label-md text-label-md transition-all flex items-center gap-1.5" data-detect="both" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">auto_awesome</span>
+                  Both motion &amp; sound
+                </button>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-on-surface">Optional Focus Preset</label>
+<span class="font-code-xs text-code-xs text-on-surface-variant">Heuristic Mask</span>
+</div>
+<div class="flex flex-wrap gap-space-xs pt-1">
+<button class="preset-btn px-space-sm py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px] text-secondary">local_fire_department</span>
+                  Action highlights
+                </button>
+<button class="preset-btn px-space-sm py-1.5 rounded-lg bg-primary/20 text-primary font-label-sm text-label-sm transition-all flex items-center gap-1 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[14px]">sports_martial_arts</span>
+                  Fights &amp; clutches
+                </button>
+<button class="preset-btn px-space-sm py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px] text-secondary">sentiment_very_satisfied</span>
+                  Funny moments
+                </button>
+<button class="preset-btn px-space-sm py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px] text-secondary">trophy</span>
+                  Game victory
+                </button>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-lg text-label-lg text-on-surface">Output Assembly Format</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-xs pt-1">
+<label class="flex items-start gap-space-xs p-space-sm rounded-xl bg-surface-container-low cursor-pointer transition-colors hover:bg-surface-container-high">
+<input checked="" class="mt-1 accent-secondary" name="output_format" type="radio" value="stitched"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Stitched single video</span>
+<span class="font-body-sm text-body-sm text-secondary">Ready for CapCut / Reels</span>
+</div>
+</label>
+<label class="flex items-start gap-space-xs p-space-sm rounded-xl bg-surface-container-low cursor-pointer transition-colors hover:bg-surface-container-high">
+<input class="mt-1 accent-secondary" name="output_format" type="radio" value="zip"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Separate clips (.ZIP)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Independent cut fragments</span>
+</div>
+</label>
+</div>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs">
+<button class="relative group w-full py-3.5 px-space-lg rounded-xl bg-gradient-to-r from-primary-container via-inverse-primary to-secondary text-on-primary-container font-label-lg text-label-lg font-bold shadow-[0_0_24px_rgba(124,58,237,0.45)] hover:shadow-[0_0_32px_rgba(76,215,246,0.6)] transition-all flex items-center justify-center gap-space-xs overflow-hidden" id="generateBtn" type="button">
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:rotate-12">bolt</span>
+<span>Generate Action Clips</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<div class="flex items-center justify-between text-on-surface-variant font-code-xs text-code-xs px-1">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">hourglass_bottom</span>
+                  Est. time: ~45 seconds
+                </span>
+<span class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[14px]">speed</span>
+                  8.4x realtime render
+                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    (function initClipWorkspace() {
+      const complianceCheck = document.getElementById('complianceCheck');
+      const generateBtn = document.getElementById('generateBtn');
+      const complianceWarning = document.getElementById('complianceWarning');
+      const clipLengthSlider = document.getElementById('clipLengthSlider');
+      const clipLengthVal = document.getElementById('clipLengthVal');
+      const sensitivityBadge = document.getElementById('sensitivityBadge');
+
+      if (clipLengthSlider && clipLengthVal) {
+        clipLengthSlider.addEventListener('input', (e) => {
+          clipLengthVal.textContent = e.target.value;
+        });
+      }
+
+      if (complianceCheck && generateBtn && complianceWarning) {
+        complianceCheck.addEventListener('change', () => {
+          const checked = complianceCheck.checked;
+          if (checked) {
+            generateBtn.disabled = false;
+            generateBtn.classList.remove('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+            complianceWarning.classList.remove('text-error');
+            complianceWarning.classList.add('text-on-surface-variant');
+          } else {
+            generateBtn.disabled = true;
+            generateBtn.classList.add('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+            complianceWarning.classList.remove('text-on-surface-variant');
+            complianceWarning.classList.add('text-error');
+          }
+        });
+      }
+
+      document.querySelectorAll('.sensitivity-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.sensitivity-btn').forEach((b) => {
+            b.classList.remove('bg-primary-container', 'text-on-primary-container', 'shadow-md');
+            b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+          });
+          btn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+          btn.classList.add('bg-primary-container', 'text-on-primary-container', 'shadow-md');
+          const val = btn.getAttribute('data-sensitivity');
+          if (sensitivityBadge) {
+            sensitivityBadge.textContent = (val.charAt(0).toUpperCase() + val.slice(1)) + ' Intensity';
+          }
+        });
+      });
+
+      document.querySelectorAll('.duration-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.duration-btn').forEach((b) => {
+            b.classList.remove('bg-primary-container', 'text-on-primary-container', 'shadow-md');
+            b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+          });
+          btn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+          btn.classList.add('bg-primary-container', 'text-on-primary-container', 'shadow-md');
+        });
+      });
+
+      document.querySelectorAll('.detect-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.detect-btn').forEach((b) => {
+            b.classList.remove('bg-surface-container-high', 'text-primary', 'shadow-[0_0_12px_rgba(210,187,255,0.4)]');
+            b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+          });
+          btn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+          btn.classList.add('bg-surface-container-high', 'text-primary', 'shadow-[0_0_12px_rgba(210,187,255,0.4)]');
+        });
+      });
+
+      document.querySelectorAll('.preset-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.preset-btn').forEach((b) => {
+            b.classList.remove('bg-primary/20', 'text-primary', 'shadow-sm');
+            b.classList.add('bg-surface-container-low', 'text-on-surface');
+          });
+          btn.classList.remove('bg-surface-container-low', 'text-on-surface');
+          btn.classList.add('bg-primary/20', 'text-primary', 'shadow-sm');
+        });
+      });
+
+      const playBtn = document.getElementById('playBtn');
+      if (playBtn) {
+        let isPlaying = false;
+        playBtn.addEventListener('click', () => {
+          isPlaying = !isPlaying;
+          const icon = playBtn.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = isPlaying ? 'pause' : 'play_arrow';
+            icon.classList.toggle('ml-1', !isPlaying);
+          }
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest mt-space-2xl"><div class="w-full px-gutter-lg py-space-xl"><div class="flex flex-col md:flex-row items-center justify-between gap-space-lg mb-space-lg"><div class="flex items-center gap-space-sm"><img alt="ClipCutter Logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WrYfaifAmvvsrvxvU2QrqLZ59Ssge9t_Q_26hNzX5BqdA6Gre-UhRYpqo8DMQxrzTh5-Iv_5JUZWFxkSpPw10kYATI5FL7eEPgqJCo0lBt7YflgZdIbTe1Sp5RPVMnAexjHKAKUUsNwH8L0mKZoUPOSCNDQJiAqlkFOuO5ADVtK0dbwK3pbrqhuci0nhcXWNUvDZRix6WKHsSLcib6EGRlFXBKMnZ-9ZH-xyNKuib89w"/><span class="font-headline-md text-headline-md text-on-surface">ClipCutter</span><span class="font-body-sm text-body-sm text-on-surface-variant ml-space-xs">— Surgical AI Action Cutter</span></div><div class="flex flex-wrap items-center gap-space-lg"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="terms-of-service" href="#">Terms of Service</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="privacy-policy" href="#">Privacy Policy</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="copyright-takedown-notice" href="#">Copyright/Takedown Notice</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="support" href="#">Support</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="system-status" href="#">Status</a></div><div class="flex items-center gap-space-sm"><a aria-label="Community" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">forum</span></a><a aria-label="Terminal" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span></a><a aria-label="Share Feed" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">share</span></a></div></div><div class="flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-code-xs text-code-xs"><p>© 2025 ClipCutter AI Technologies Inc. All rights reserved.</p><p class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span><span>Timeline Engine v2.4 Active</span></p></div></div></footer></body></html>
