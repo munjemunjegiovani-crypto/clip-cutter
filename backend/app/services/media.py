@@ -49,3 +49,37 @@ def probe_duration_seconds(path):
         raise InvalidMedia("The file has no readable video track.")
 
     return duration
+
+
+def has_audio_stream(path):
+    ffprobe = shutil.which("ffprobe")
+    if not ffprobe:
+        raise MediaToolUnavailable("ffprobe is not installed.")
+
+    command = [
+        ffprobe,
+        "-v",
+        "error",
+        "-select_streams",
+        "a:0",
+        "-show_entries",
+        "stream=codec_type",
+        "-of",
+        "json",
+        str(Path(path)),
+    ]
+
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, timeout=30, check=False)
+    except subprocess.TimeoutExpired as exc:
+        raise InvalidMedia("Reading the audio metadata timed out.") from exc
+
+    if result.returncode != 0:
+        raise InvalidMedia("The file audio could not be read.")
+
+    try:
+        metadata = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise InvalidMedia("The file audio could not be read.") from exc
+
+    return any(stream.get("codec_type") == "audio" for stream in metadata.get("streams", []))

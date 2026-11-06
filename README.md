@@ -70,11 +70,15 @@ Configure the backend in `backend/.env` (copy `backend/.env.example`). Add every
 ### API
 
 ```text
-GET  /api/health              Check the API, database, and configured limits
-POST /api/projects            Upload a video with permission=true
-GET  /api/projects/:id        Read uploaded project metadata
-POST /api/projects/:id/detect Run motion/sound detection
-GET  /api/projects/:id/clips  Read saved clip candidates
+GET   /api/health                        Check the API, database, and configured limits
+POST  /api/projects                      Upload a video with permission=true
+GET   /api/projects/:id                  Read uploaded project metadata
+POST  /api/projects/:id/detect           Run motion/sound detection
+GET   /api/projects/:id/clips            Read saved clip candidates
+PATCH /api/projects/:id/clips/:clip_id   Keep or remove a clip
+PUT   /api/projects/:id/clips/order      Reorder clips
+POST  /api/projects/:id/export           Merge kept clips into one MP4
+GET   /api/exports/:id/download          Download the merged MP4
 ```
 
 Upload example:
@@ -93,6 +97,15 @@ curl -X POST http://127.0.0.1:5000/api/projects/1/detect \
 
 Detection runs synchronously on the local CPU with FFmpeg and OpenCV. It samples video motion, measures audio loudness, scores the combined signal, and stores non-overlapping clips that respect the minimum length, maximum clip count, and target length.
 
+Export example:
+
+```bash
+curl -X POST http://127.0.0.1:5000/api/projects/1/export
+curl -L -o highlights.mp4 http://127.0.0.1:5000/api/exports/1/download
+```
+
+Exports merge the kept clips in their saved order. The MP4 is re-encoded to H.264/AAC for broad browser and CapCut compatibility.
+
 ## Status
 
-Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend now stores uploaded projects, validates ownership confirmation, checks video type and duration, enforces size limits, runs motion/sound detection, and stores clip candidates. The frontend is not connected to the API yet; thumbnails, clip cutting, merging, and cleanup are added in later stages.
+Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend now handles uploads, motion/sound detection, clip keep/reorder controls, FFmpeg merging, and MP4 downloads. The frontend is not connected to the API yet; thumbnails, retention cleanup, and final deployment hardening are added in later stages.
