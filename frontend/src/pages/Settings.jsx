@@ -282,12 +282,13 @@ export default function Settings() {
                   </span>
                   <span className="text-body-sm text-on-surface-variant">Trimmed after clip selection</span>
                 </div>
-                <div className="grid grid-cols-4 gap-1 rounded-lg bg-surface-container-high p-1">
+                <div role="group" aria-label="Target merged length" className="grid grid-cols-4 gap-1 rounded-lg bg-surface-container-high p-1">
                   {targets.map((item) => (
                     <button
                       key={item.value}
                       type="button"
                       onClick={() => updateSettings({ target: item.value })}
+                      aria-pressed={target === item.value}
                       className={`rounded-md py-1.5 font-mono text-code-xs transition-colors ${
                         target === item.value
                           ? "bg-secondary/20 font-bold text-secondary shadow-sm"

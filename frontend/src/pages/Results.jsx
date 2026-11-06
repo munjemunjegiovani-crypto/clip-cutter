@@ -238,7 +238,13 @@ export default function Results() {
                   >
                     <button type="button" onClick={() => setSelectedId(clip.id)} className="flex w-full items-center gap-space-sm p-space-sm text-left">
                       <span className="relative h-12 w-[74px] shrink-0 overflow-hidden rounded-md bg-surface-container-high">
-                        <img src={clip.image} alt="" className="h-full w-full object-cover" />
+                        {clip.image ? (
+                          <img src={clip.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+                        ) : (
+                          <span className="flex h-full w-full items-center justify-center text-on-surface-variant">
+                            <Icon name="movie" className="text-[18px]" />
+                          </span>
+                        )}
                         <span className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/70 to-transparent" />
                         <span className="absolute bottom-1 right-1 rounded bg-surface-container-lowest/80 px-1 font-mono text-[9px] text-on-surface">
                           {clip.duration.toFixed(1)}s
@@ -276,6 +282,7 @@ export default function Results() {
                             disabled={index === 0}
                             className="rounded p-0.5 text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-on-surface disabled:opacity-30"
                             title="Move up"
+                            aria-label={`Move ${clip.title} up`}
                           >
                             <Icon name="arrow_upward" className="text-[14px]" />
                           </button>
@@ -285,6 +292,7 @@ export default function Results() {
                             disabled={index === clips.length - 1}
                             className="rounded p-0.5 text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-on-surface disabled:opacity-30"
                             title="Move down"
+                            aria-label={`Move ${clip.title} down`}
                           >
                             <Icon name="arrow_downward" className="text-[14px]" />
                           </button>
@@ -335,6 +343,7 @@ export default function Results() {
                     playing ? "opacity-0 group-hover:opacity-80" : "opacity-100"
                   }`}
                   title={playing ? "Pause clip preview" : "Play clip preview"}
+                  aria-label={playing ? "Pause clip preview" : "Play clip preview"}
                 >
                   <Icon name={playing ? "pause" : "play_arrow"} className="text-[36px]" />
                 </button>
@@ -454,8 +463,8 @@ export default function Results() {
               <div className="space-y-space-xs">
                 {[
                   ["Format", "MP4 · H.264"],
-                  ["Quality", "Original"],
-                  ["Audio", "Original"],
+                  ["Video", "CRF 22"],
+                  ["Audio", "AAC · 128 kbps"],
                   ["Clip count", `${kept.length} of ${clips.length}`],
                 ].map(([label, value]) => (
                   <div key={label} className="flex items-center justify-between text-body-sm">
@@ -476,9 +485,12 @@ export default function Results() {
               </button>
 
               {notice && (
-                <div className={`flex items-start gap-space-xs rounded-lg border p-space-sm text-body-sm text-on-surface-variant ${
-                  notice.type === "error" ? "border-error/25 bg-error-container/25" : "border-secondary/25 bg-secondary/10"
-                }`}>
+                <div
+                  role={notice.type === "error" ? "alert" : "status"}
+                  className={`flex items-start gap-space-xs rounded-lg border p-space-sm text-body-sm text-on-surface-variant ${
+                    notice.type === "error" ? "border-error/25 bg-error-container/25" : "border-secondary/25 bg-secondary/10"
+                  }`}
+                >
                   <Icon name={notice.type === "error" ? "error" : "info"} className={`mt-0.5 shrink-0 text-[16px] ${notice.type === "error" ? "text-error" : "text-secondary"}`} />
                   <span>{notice.text}</span>
                   <button type="button" onClick={() => setNotice(null)} className="ml-auto shrink-0 text-on-surface-variant hover:text-on-surface" aria-label="Dismiss message">

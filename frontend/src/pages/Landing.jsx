@@ -157,7 +157,7 @@ export default function Landing() {
 
           <h1 className="mb-space-md max-w-4xl animate-fade-up text-headline-xl-mobile tracking-tight text-on-surface md:text-headline-xl">
             Turn long videos into{" "}
-            <span className="gradient-text">action-packed clips</span> in seconds
+            <span className="gradient-text">action-packed clips</span> without the busywork
           </h1>
 
           <p className="mb-space-xl max-w-2xl animate-fade-up text-body-lg text-on-surface-variant">
@@ -211,9 +211,13 @@ export default function Landing() {
                 </span>
               </div>
 
-              <div className="relative z-10 flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-primary-container/85 text-on-primary-container shadow-[0_0_32px_rgba(124,58,237,0.7)] backdrop-blur-xl transition-transform group-hover:scale-110 sm:h-20 sm:w-20">
+              <Link
+                to="/upload"
+                aria-label="Upload a video to try ClipCutter"
+                className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary-container/85 text-on-primary-container shadow-[0_0_32px_rgba(124,58,237,0.7)] backdrop-blur-xl transition-transform group-hover:scale-110 sm:h-20 sm:w-20"
+              >
                 <Icon name="play_arrow" className="text-[36px] sm:text-[44px]" />
-              </div>
+              </Link>
 
               <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between font-mono text-code-xs text-on-surface">
                 <div className="flex items-center gap-space-sm rounded-lg bg-surface-container-lowest/80 px-space-md py-1 backdrop-blur-md">
@@ -341,7 +345,7 @@ export default function Landing() {
               <span className="mb-space-xs block font-mono text-code-xs uppercase tracking-widest text-primary">
                 Engine capabilities
               </span>
-              <h2 className="text-headline-lg text-on-surface">Designed for Fast Highlight Cutting</h2>
+              <h2 className="text-headline-lg text-on-surface">Designed for Local Highlight Cutting</h2>
             </div>
             <p className="max-w-md text-body-md text-on-surface-variant">
               No bloated editor. ClipCutter does one job: find the energetic moments and cut them out.
@@ -513,6 +517,7 @@ export default function Landing() {
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? -1 : index)}
                     aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${index}`}
                     className="flex w-full items-center justify-between p-space-lg text-left text-on-surface transition-colors hover:text-primary"
                   >
                     <span className="text-headline-md">{faq.question}</span>
@@ -522,7 +527,9 @@ export default function Landing() {
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-space-lg pb-space-lg text-body-md text-on-surface-variant">{faq.answer}</div>
+                    <div id={`faq-answer-${index}`} className="px-space-lg pb-space-lg text-body-md text-on-surface-variant">
+                      {faq.answer}
+                    </div>
                   )}
                 </div>
               );
@@ -539,7 +546,7 @@ export default function Landing() {
             Local workflow
           </span>
           <h2 className="mb-space-md max-w-2xl text-headline-xl-mobile text-on-primary-container md:text-headline-xl">
-            Ready to cut hours of trimming down to minutes?
+            Ready to stop scrubbing through hours of footage?
           </h2>
           <p className="mb-space-xl max-w-xl text-body-lg text-on-primary-container/80">
             Upload your video, choose your settings, and let ClipCutter stitch the action moments together.

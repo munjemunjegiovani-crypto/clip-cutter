@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "../components/Icon";
 import { useProject } from "../context/ProjectContext";
+import { sourceUrl } from "../services/api";
 import sourceImage from "../assets/images/upload-source.jpg";
 
 const MAX_SIZE_MB = 500;
@@ -29,11 +30,22 @@ export default function Upload() {
   const [error, setError] = useState("");
   const uploading = status === "uploading";
   const [dragging, setDragging] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState("");
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
   const file = source;
   const canContinue = Boolean(file && permission);
+
+  useEffect(() => {
+    if (pendingFile) {
+      const url = URL.createObjectURL(pendingFile);
+      setPreviewUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+    setPreviewUrl(project?.id ? sourceUrl(project.id) : "");
+    return undefined;
+  }, [pendingFile, project?.id]);
 
   function selectFile(nextFile) {
     if (!nextFile) return;
@@ -128,11 +140,27 @@ export default function Upload() {
                 </div>
 
                 <div className="group/player relative aspect-video overflow-hidden rounded-lg bg-surface-container-high">
-                  <img
-                    src={sourceImage}
-                    alt="Video preview placeholder"
-                    className="h-full w-full object-cover opacity-60"
-                  />
+                  {previewUrl ? (
+                    <video
+                      key={previewUrl}
+                      src={previewUrl}
+                      poster={sourceImage}
+                      className="h-full w-full object-cover opacity-60"
+                      muted
+                      playsInline
+                      preload="metadata"
+                      aria-hidden="true"
+                      onLoadedMetadata={(event) => {
+                        event.currentTarget.currentTime = 0.1;
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={sourceImage}
+                      alt=""
+                      className="h-full w-full object-cover opacity-60"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-surface-container-lowest/40 opacity-80" />
                   <div className="absolute left-space-sm top-space-sm flex items-center gap-space-xs rounded-full bg-surface-container-lowest/80 px-space-sm py-1 shadow-md backdrop-blur-md">
                     <span className="h-2 w-2 rounded-full bg-secondary" />
@@ -195,6 +223,7 @@ export default function Upload() {
                         onClick={() => inputRef.current?.click()}
                         className="rounded-md p-1 text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-on-surface"
                         title="Replace file"
+                        aria-label="Replace selected video"
                       >
                         <Icon name="sync" className="text-[18px]" />
                       </button>
@@ -203,6 +232,7 @@ export default function Upload() {
                         onClick={removeFile}
                         className="rounded-md p-1 text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-error"
                         title="Remove file"
+                        aria-label="Remove selected video"
                       >
                         <Icon name="delete" className="text-[18px]" />
                       </button>
@@ -244,10 +274,12 @@ export default function Upload() {
               <div className="flex items-start gap-space-sm">
                 <label className="relative flex cursor-pointer select-none items-center pt-0.5">
                   <input
+                    id="permission"
                     type="checkbox"
                     className="peer sr-only"
                     checked={permission}
                     onChange={(event) => setPermission(event.target.checked)}
+                    aria-describedby="permission-help"
                   />
                   <span className="flex h-5 w-5 items-center justify-center rounded bg-surface-container-highest shadow-sm transition-all peer-checked:bg-primary-container">
                     <Icon
@@ -257,10 +289,10 @@ export default function Upload() {
                   </span>
                 </label>
                 <div className="flex flex-col gap-0.5">
-                  <label className="cursor-pointer text-label-lg text-on-surface" onClick={() => setPermission((value) => !value)}>
+                  <label htmlFor="permission" className="cursor-pointer text-label-lg text-on-surface">
                     I own or have permission to use this video.
                   </label>
-                  <p className={`text-body-sm ${permission ? "text-on-surface-variant" : "text-error"}`}>
+                  <p id="permission-help" className={`text-body-sm ${permission ? "text-on-surface-variant" : "text-error"}`}>
                     Required. The upload button stays disabled until this is ticked.
                   </p>
                 </div>

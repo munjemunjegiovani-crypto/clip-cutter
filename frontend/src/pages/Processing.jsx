@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Icon from "../components/Icon";
 import { useProject } from "../context/ProjectContext";
+import { sourceUrl } from "../services/api";
 import previewImage from "../assets/images/results-main.jpg";
 
 const waveform = [18, 30, 44, 28, 55, 72, 48, 88, 100, 76, 52, 36, 60, 82, 95, 68, 44, 30, 52, 78, 90, 62, 38, 24, 48, 70, 56, 34, 20, 42, 66, 50];
@@ -19,6 +20,7 @@ export default function Processing() {
   const complete = status === "complete";
   const totalClips = clips.length;
   const keptClips = clips.filter((clip) => clip.kept).length;
+  const videoSource = project ? sourceUrl(project.id) : "";
   const detection = settings.motion && settings.sound ? "motion and sound" : settings.motion ? "motion" : "sound";
   const stages = [
     { label: "Read metadata", at: 6 },
@@ -143,11 +145,26 @@ export default function Processing() {
           {/* Monitor */}
           <div className="relative overflow-hidden rounded-2xl bg-surface-container/80 p-space-sm shadow-xl backdrop-blur-xl lg:col-span-7">
             <div className="relative aspect-video overflow-hidden rounded-xl bg-surface-container-lowest">
-              <img
-                src={previewImage}
-                alt="Footage being scanned for action"
-                className="h-full w-full object-cover opacity-60"
-              />
+              {videoSource ? (
+                <video
+                  src={videoSource}
+                  poster={previewImage}
+                  className="h-full w-full object-cover opacity-60"
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-hidden="true"
+                  onLoadedMetadata={(event) => {
+                    event.currentTarget.currentTime = 0.1;
+                  }}
+                />
+              ) : (
+                <img
+                  src={previewImage}
+                  alt=""
+                  className="h-full w-full object-cover opacity-60"
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/20 to-surface-container-lowest/60" />
               <div
                 className="absolute inset-0 opacity-20"
@@ -183,9 +200,9 @@ export default function Processing() {
                   ))}
                 </div>
                 <div className="flex items-center justify-between font-mono text-code-xs text-on-surface-variant">
-                  <span>00:00:00</span>
+                  <span>{formatClock((source?.duration || 0) * (progress / 100))}</span>
                   <span className="text-secondary">{Math.round(progress)}% analyzed</span>
-                  <span>00:08:45</span>
+                  <span>{formatClock(source?.duration || 0)}</span>
                 </div>
               </div>
             </div>

@@ -25,6 +25,7 @@ clip-cutter/
 - MP4, MOV, MKV uploads with an ownership/permission checkbox
 - Upload size and length limits
 - Motion and sound detection with adjustable sensitivity
+- Source video previews before upload and during detection
 - Minimum 5-second clips, merging, and download
 - Local dashboard with recent jobs and processing stats
 - Copyright/takedown page with a contact email
@@ -148,4 +149,4 @@ flask --app run cleanup-files
 
 ## Status
 
-Built in stages. The frontend upload, detection, clip review, keep/reorder, source preview, merge/download, and local dashboard flow is connected to the Flask API. The backend handles uploads, motion/sound detection, clip thumbnails, FFmpeg merging, MP4 downloads, recent-job stats, and automatic 24-hour file cleanup. Production build and deployment configuration is in place.
+Built in stages. The frontend upload, detection, clip review, keep/reorder, source preview, merge/download, and local dashboard flow is connected to the Flask API. The backend handles uploads, motion/sound detection, clip thumbnails, FFmpeg merging, MP4 downloads, recent-job stats, and automatic 24-hour file cleanup. Production build and deployment configuration is in place. Final UI QA covers real source previews, accurate export specs, honest timing copy, and accessible controls.
