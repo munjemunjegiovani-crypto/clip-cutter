@@ -80,6 +80,8 @@ source venv/bin/activate
 python -m unittest discover -s tests -v
 ```
 
+The GitHub Actions workflow in `.github/workflows/ci.yml` runs the frontend build and backend tests on every push and pull request.
+
 ### Deployment
 
 The root `netlify.toml` builds the frontend from `frontend/`, rewrites SPA routes to `index.html`, sets browser security headers, and caches hashed assets. On Netlify, set these build-time environment variables:
