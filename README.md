@@ -67,6 +67,20 @@ curl http://127.0.0.1:5000/api/health
 
 Configure the backend in `backend/.env` (copy `backend/.env.example`). Add every frontend origin that should call the API to `CORS_ORIGINS`.
 
+### API
+
+```text
+GET  /api/health          Check the API, database, and configured limits
+POST /api/projects        Upload a video with permission=true
+GET  /api/projects/:id    Read uploaded project metadata
+```
+
+Upload example:
+
+```bash
+curl -F "video=@clip.mp4" -F "permission=true" http://127.0.0.1:5000/api/projects
+```
+
 ## Status
 
-Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend foundation is in place with Flask, SQLAlchemy, CORS, configured upload limits, and a health endpoint. Processing endpoints are added in the next backend stage.
+Built in stages. The frontend flow is interactive with mock project state: upload, settings, simulated detection, clip review, and export preview. The backend now stores uploaded projects, validates ownership confirmation, checks video type and duration, enforces size limits, and returns project metadata. The frontend is not connected to the API yet; detection and merging endpoints are added in later stages.
