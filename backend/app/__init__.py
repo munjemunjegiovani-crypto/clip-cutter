@@ -6,6 +6,7 @@ from werkzeug.exceptions import RequestEntityTooLarge
 
 from .config import Config
 from .extensions import db
+from .routes.clips import clips_bp
 from .routes.health import health_bp
 from .routes.projects import projects_bp
 
@@ -24,6 +25,7 @@ def create_app(config_class=Config, test_config=None):
     CORS(app, resources={r"/api/*": {"origins": app.config["CORS_ORIGINS"]}})
     app.register_blueprint(health_bp)
     app.register_blueprint(projects_bp)
+    app.register_blueprint(clips_bp)
 
     @app.errorhandler(RequestEntityTooLarge)
     def upload_too_large(_error):
